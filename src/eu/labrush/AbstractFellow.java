@@ -2,24 +2,24 @@ package eu.labrush;
 
 public abstract class AbstractFellow implements Comparable<AbstractFellow> {
 
-    private byte[] dna ;
-    private int DNASIZE ;
-    private int DNACARD ; //the number of symbols that can be used in the DNA from 0 to n - 1
+    protected byte[] dna ;
+    static protected int DNASIZE = 10 ;
+    static protected int DNACARD = 2; //the number of symbols that can be used in the DNA from 0 to n - 1
 
-    public AbstractFellow(int DNASIZE, int DNACARD){
-        this.DNASIZE = DNASIZE ;
-        this.DNACARD = DNACARD ;
-
-        this.dna = new byte[DNASIZE] ;
-
+    public AbstractFellow(){
         for(int i = 0 ; i < this.dna.length ; i++) this.dna[i] = (byte) ((int) (Math.random() * 10000) % DNACARD);
-
     }
 
-    public AbstractFellow(byte[] dna, int DNACARD) {
+    public AbstractFellow(byte[] dna) {
+        if(dna.length != this.DNASIZE){
+            try {
+                throw new Exception("DNA size does not match");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         this.dna = dna;
-        this.DNASIZE = dna.length;
-        this.DNACARD = DNACARD;
     }
 
     /**

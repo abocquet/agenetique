@@ -17,7 +17,8 @@ public class AbstractNature {
         private int DNACARD = 2 ;
         private int DNASIZE = 10 ;
 
-        private Class fellowType = AbstractFellow.class ;
+
+        static private Class fellowType = AbstractFellow.class ;
 
         public AbstractNature(int POPSIZE, double PCROSSOVER, double PMUTATION) {
 
@@ -25,13 +26,21 @@ public class AbstractNature {
             this.POPSIZE = POPSIZE ;
             this.PCROSSOVER = PCROSSOVER ;
 
+
+            try {
+                this.DNASIZE = (int) fellowType.getDeclaredField("DNASIZE").get(null);
+                this.DNACARD = (int) fellowType.getDeclaredField("DNACARD").get(null);
+            } catch (IllegalAccessException | NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+
             this.population = new AbstractFellow[POPSIZE];
 
             try {
-                Constructor ct = AbstractFellow.class.getConstructor(Integer.class, Integer.class);
+                Constructor ct = AbstractFellow.class.getConstructor();
 
                 for(int i = 0 ; i < this.population.length ; i++) {
-                    this.population[i] = (AbstractFellow) ct.newInstance(this.DNASIZE, this.DNACARD);
+                    this.population[i] = (AbstractFellow) ct.newInstance();
                 }
 
             } catch (SecurityException | IllegalArgumentException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
@@ -136,5 +145,13 @@ public class AbstractNature {
             str += "]";
 
             return str ;
+        }
+
+        public static Class getFellowType() {
+            return fellowType;
+        }
+
+        public static void setFellowType(Class fellowType) {
+            AbstractNature.fellowType = fellowType;
         }
 }
