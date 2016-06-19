@@ -1,68 +1,91 @@
-package eu.labrush.Traveller;
+package eu.labrush.traveller;
 
-public class Travel implements Comparable<Travel> {
+import eu.labrush.AbstractFellow;
+import eu.labrush.traveller.data.Point;
 
-    private boolean[] dna ;
-    private int DNASIZE ;
+import java.util.Arrays;
 
-    public Travel(int DNASIZE){
-        this.DNASIZE = DNASIZE ;
-        this.dna = new boolean[DNASIZE] ;
+public class Travel extends AbstractFellow {
 
-        for(int i = 0 ; i < this.dna.length ; i++){
-            this.dna[i] = ((int)(Math.random() * 10000) % 2) == 1;
+    static Point[] places ;
+
+    public static void setPlaces(Point[] places) throws Exception {
+        Travel.setDNACARD(places.length);
+        Travel.setDNASIZE(places.length);
+
+        Travel.places = places;
+    }
+
+    public Travel(){
+        super();
+
+        //In this particular problem, DNACARD = DNASIZE
+        int[] order = new int[getDNACARD()] ;
+
+        //We create an ordered set
+        for(int i = 0 ; i < getDNACARD() ; i++){
+            order[i] = i ;
         }
+
+        //Then we create a permutation
+        for(int i = 0 ; i < getDNACARD() ; i++){
+            int s1 = ((int) (Math.random() * 10000) % getDNACARD()) ;
+            int s2 = ((int) (Math.random() * 10000) % getDNACARD()) ;
+
+            int tmp = order[s1] ;
+            order[s1] = order[s2] ;
+            order[s2] = tmp ;
+        }
+
+        this.setDna(order);
     }
 
-    public Travel() {
-        this(8);
-    }
-
-    public Travel(boolean[] dna){
-        this.dna = dna ;
-        this.DNASIZE = dna.length ;
+    public Travel(int[] dna){
+        this(dna, false);
     }
 
     /**
-     * On convertit simplement l'ADN binaire en entier
+     * @param dna the DNA to be assigned
+     * @param safe checking if a dna is a permutation costs much so if dna
+     *             is known to be a permutation there is no need to check
      */
-    public int getFitness() {
-        int x = 0 ;
-        int tmp = 1 ;
-
-        for(int i = 0 ; i < this.dna.length ; i++){
-            if(this.dna[i]) {
-                x += tmp ;
+    public Travel(int[] dna, boolean safe){
+        super(dna);
+        if(!safe && !isPermutation()) {
+            try {
+                throw new Exception("DNA is not a permutation");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            tmp *= 2 ;
+        }
+    }
+
+    private boolean isPermutation() {
+        int[] dna = this.getDna().clone() ;
+        Arrays.sort(dna);
+
+        for(int i = 0 ; i < getDNASIZE() ; i++){
+            if(dna[i] != i) return false ;
         }
 
-        return x*(256 - x) ;
+        return true ;
+    }
 
+    public int getDistance() {
+        int[] order = this.getDna() ;
+        int distance  = 0 ;
+
+        for(int i = 0 ; i < getDNACARD() - 1 ; i ++){
+            distance += Point.distance(places[order[i]], places[order[i+1]]);
+        }
+
+        distance += Point.distance(places[0], places[order[getDNACARD()-1]]);
+
+        return distance ;
     }
 
     @Override
-    public String toString() {
-        return "Travel{" +
-                //"dna=" + Arrays.toString(dna).replace("true", "1").replace("false", "0") +
-                ", fitness= " + this.getFitness() +
-                '}';
-    }
-
-    public boolean[] getDna() {
-        return dna;
-    }
-
-    public void setDna(boolean[] dna) {
-        this.dna = dna;
-    }
-
-    @Override
-    public int compareTo(Travel mate) {
-        return this.getFitness() - mate.getFitness();
-    }
-
-    public int getDNASIZE() {
-        return DNASIZE;
+    public int getFitness() {
+        return Integer.MAX_VALUE - getDistance(); // We reverse the process to transform it into a max research
     }
 }

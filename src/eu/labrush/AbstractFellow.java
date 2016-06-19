@@ -2,33 +2,25 @@ package eu.labrush;
 
 public abstract class AbstractFellow implements Comparable<AbstractFellow> {
 
-    protected int[] dna ;
+    private int[] dna ;
 
     /**
         If you want to adapt DNASIZE and DNACARD, change the static class
         value inside the Nature class before creating any new Fellow
      */
-    static protected int DNASIZE = 10 ;
-    static protected int DNACARD = 2; //the number of symbols that can be used in the DNA from 0 to n - 1
+    static private int DNASIZE = 10 ;
+    static private int DNACARD = 2; //the number of symbols that can be used in the DNA from 0 to n - 1
 
     static private boolean hasBeenInstanciated = false ;
 
     public AbstractFellow(){
         this.dna = new int[DNASIZE];
-        for(int i = 0 ; i < this.dna.length ; i++) this.dna[i] = ((int) (Math.random() * 10000) % DNACARD);
+        for(int i = 0 ; i < DNASIZE ; i++) this.dna[i] = ((int) (Math.random() * 10000) % DNACARD);
         hasBeenInstanciated = true ;
     }
 
     public AbstractFellow(int[] dna) {
-        if(dna.length != DNASIZE){
-            try {
-                throw new Exception("DNA size does not match");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        this.dna = dna;
+        this.setDna(dna);
         hasBeenInstanciated = true ;
     }
 
@@ -53,6 +45,14 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
     }
 
     public void setDna(int[] dna) {
+        if(dna.length != DNASIZE){
+            try {
+                throw new Exception("DNA size does not match");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         this.dna = dna;
     }
 
@@ -61,11 +61,11 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
         return this.getFitness() - mate.getFitness();
     }
 
-    public int getDNASIZE() {
+    public static int getDNASIZE() {
         return DNASIZE;
     }
 
-    public int getDNACARD() {
+    public static int getDNACARD() {
         return DNACARD;
     }
 
@@ -78,4 +78,5 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
         if(hasBeenInstanciated) throw new Exception("Cannot change DNA card after you have instanciated a Fellow");
         AbstractFellow.DNACARD = DNACARD;
     }
+
 }

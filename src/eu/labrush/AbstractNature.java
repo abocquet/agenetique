@@ -1,5 +1,7 @@
 package eu.labrush;
 
+import jdk.internal.org.objectweb.asm.commons.Method;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -41,9 +43,9 @@ public class AbstractNature {
                 type = type.getSuperclass();
             }
 
-            this.DNASIZE = (int) type.getDeclaredField("DNASIZE").get(null);
-            this.DNACARD = (int) type.getDeclaredField("DNACARD").get(null);
-        } catch (IllegalAccessException | NoSuchFieldException e) {
+            this.DNASIZE = (int) type.getMethod("getDNASIZE").invoke(null);
+            this.DNACARD = (int) type.getMethod("getDNACARD").invoke(null);
+        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
         }
 
@@ -77,9 +79,13 @@ public class AbstractNature {
 
             AbstractFellow[] newPop = new AbstractFellow[this.POPSIZE];
             int i = 0 ;
+
+            for(i = 0 ; i < population.length / 10 ; i++){
+                newPop[i] = population[i] ;
+            }
+
             double cursor = 0 ;
             while(i < POPSIZE){
-
                 if(Math.random() <= PCROSSOVER){
                     Tuple<AbstractFellow, AbstractFellow> children = this.reproduce(population[(int)cursor], population[(int)(Math.random() * 10000) % POPSIZE]);
                     if(i < POPSIZE) { newPop[i] = children.fst ; i++ ; }

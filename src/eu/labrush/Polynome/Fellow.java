@@ -1,4 +1,4 @@
-package eu.labrush.Polynome;
+package eu.labrush.polynome;
 
 import eu.labrush.AbstractFellow;
 
@@ -21,8 +21,10 @@ public class Fellow extends AbstractFellow {
     public int getFitness() {
         int x = 0 ;
         int tmp = 1 ;
+        int DNASIZE = this.getDNASIZE() ;
+
         for(int i = 0 ; i < DNASIZE ; i++){
-            if(this.dna[i] == 1) {
+            if(this.getDna()[i] == 1) {
                 x += tmp ;
             }
             tmp *= 2 ;
@@ -33,7 +35,7 @@ public class Fellow extends AbstractFellow {
         if(res < 0){
             System.out.println("Error: negative fitness: " + res);
             System.out.println("Antécedent = " + x);
-            System.out.println("DNA = " + Arrays.toString(this.dna));
+            System.out.println("DNA = " + Arrays.toString(this.getDna()));
             System.exit(-1);
         }
 
@@ -43,8 +45,8 @@ public class Fellow extends AbstractFellow {
     public int getX(){
         int x = 0 ;
         int tmp = 1 ;
-        for(int i = 0 ; i < DNASIZE ; i++){
-            if(this.dna[i] == 1) {
+        for(int i = 0 ; i < getDNASIZE() ; i++){
+            if(this.getDna()[i] == 1) {
                 x += tmp ;
             }
             tmp *= 2 ;

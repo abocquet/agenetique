@@ -1,4 +1,4 @@
-package eu.labrush.Polynome;
+package eu.labrush.polynome;
 
 import eu.labrush.AbstractNature;
 
