@@ -1,12 +1,12 @@
 package eu.labrush;
 
-import jdk.internal.org.objectweb.asm.commons.Method;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 
-public class AbstractNature {
+public abstract class AbstractNature {
 
     protected AbstractFellow[] population;
 
@@ -72,30 +72,36 @@ public class AbstractNature {
         protected void crossover() {
             Arrays.sort(this.population, (a, b) -> b.getFitness() - a.getFitness());
 
-            int totalFitness = 0 ;
+            BigDecimal totalFitness = BigDecimal.ZERO ;
             for(AbstractFellow f : this.population){
-                totalFitness += f.getFitness() ;
+                totalFitness = totalFitness.add(BigDecimal.valueOf(f.getFitness()));
             }
 
             AbstractFellow[] newPop = new AbstractFellow[this.POPSIZE];
             int i = 0 ;
 
+            // We keep a tenth of the best of each generation
             for(i = 0 ; i < population.length / 10 ; i++){
                 newPop[i] = population[i] ;
             }
 
-            double cursor = 0 ;
+            BigDecimal cursor = BigDecimal.ZERO ;
             while(i < POPSIZE){
+
+                int c = cursor.intValue() ;
+
                 if(Math.random() <= PCROSSOVER){
-                    Tuple<AbstractFellow, AbstractFellow> children = this.reproduce(population[(int)cursor], population[(int)(Math.random() * 10000) % POPSIZE]);
+                    Tuple<AbstractFellow, AbstractFellow> children = this.reproduce(population[c], population[(int)(Math.random() * 10000) % POPSIZE]);
                     if(i < POPSIZE) { newPop[i] = children.fst ; i++ ; }
                     if(i < POPSIZE) { newPop[i] = children.snd ; i++ ; }
                 } else {
-                    newPop[i] = this.population[((int)cursor) % POPSIZE] ;
+                    newPop[i] = this.population[c % POPSIZE] ;
                     i++ ;
                 }
 
-                cursor += population[(int) cursor].getFitness() / totalFitness ;
+                BigDecimal part = BigDecimal.valueOf(population[c].getFitness());
+                part = part.divide(totalFitness, 10, RoundingMode.HALF_UP);
+                cursor = cursor.add(part) ;
             }
 
             this.population = newPop ;
