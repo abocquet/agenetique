@@ -2,16 +2,25 @@ package eu.labrush;
 
 public abstract class AbstractFellow implements Comparable<AbstractFellow> {
 
-    protected byte[] dna ;
+    protected int[] dna ;
+
+    /**
+        If you want to adapt DNASIZE and DNACARD, change the static class
+        value inside the Nature class before creating any new Fellow
+     */
     static protected int DNASIZE = 10 ;
     static protected int DNACARD = 2; //the number of symbols that can be used in the DNA from 0 to n - 1
 
+    static private boolean hasBeenInstanciated = false ;
+
     public AbstractFellow(){
-        for(int i = 0 ; i < this.dna.length ; i++) this.dna[i] = (byte) ((int) (Math.random() * 10000) % DNACARD);
+        this.dna = new int[DNASIZE];
+        for(int i = 0 ; i < this.dna.length ; i++) this.dna[i] = ((int) (Math.random() * 10000) % DNACARD);
+        hasBeenInstanciated = true ;
     }
 
-    public AbstractFellow(byte[] dna) {
-        if(dna.length != this.DNASIZE){
+    public AbstractFellow(int[] dna) {
+        if(dna.length != DNASIZE){
             try {
                 throw new Exception("DNA size does not match");
             } catch (Exception e) {
@@ -20,11 +29,15 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
         }
 
         this.dna = dna;
+        hasBeenInstanciated = true ;
     }
 
     /**
      * @return the fitness of the fellow ie its adaptation
      * higher is better
+     *
+     * Note: it must return a positive value, else it mess up with
+     * the biased wheel
      */
     abstract public int getFitness();
 
@@ -35,11 +48,11 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
                 '}';
     }
 
-    public byte[] getDna() {
+    public int[] getDna() {
         return dna;
     }
 
-    public void setDna(byte[] dna) {
+    public void setDna(int[] dna) {
         this.dna = dna;
     }
 
@@ -54,5 +67,15 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
 
     public int getDNACARD() {
         return DNACARD;
+    }
+
+    public static void setDNASIZE(int DNASIZE) throws Exception {
+        if(hasBeenInstanciated) throw new Exception("Cannot change DNA size after you have instanciated a Fellow");
+        AbstractFellow.DNASIZE = DNASIZE;
+    }
+
+    public static void setDNACARD(int DNACARD) throws Exception {
+        if(hasBeenInstanciated) throw new Exception("Cannot change DNA card after you have instanciated a Fellow");
+        AbstractFellow.DNACARD = DNACARD;
     }
 }

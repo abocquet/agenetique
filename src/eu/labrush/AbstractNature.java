@@ -6,48 +6,61 @@ import java.util.Arrays;
 
 public class AbstractNature {
 
-        protected AbstractFellow[] population ;
+    protected AbstractFellow[] population;
 
-        private double PMUTATION  = 0.05 ;
-        private double PCROSSOVER = 0.5 ;
-        private int    POPSIZE    = 10 ;
+    protected double PMUTATION = 0.05;
+    protected double PCROSSOVER = 0.5;
+    private int POPSIZE = 10;
 
-        // the following props need to be adjusted for each problem
+    // the following props need to be adjusted for each problem
 
-        private int DNACARD = 2 ;
-        private int DNASIZE = 10 ;
-
-
-        static private Class fellowType = AbstractFellow.class ;
-
-        public AbstractNature(int POPSIZE, double PCROSSOVER, double PMUTATION) {
-
-            this.PMUTATION = PMUTATION ;
-            this.POPSIZE = POPSIZE ;
-            this.PCROSSOVER = PCROSSOVER ;
+    private int DNACARD = 2;
+    private int DNASIZE = 10;
 
 
-            try {
-                this.DNASIZE = (int) fellowType.getDeclaredField("DNASIZE").get(null);
-                this.DNACARD = (int) fellowType.getDeclaredField("DNACARD").get(null);
-            } catch (IllegalAccessException | NoSuchFieldException e) {
-                e.printStackTrace();
+    private Class fellowType = AbstractFellow.class;
+
+    public AbstractNature(int POPSIZE, double PCROSSOVER, double PMUTATION, Class fellowType) {
+
+        this.PMUTATION = PMUTATION;
+        this.POPSIZE = POPSIZE;
+
+        this.PCROSSOVER = PCROSSOVER;
+
+        setFellowType(fellowType);
+        initPopulation();
+    }
+
+    protected AbstractNature() {}
+
+    protected void initPopulation(){
+        try {
+            Class type = fellowType ;
+
+            while(type != AbstractFellow.class) {
+                type = type.getSuperclass();
             }
 
-            this.population = new AbstractFellow[POPSIZE];
-
-            try {
-                Constructor ct = AbstractFellow.class.getConstructor();
-
-                for(int i = 0 ; i < this.population.length ; i++) {
-                    this.population[i] = (AbstractFellow) ct.newInstance();
-                }
-
-            } catch (SecurityException | IllegalArgumentException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
-                e.printStackTrace();
-            }
-
+            this.DNASIZE = (int) type.getDeclaredField("DNASIZE").get(null);
+            this.DNACARD = (int) type.getDeclaredField("DNACARD").get(null);
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            e.printStackTrace();
         }
+
+        this.population = new AbstractFellow[POPSIZE];
+
+        try {
+            for (int i = 0; i < this.population.length; i++) {
+                this.population[i] = (AbstractFellow) fellowType.newInstance();
+            }
+
+        } catch (SecurityException | IllegalArgumentException | IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+    }
+
 
         public void evolve(){
             crossover();
@@ -69,11 +82,10 @@ public class AbstractNature {
 
                 if(Math.random() <= PCROSSOVER){
                     Tuple<AbstractFellow, AbstractFellow> children = this.reproduce(population[(int)cursor], population[(int)(Math.random() * 10000) % POPSIZE]);
-
-                    if(i < POPSIZE) newPop[i] = children.fst ; i++ ;
-                    if(i < POPSIZE) newPop[i] = children.snd ; i++ ;
+                    if(i < POPSIZE) { newPop[i] = children.fst ; i++ ; }
+                    if(i < POPSIZE) { newPop[i] = children.snd ; i++ ; }
                 } else {
-                    newPop[i] = this.population[(int)cursor] ;
+                    newPop[i] = this.population[((int)cursor) % POPSIZE] ;
                     i++ ;
                 }
 
@@ -88,7 +100,7 @@ public class AbstractNature {
             for(AbstractFellow f: population){
                 for(int i = 0 ; i < f.getDNASIZE() ; i++){
                     /*
-                    "flip": on chosit de muter
+                    "flip": on choisit de muter
                     "mutation" on a une mutation
                     "indentique" le gene n'a pas changé après tirage
 
@@ -99,7 +111,7 @@ public class AbstractNature {
 
                     finalement on passe de l'autre coté pour éviter de manipuler des flottants)
                      */
-                    if(Math.random() * (DNACARD - 1) <= PMUTATION * DNACARD) f.getDna()[i] = (byte) ((int) (Math.random() * 10000) % DNACARD);
+                    if(Math.random() * (DNACARD - 1) <= PMUTATION * DNACARD) f.getDna()[i] = ((int) (Math.random() * 10000) % DNACARD);
                 }
             }
         }
@@ -110,7 +122,7 @@ public class AbstractNature {
 
             for(int i = 0 ; i < 2 ; i++) {
                 int splitPoint = (int) (Math.random() * 1000) % this.DNASIZE;
-                byte[] dna = new byte[this.DNASIZE];
+                int[] dna = new int[this.DNASIZE];
 
                 for (int j = 0; j < splitPoint; j++) {
                     dna[j] = male.getDna()[j];
@@ -122,8 +134,8 @@ public class AbstractNature {
 
 
                 try {
-                    Constructor ct = AbstractFellow.class.getConstructor(byte[].class, int.class);
-                    children[i] = (AbstractFellow) ct.newInstance(dna, this.DNACARD);
+                    Constructor ct = this.fellowType.getConstructor(int[].class);
+                    children[i] = (AbstractFellow) ct.newInstance(dna);
 
                 } catch (SecurityException | IllegalArgumentException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                     e.printStackTrace();
@@ -147,11 +159,20 @@ public class AbstractNature {
             return str ;
         }
 
-        public static Class getFellowType() {
-            return fellowType;
+        public Class getFellowType() {
+            return this.fellowType;
         }
 
-        public static void setFellowType(Class fellowType) {
-            AbstractNature.fellowType = fellowType;
+        public void setFellowType(Class fellowType) {
+            this.fellowType = fellowType;
         }
+
+        public void setPOPSIZE(int POPSIZE) {
+            this.POPSIZE = POPSIZE;
+        }
+
+        public AbstractFellow[] getPopulation() {
+            return population;
+        }
+
 }
