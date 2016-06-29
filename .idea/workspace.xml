@@ -2,35 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bc56221a-fe50-45aa-b53a-4eba3e1aba33" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/dyn4j_3_2_2_sources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractFellowFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/numfun/NumFunctionFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/Nature.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/Travel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/TravelFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/j2d/ExampleGraphics2D.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/j2d/Graphics2DRenderer.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/agenetique/eu/labrush/Tuple.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/eu/labrush/Traveller/Nature.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/eu/labrush/Traveller/Travel.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/AbstractFellow.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractFellow.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/AbstractNature.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractNature.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/Main.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/Main.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/Tuple.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/Tuple.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/numfun/Fellow.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/numfun/Fellow.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/numfun/Nature.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/numfun/Nature.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/numfun/NumFunInterface.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/numfun/NumFunInterface.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/numfun/NumFunction.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/numfun/NumFunction.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/traveller/data/Berlin52.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/data/Berlin52.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/traveller/data/Point.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/data/Point.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/traveller/data/PointSet.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/data/PointSet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/traveller/operators/MutationOperator.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/operators/MutationOperator.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/traveller/operators/ReproductionOperator.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/operators/ReproductionOperator.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/traveller/operators/mutation/im.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/operators/mutation/im.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/traveller/operators/reproduction/Order1.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/operators/reproduction/Order1.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agenetique.iml" afterPath="$PROJECT_DIR$/agenetique.iml" />
     </list>
     <ignored path="agenetique.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -65,7 +38,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Nature.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Nature.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/Nature.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="495">
@@ -73,6 +46,16 @@
               <folding>
                 <element signature="e#1251#1252#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="4" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -145,7 +128,6 @@
         <option value="$PROJECT_DIR$/src/eu/labrush/j2d/Graphics2DRenderer.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/j2d/ExampleGraphics2D.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractFellowFactory.java" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/numfun/Nature.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/numfun/Fellow.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/numfun/NumFunctionFactory.java" />
@@ -158,6 +140,7 @@
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/TravelFactory.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractNature.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/Main.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -763,12 +746,12 @@
       <workItem from="1466321620825" duration="16509000" />
       <workItem from="1466366347310" duration="4980000" />
       <workItem from="1466437037122" duration="1950000" />
-      <workItem from="1467102465308" duration="3365000" />
+      <workItem from="1467102465308" duration="3462000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46593000" />
+    <option name="totallyTimeSpent" value="46690000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1039,14 +1022,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="7" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/numfun/NumFunction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -1215,6 +1190,14 @@
           <folding>
             <element signature="e#1251#1252#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="4" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
