@@ -1,17 +1,17 @@
-package eu.labrush.numfun;
+package eu.labrush.agenetic.numfun;
 
-import eu.labrush.AbstractFellow;
+import eu.labrush.agenetic.AbstractFellow;
 
 public class Fellow extends AbstractFellow {
 
     static private NumFunction fun ;
 
-    public Fellow() {
-        super();
+    public Fellow(int DNASIZE, int DNACARD) {
+        super(DNASIZE, DNACARD);
     }
 
-    public Fellow(int[] dna){
-        super(dna);
+    public Fellow(int[] dna, int DNACARD){
+        super(dna, DNACARD);
     }
 
     public int getFitness() {

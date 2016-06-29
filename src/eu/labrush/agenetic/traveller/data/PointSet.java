@@ -1,4 +1,4 @@
-package eu.labrush.traveller.data;
+package eu.labrush.agenetic.traveller.data;
 
 public interface PointSet {
 

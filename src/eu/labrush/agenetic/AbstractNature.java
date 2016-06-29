@@ -1,4 +1,4 @@
-package eu.labrush;
+package eu.labrush.agenetic;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -10,64 +10,37 @@ public abstract class AbstractNature {
 
     protected AbstractFellow[] population;
 
+    protected AbstractFellowFactory factory ;
+
     protected double PMUTATION = 0.05;
     protected double PCROSSOVER = 0.5;
     private int POPSIZE = 10;
 
-    // the following props need to be adjusted for each problem
-
-    private int DNACARD = 2;
-    private int DNASIZE = 10;
-
-
-    private Class fellowType = AbstractFellow.class;
-
-    public AbstractNature(int POPSIZE, double PCROSSOVER, double PMUTATION, Class fellowType) {
+    public AbstractNature(int POPSIZE, double PCROSSOVER, double PMUTATION, AbstractFellowFactory factory) {
 
         this.PMUTATION = PMUTATION;
         this.POPSIZE = POPSIZE;
 
         this.PCROSSOVER = PCROSSOVER;
 
-        setFellowType(fellowType);
+        this.factory = factory ;
         initPopulation();
     }
 
     protected AbstractNature() {}
 
     protected void initPopulation(){
-        try {
-            Class type = fellowType ;
-
-            while(type != AbstractFellow.class) {
-                type = type.getSuperclass();
-            }
-
-            this.DNASIZE = (int) type.getMethod("getDNASIZE").invoke(null);
-            this.DNACARD = (int) type.getMethod("getDNACARD").invoke(null);
-        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-
         this.population = new AbstractFellow[POPSIZE];
 
-        try {
-            for (int i = 0; i < this.population.length; i++) {
-                this.population[i] = (AbstractFellow) fellowType.newInstance();
-            }
-
-        } catch (SecurityException | IllegalArgumentException | IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
-            System.exit(1);
+        for (int i = 0; i < this.population.length; i++) {
+            this.population[i] = this.factory.newInstance();
         }
-
     }
 
-
-        public void evolve(){
-            crossover();
-            mutate();
-        }
+    public void evolve(){
+        crossover();
+        mutate();
+    }
 
         protected void crossover() {
             Arrays.sort(this.population, (a, b) -> b.getFitness() - a.getFitness());
@@ -105,9 +78,12 @@ public abstract class AbstractNature {
             }
 
             this.population = newPop ;
+
         }
 
         protected void mutate() {
+
+            int DNACARD = this.factory.getDNACard() ;
 
             for(AbstractFellow f: population){
                 for(int i = 0 ; i < f.getDNASIZE() ; i++){
@@ -130,28 +106,23 @@ public abstract class AbstractNature {
 
         protected Tuple<AbstractFellow, AbstractFellow> reproduce(AbstractFellow male, AbstractFellow female)  {
 
+            int DNASIZE = this.factory.getDNASize() ;
+
             AbstractFellow[] children = new AbstractFellow[2] ;
 
             for(int i = 0 ; i < 2 ; i++) {
-                int splitPoint = (int) (Math.random() * 1000) % this.DNASIZE;
-                int[] dna = new int[this.DNASIZE];
+                int splitPoint = (int) (Math.random() * 1000) % DNASIZE;
+                int[] dna = new int[DNASIZE];
 
                 for (int j = 0; j < splitPoint; j++) {
                     dna[j] = male.getDna()[j];
                 }
 
-                for (int j = splitPoint; j < this.DNASIZE; j++) {
+                for (int j = splitPoint; j < DNASIZE; j++) {
                     dna[j] = female.getDna()[j];
                 }
 
-
-                try {
-                    Constructor ct = this.fellowType.getConstructor(int[].class);
-                    children[i] = (AbstractFellow) ct.newInstance(dna);
-
-                } catch (SecurityException | IllegalArgumentException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                    e.printStackTrace();
-                }
+                children[i] = this.factory.newInstance(dna) ;
             }
 
             return new Tuple<>(children[0], children[1]);
@@ -169,14 +140,6 @@ public abstract class AbstractNature {
             str += "]";
 
             return str ;
-        }
-
-        public Class getFellowType() {
-            return this.fellowType;
-        }
-
-        public void setFellowType(Class fellowType) {
-            this.fellowType = fellowType;
         }
 
         public void setPOPSIZE(int POPSIZE) {

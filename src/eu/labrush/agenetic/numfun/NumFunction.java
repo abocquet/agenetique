@@ -1,4 +1,4 @@
-package eu.labrush.numfun;
+package eu.labrush.agenetic.numfun;
 
 public abstract class NumFunction implements NumFunInterface {
 

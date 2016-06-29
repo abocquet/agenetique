@@ -1,11 +1,11 @@
-package eu.labrush.traveller;
+package eu.labrush.agenetic.traveller;
 
-import eu.labrush.AbstractFellow;
-import eu.labrush.AbstractNature;
-import eu.labrush.Tuple;
-import eu.labrush.traveller.data.PointSet;
+import eu.labrush.agenetic.AbstractFellow;
+import eu.labrush.agenetic.AbstractNature;
+import eu.labrush.agenetic.Tuple;
+import eu.labrush.agenetic.traveller.data.PointSet;
 
-import eu.labrush.traveller.operators.* ;
+import eu.labrush.agenetic.traveller.operators.* ;
 
 import java.util.Arrays;
 
@@ -17,8 +17,6 @@ public class Nature extends AbstractNature {
     private PointSet problem ;
 
     public Nature(int POPSIZE, double PCROSSOVER, double PMUTATION, PointSet problem, ReproductionOperator ro, MutationOperator mo) {
-        super();
-
         this.reproductionOperator = ro ;
         this.mutationOperator = mo ;
 
@@ -28,20 +26,14 @@ public class Nature extends AbstractNature {
 
         this.problem = problem ;
 
-        try {
-            // Sets the DNACARD and DANSIZE at the fly
-            Travel.setPlaces(problem.getPoints());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.factory = new TravelFactory(problem.getPoints());
 
-        setFellowType(Travel.class);
         initPopulation();
     }
 
     @Override
     protected Tuple<AbstractFellow, AbstractFellow> reproduce(AbstractFellow male, AbstractFellow female) {
-        return this.reproductionOperator.reproduce(male, female);
+        return this.reproductionOperator.reproduce(male, female, (TravelFactory) this.factory);
     }
 
     @Override

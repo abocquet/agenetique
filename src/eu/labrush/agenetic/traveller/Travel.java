@@ -1,7 +1,7 @@
-package eu.labrush.traveller;
+package eu.labrush.agenetic.traveller;
 
-import eu.labrush.AbstractFellow;
-import eu.labrush.traveller.data.Point;
+import eu.labrush.agenetic.AbstractFellow;
+import eu.labrush.agenetic.traveller.data.Point;
 
 import java.util.Arrays;
 
@@ -9,15 +9,10 @@ public class Travel extends AbstractFellow {
 
     static Point[] places ;
 
-    public static void setPlaces(Point[] places) throws Exception {
-        Travel.setDNACARD(places.length);
-        Travel.setDNASIZE(places.length);
+    public Travel(Point[] places){
+        super(places.length, places.length);
 
-        Travel.places = places;
-    }
-
-    public Travel(){
-        super();
+        this.places = places ;
 
         //In this particular problem, DNACARD = DNASIZE
         int[] order = new int[getDNACARD()] ;
@@ -40,8 +35,8 @@ public class Travel extends AbstractFellow {
         this.setDna(order);
     }
 
-    public Travel(int[] dna){
-        this(dna, false);
+    public Travel(int[] dna, Point[] places){
+        this(dna, places, false);
     }
 
     /**
@@ -49,8 +44,11 @@ public class Travel extends AbstractFellow {
      * @param safe checking if a dna is a permutation costs much so if dna
      *             is known to be a permutation there is no need to check
      */
-    public Travel(int[] dna, boolean safe){
-        super(dna);
+    public Travel(int[] dna, Point[] places, boolean safe){
+        super(dna, places.length);
+
+        this.places = places ;
+
         if(!safe && !isPermutation()) {
             try {
                 throw new Exception("DNA is not a permutation");

@@ -1,8 +1,10 @@
-package eu.labrush.traveller.operators.reproduction;
+package eu.labrush.agenetic.traveller.operators.reproduction;
 
-import eu.labrush.AbstractFellow;
-import eu.labrush.Tuple;
-import eu.labrush.traveller.operators.ReproductionOperator;
+import eu.labrush.agenetic.AbstractFellow;
+import eu.labrush.agenetic.AbstractFellowFactory;
+import eu.labrush.agenetic.Tuple;
+import eu.labrush.agenetic.traveller.TravelFactory;
+import eu.labrush.agenetic.traveller.operators.ReproductionOperator;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -11,7 +13,7 @@ import java.util.Arrays;
 public class Order1 implements ReproductionOperator {
 
     @Override
-    public Tuple<AbstractFellow, AbstractFellow> reproduce(AbstractFellow male, AbstractFellow female) {
+    public Tuple<AbstractFellow, AbstractFellow> reproduce(AbstractFellow male, AbstractFellow female, TravelFactory factory) {
 
         AbstractFellow[] parents = new AbstractFellow[]{male, female};
         AbstractFellow[] children = new AbstractFellow[2] ;
@@ -56,14 +58,9 @@ public class Order1 implements ReproductionOperator {
                 c = (c+1) % DNASIZE ;
             }
 
-            try {
-                Constructor ct = male.getClass().getConstructor(int[].class, boolean.class);
-                /* TODO: restore false to true when it no longer bugs */
-                children[i] = (AbstractFellow) ct.newInstance(dna, false); //Disabling isPermutation check
-            } catch (SecurityException | IllegalArgumentException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                e.printStackTrace();
-                System.exit(1);
-            }
+
+            /* TODO: restore false to true when it no longer bugs */
+            children[i] = factory.newInstance(dna, false);
 
             /* We swap both parents so the second child has repaired DNA from the original father */
             offset++ ;

@@ -1,6 +1,6 @@
-package eu.labrush.numfun;
+package eu.labrush.agenetic.numfun;
 
-import eu.labrush.AbstractNature;
+import eu.labrush.agenetic.AbstractNature;
 
 import java.util.Arrays;
 
@@ -13,15 +13,8 @@ public class Nature extends AbstractNature {
         this.PCROSSOVER = PCROSSOVER;
         setPOPSIZE(POPSIZE);
 
-        Fellow.setFun(fun);
+        this.factory = new NumFunctionFactory(fun);
 
-        try {
-            Fellow.setDNASIZE(fun.getDNASIZE());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        setFellowType(Fellow.class);
         initPopulation();
     }
 

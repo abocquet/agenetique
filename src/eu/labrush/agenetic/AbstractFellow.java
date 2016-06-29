@@ -1,4 +1,4 @@
-package eu.labrush;
+package eu.labrush.agenetic;
 
 public abstract class AbstractFellow implements Comparable<AbstractFellow> {
 
@@ -8,20 +8,21 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
         If you want to adapt DNASIZE and DNACARD, change the static class
         value inside the Nature class before creating any new Fellow
      */
-    static private int DNASIZE = 10 ;
-    static private int DNACARD = 2; //the number of symbols that can be used in the DNA from 0 to n - 1
+    private int DNASIZE = 10 ;
+    private int DNACARD = 2; //the number of symbols that can be used in the DNA from 0 to n - 1
 
-    static private boolean hasBeenInstanciated = false ;
+    public AbstractFellow(int DNASIZE, int DNACARD){
+        this.DNACARD = DNACARD ;
+        this.DNASIZE = DNASIZE ;
 
-    public AbstractFellow(){
         this.dna = new int[DNASIZE];
         for(int i = 0 ; i < DNASIZE ; i++) this.dna[i] = ((int) (Math.random() * 10000) % DNACARD);
-        hasBeenInstanciated = true ;
     }
 
-    public AbstractFellow(int[] dna) {
-        this.setDna(dna);
-        hasBeenInstanciated = true ;
+    public AbstractFellow(int[] dna, int DNACARD) {
+        this.dna = dna ;
+        this.DNASIZE = dna.length ;
+        this.DNACARD = DNACARD ;
     }
 
     /**
@@ -61,22 +62,12 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
         return this.getFitness() - mate.getFitness();
     }
 
-    public static int getDNASIZE() {
+    public int getDNASIZE() {
         return DNASIZE;
     }
 
-    public static int getDNACARD() {
+    public int getDNACARD() {
         return DNACARD;
-    }
-
-    public static void setDNASIZE(int DNASIZE) throws Exception {
-        if(hasBeenInstanciated) throw new Exception("Cannot change DNA size after you have instanciated a Fellow");
-        AbstractFellow.DNASIZE = DNASIZE;
-    }
-
-    public static void setDNACARD(int DNACARD) throws Exception {
-        if(hasBeenInstanciated) throw new Exception("Cannot change DNA card after you have instanciated a Fellow");
-        AbstractFellow.DNACARD = DNACARD;
     }
 
 }

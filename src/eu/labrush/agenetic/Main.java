@@ -1,9 +1,9 @@
-package eu.labrush;
+package eu.labrush.agenetic;
 
-import eu.labrush.traveller.Nature;
-import eu.labrush.traveller.data.Berlin52;
-import eu.labrush.traveller.operators.mutation.im;
-import eu.labrush.traveller.operators.reproduction.Order1;
+import eu.labrush.agenetic.traveller.Nature;
+import eu.labrush.agenetic.traveller.data.Berlin52;
+import eu.labrush.agenetic.traveller.operators.mutation.im;
+import eu.labrush.agenetic.traveller.operators.reproduction.Order1;
 
 public class Main {
 
@@ -20,7 +20,7 @@ public class Main {
         System.out.println(nature);
         System.out.println(nature.introduceYourself());
 
-        /*eu.labrush.numfun.Nature nature = new eu.labrush.numfun.Nature(21, 0.5, 0.05, new NumFunction() {
+        /*eu.labrush.agenetic.numfun.Nature nature = new eu.labrush.agenetic.numfun.Nature(21, 0.5, 0.05, new NumFunction() {
             @Override
             public int f(int x) {
                 return x*(256-x);
