@@ -22,7 +22,7 @@
  * IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT 
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package eu.labrush.j2d;
+package eu.labrush.walker;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -32,6 +32,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 
+import org.dyn4j.dynamics.joint.DistanceJoint;
 import org.dyn4j.geometry.Capsule;
 import org.dyn4j.geometry.Circle;
 import org.dyn4j.geometry.Ellipse;
@@ -49,6 +50,19 @@ import org.dyn4j.geometry.Vector2;
  * @since 3.1.5
  */
 public final class Graphics2DRenderer {
+
+    public static final void render(Graphics2D g, DistanceJoint joint, double scale, Color color){
+        Line2D.Double l = new Line2D.Double(
+                joint.getAnchor1().x * scale,
+                joint.getAnchor1().y * scale,
+                joint.getAnchor2().x * scale,
+                joint.getAnchor2().y * scale);
+
+        // draw the outline
+        g.setColor(getOutlineColor(color));
+        g.draw(l);
+    }
+
     /**
      * Renders the given shape to the given graphics context using the given scale and color.
      * @param g the graphics context

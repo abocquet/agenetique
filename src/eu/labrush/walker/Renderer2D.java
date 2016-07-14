@@ -22,46 +22,31 @@
  * IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package eu.labrush.j2d;
-
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferStrategy;
-
-import javax.swing.JFrame;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+package eu.labrush.walker;
 
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.World;
-import org.dyn4j.geometry.Capsule;
-import org.dyn4j.geometry.Circle;
-import org.dyn4j.geometry.Convex;
-import org.dyn4j.geometry.Geometry;
-import org.dyn4j.geometry.MassType;
-import org.dyn4j.geometry.Polygon;
-import org.dyn4j.geometry.Rectangle;
-import org.dyn4j.geometry.Slice;
-import org.dyn4j.geometry.Triangle;
-import org.dyn4j.geometry.Vector2;
+import org.dyn4j.dynamics.joint.DistanceJoint;
+import org.dyn4j.dynamics.joint.Joint;
+import org.dyn4j.geometry.*;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferStrategy;
 
 /**
  * Class used to show a simple example of using the dyn4j project using
  * Java2D for rendering.
  * <p>
  * This class can be used as a starting point for projects.
- * @author William Bittle
- * @version 3.2.0
- * @since 3.0.0
+ * Created By William Bittle
+ * Modified by Adrien Bocquet
  */
-public class ExampleGraphics2D extends JFrame {
+public class Renderer2D extends JFrame {
     /** The serial version id */
     private static final long serialVersionUID = 5663760293144882635L;
 
@@ -137,7 +122,7 @@ public class ExampleGraphics2D extends JFrame {
     /**
      * Default constructor for the window
      */
-    public ExampleGraphics2D() {
+    public Renderer2D() {
         super("Graphics2D Example");
         // setup the JFrame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -176,124 +161,14 @@ public class ExampleGraphics2D extends JFrame {
 
         // make sure we are not stopped
         this.stopped = false;
-
-        // setup the world
-        this.initializeWorld();
     }
 
-    /**
-     * Creates game objects and adds them to the world.
-     * <p>
-     * Basically the same shapes from the Shapes test in
-     * the TestBed.
-     */
-    protected void initializeWorld() {
-        // create the world
-        this.world = new World();
+    public World getWorld() {
+        return world;
+    }
 
-        // create all your bodies/joints
-
-        // create the floor
-        Rectangle floorRect = new Rectangle(15.0, 1.0);
-        GameObject floor = new GameObject();
-        floor.addFixture(new BodyFixture(floorRect));
-        floor.setMass(MassType.INFINITE);
-        // move the floor down a bit
-        floor.translate(0.0, -4.0);
-        this.world.addBody(floor);
-
-        // create a triangle object
-        Triangle triShape = new Triangle(
-                new Vector2(0.0, 0.5),
-                new Vector2(-0.5, -0.5),
-                new Vector2(0.5, -0.5));
-        GameObject triangle = new GameObject();
-        triangle.addFixture(triShape);
-        triangle.setMass(MassType.NORMAL);
-        triangle.translate(-1.0, 2.0);
-        // test having a velocity
-        triangle.getLinearVelocity().set(5.0, 0.0);
-        this.world.addBody(triangle);
-
-        // create a circle
-        Circle cirShape = new Circle(0.5);
-        GameObject circle = new GameObject();
-        circle.addFixture(cirShape);
-        circle.setMass(MassType.INFINITE);
-        circle.translate(2.0, 2.0);
-        // test adding some force
-        circle.applyForce(new Vector2(-100.0, 0.0));
-        // set some linear damping to simulate rolling friction
-        circle.setLinearDamping(0.05);
-        this.world.addBody(circle);
-
-        // try a rectangle
-        Rectangle rectShape = new Rectangle(1.0, 1.0);
-        GameObject rectangle = new GameObject();
-        rectangle.addFixture(rectShape);
-        rectangle.setMass(MassType.NORMAL);
-        rectangle.translate(0.0, 2.0);
-        rectangle.getLinearVelocity().set(-5.0, 0.0);
-        this.world.addBody(rectangle);
-
-        // try a polygon with lots of vertices
-        Polygon polyShape = Geometry.createUnitCirclePolygon(10, 1.0);
-        GameObject polygon = new GameObject();
-        polygon.addFixture(polyShape);
-        polygon.setMass(MassType.NORMAL);
-        polygon.translate(-2.5, 2.0);
-        // set the angular velocity
-        polygon.setAngularVelocity(Math.toRadians(-20.0));
-        this.world.addBody(polygon);
-
-        // try a compound object
-        Circle c1 = new Circle(0.5);
-        BodyFixture c1Fixture = new BodyFixture(c1);
-        c1Fixture.setDensity(0.5);
-        Circle c2 = new Circle(0.5);
-        BodyFixture c2Fixture = new BodyFixture(c2);
-        c2Fixture.setDensity(0.5);
-        Rectangle rm = new Rectangle(2.0, 1.0);
-        // translate the circles in local coordinates
-        c1.translate(-1.0, 0.0);
-        c2.translate(1.0, 0.0);
-        GameObject capsule = new GameObject();
-        capsule.addFixture(c1Fixture);
-        capsule.addFixture(c2Fixture);
-        capsule.addFixture(rm);
-        capsule.setMass(MassType.NORMAL);
-        capsule.translate(0.0, 4.0);
-        this.world.addBody(capsule);
-
-        GameObject issTri = new GameObject();
-        issTri.addFixture(Geometry.createIsoscelesTriangle(1.0, 3.0));
-        issTri.setMass(MassType.NORMAL);
-        issTri.translate(2.0, 3.0);
-        this.world.addBody(issTri);
-
-        GameObject equTri = new GameObject();
-        equTri.addFixture(Geometry.createEquilateralTriangle(2.0));
-        equTri.setMass(MassType.NORMAL);
-        equTri.translate(3.0, 3.0);
-        this.world.addBody(equTri);
-
-        GameObject rightTri = new GameObject();
-        rightTri.addFixture(Geometry.createRightTriangle(2.0, 1.0));
-        rightTri.setMass(MassType.NORMAL);
-        rightTri.translate(4.0, 3.0);
-        this.world.addBody(rightTri);
-
-        GameObject cap = new GameObject();
-        cap.addFixture(new Capsule(1.0, 0.5));
-        cap.setMass(MassType.NORMAL);
-        cap.translate(-3.0, 3.0);
-        this.world.addBody(cap);
-
-        GameObject slice = new GameObject();
-        slice.addFixture(new Slice(0.5, Math.toRadians(120)));
-        slice.setMass(MassType.NORMAL);
-        slice.translate(-3.0, 3.0);
-        this.world.addBody(slice);
+    public void setWorld(World world) {
+        this.world = world;
     }
 
     /**
@@ -350,6 +225,7 @@ public class ExampleGraphics2D extends JFrame {
 
         // render anything about the Example (will render the World objects)
         this.render(g);
+        this.renderJoint(g);
 
         // dispose of the graphics object
         g.dispose();
@@ -376,6 +252,23 @@ public class ExampleGraphics2D extends JFrame {
         double elapsedTime = diff / NANO_TO_BASE;
         // update the world with the elapsed time
         this.world.update(elapsedTime);
+    }
+
+    public void renderJoint(Graphics2D g){
+        // save the original transform
+        AffineTransform ot = g.getTransform();
+
+        // loop over all the body fixtures for this body
+        for (Joint joint : this.world.getJoints()) {
+            if(!(joint instanceof DistanceJoint)){
+                continue;
+            }
+
+            Graphics2DRenderer.render(g, (DistanceJoint)joint, SCALE, new Color(200, 0, 0));
+        }
+
+        // set the original transform
+        g.setTransform(ot);
     }
 
     /**
@@ -414,31 +307,4 @@ public class ExampleGraphics2D extends JFrame {
         return this.stopped;
     }
 
-    /**
-     * Entry point for the example application.
-     * @param args command line arguments
-     */
-    public static void main(String[] args) {
-        // set the look and feel to the system look and feel
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-
-        // create the example JFrame
-        ExampleGraphics2D window = new ExampleGraphics2D();
-
-        // show it
-        window.setVisible(true);
-
-        // start it
-        window.start();
-    }
 }
