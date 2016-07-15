@@ -29,6 +29,7 @@ import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.World;
 import org.dyn4j.dynamics.joint.DistanceJoint;
 import org.dyn4j.dynamics.joint.Joint;
+import org.dyn4j.dynamics.joint.RevoluteJoint;
 import org.dyn4j.geometry.*;
 
 import javax.swing.*;
@@ -260,11 +261,13 @@ public class Renderer2D extends JFrame {
 
         // loop over all the body fixtures for this body
         for (Joint joint : this.world.getJoints()) {
-            if(!(joint instanceof DistanceJoint)){
-                continue;
+            if(joint instanceof DistanceJoint){
+                Graphics2DRenderer.render(g, (DistanceJoint)joint, SCALE, new Color(200, 0, 0));
+            } else if(joint instanceof RevoluteJoint) {
+                //Graphics2DRenderer.render(g, (RevoluteJoint) joint, SCALE, new Color(55, 207, 0));
             }
 
-            Graphics2DRenderer.render(g, (DistanceJoint)joint, SCALE, new Color(200, 0, 0));
+
         }
 
         // set the original transform

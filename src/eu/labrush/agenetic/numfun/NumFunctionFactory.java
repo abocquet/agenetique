@@ -16,7 +16,7 @@ public class NumFunctionFactory extends AbstractFellowFactory {
     @Override
     public AbstractFellow newInstance() {
         Fellow newFellow = new Fellow(this.getDNASize(), this.getDNACard());
-        newFellow.setFun(fun);
+        Fellow.setFun(fun);
 
         return newFellow ;
     }
@@ -24,7 +24,7 @@ public class NumFunctionFactory extends AbstractFellowFactory {
     @Override
     public AbstractFellow newInstance(int[] dna) {
         Fellow newFellow = new Fellow(dna, this.getDNACard());
-        newFellow.setFun(fun);
+        Fellow.setFun(fun);
 
         return newFellow ;
     }

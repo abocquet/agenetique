@@ -19,7 +19,7 @@ public class Fellow extends AbstractFellow {
     }
 
     public String getX(){
-        return this.fun.getArguments(this.getDna()).toString();
+        return fun.getArguments(this.getDna()).toString();
     }
 
     public static NumFunction getFun() {

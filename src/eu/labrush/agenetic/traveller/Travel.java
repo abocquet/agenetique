@@ -12,7 +12,7 @@ public class Travel extends AbstractFellow {
     public Travel(Point[] places){
         super(places.length, places.length);
 
-        this.places = places ;
+        Travel.places = places ;
 
         //In this particular problem, DNACARD = DNASIZE
         int[] order = new int[getDNACARD()] ;
@@ -47,7 +47,7 @@ public class Travel extends AbstractFellow {
     public Travel(int[] dna, Point[] places, boolean safe){
         super(dna, places.length);
 
-        this.places = places ;
+        Travel.places = places ;
 
         if(!safe && !isPermutation()) {
             try {

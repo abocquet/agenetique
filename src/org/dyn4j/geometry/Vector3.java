@@ -558,7 +558,7 @@ public class Vector3 {
 	 * @return boolean
 	 */
 	public boolean isOrthogonal(Vector3 vector) {
-		return Math.abs(this.x * vector.x + this.y * vector.y + this.z * vector.z) <= Epsilon.E ? true : false;
+		return Math.abs(this.x * vector.x + this.y * vector.y + this.z * vector.z) <= Epsilon.E;
 	}
 	
 	/**
@@ -573,7 +573,7 @@ public class Vector3 {
 	 * @return boolean
 	 */
 	public boolean isOrthogonal(double x, double y, double z) {
-		return Math.abs(this.x * x + this.y * y + this.z * z) <= Epsilon.E ? true : false;
+		return Math.abs(this.x * x + this.y * y + this.z * z) <= Epsilon.E;
 	}
 	
 	/**

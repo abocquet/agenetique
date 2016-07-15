@@ -47,7 +47,7 @@ public interface Wound extends Shape, Transformable, DataContainer {
 	 * @return Iterator&lt;{@link Vector2}&gt;
 	 * @since 3.2.0
 	 */
-	public abstract Iterator<Vector2> getVertexIterator();
+	Iterator<Vector2> getVertexIterator();
 	
 	/**
 	 * Returns an iterator for the normals.
@@ -60,7 +60,7 @@ public interface Wound extends Shape, Transformable, DataContainer {
 	 * @return Iterator&lt;{@link Vector2}&gt;
 	 * @since 3.2.0
 	 */
-	public abstract Iterator<Vector2> getNormalIterator();
+	Iterator<Vector2> getNormalIterator();
 	
 	/**
 	 * Returns the array of vertices in local coordinates.
@@ -73,7 +73,7 @@ public interface Wound extends Shape, Transformable, DataContainer {
 	 * @return {@link Vector2}[]
 	 * @see #getVertexIterator()
 	 */
-	public abstract Vector2[] getVertices();
+	Vector2[] getVertices();
 	
 	/**
 	 * Returns the array of edge normals in local coordinates.
@@ -86,5 +86,5 @@ public interface Wound extends Shape, Transformable, DataContainer {
 	 * @return {@link Vector2}[]
 	 * @see #getNormalIterator()
 	 */
-	public abstract Vector2[] getNormals();
+	Vector2[] getNormals();
 }

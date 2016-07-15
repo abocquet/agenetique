@@ -15,26 +15,28 @@ import java.util.HashMap;
 
 public class Dog {
 
-    ArrayList<Leg> legs = new ArrayList<>();
+    private ArrayList<Leg> legs = new ArrayList<>();
 
-    HashMap<String, Body> parts = new HashMap<>();
-    HashMap<String, Joint> joints = new HashMap<>();
+    private HashMap<String, Body> parts = new HashMap<>();
+    private HashMap<String, Joint> joints = new HashMap<>();
 
     public Dog() {
 
+        double height = 3 ;
+
         Renderer2D.GameObject trunc = new Renderer2D.GameObject() ;
-        BodyFixture tfix = new BodyFixture(new Rectangle(8, 2));
+        BodyFixture tfix = new BodyFixture(new Rectangle(2, height));
         trunc.addFixture(tfix);
         trunc.setMass(MassType.NORMAL);
-        trunc.translate(0, 1.5);
+        trunc.translate(0, height / 2);
 
         tfix.setFilter(new CategoryFilter(1,1));
 
         this.parts.put("trunc", trunc);
 
         Vector2[] legPos = {
-                new Vector2(-3, 0),
-                new Vector2(3, 0)
+                new Vector2(-.5, 1),
+                new Vector2(.5, 1)
         };
 
         for(int i = 0 ; i < legPos.length ; i++){

@@ -33,6 +33,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 
 import org.dyn4j.dynamics.joint.DistanceJoint;
+import org.dyn4j.dynamics.joint.RevoluteJoint;
 import org.dyn4j.geometry.Capsule;
 import org.dyn4j.geometry.Circle;
 import org.dyn4j.geometry.Ellipse;
@@ -52,6 +53,15 @@ import org.dyn4j.geometry.Vector2;
 public final class Graphics2DRenderer {
 
     public static final void render(Graphics2D g, DistanceJoint joint, double scale, Color color){
+
+        // get the tangent vector
+        /*Vector2 v1 = joint.getAnchor1() ;
+        Vector2 v2 = joint.getAnchor2() ;
+        Vector2 t = v1.to(v2);
+        t.normalize();
+        t.left();
+        t.multiply(0.025);*/
+
         Line2D.Double l = new Line2D.Double(
                 joint.getAnchor1().x * scale,
                 joint.getAnchor1().y * scale,
@@ -61,6 +71,12 @@ public final class Graphics2DRenderer {
         // draw the outline
         g.setColor(getOutlineColor(color));
         g.draw(l);
+    }
+
+    public static final void render(Graphics2D g, RevoluteJoint joint, double scale, Color color){
+        Vector2 pos = joint.getAnchor1() ;
+        Ellipse2D.Double circle = new Ellipse2D.Double(pos.x, pos.y, scale, scale);
+        g.fill(circle);
     }
 
     /**
