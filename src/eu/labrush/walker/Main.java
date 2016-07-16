@@ -1,14 +1,11 @@
 package eu.labrush.walker;
 
-import com.sun.org.apache.regexp.internal.RE;
-import eu.labrush.walker.dog.Dog;
-import org.dyn4j.collision.CategoryFilter;
+import eu.labrush.walker.dog.Walker;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.World;
 import org.dyn4j.geometry.Mass;
 import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Rectangle;
-import eu.labrush.walker.dog.Leg ;
 import org.dyn4j.geometry.Vector2;
 
 public class Main {
@@ -37,8 +34,8 @@ public class Main {
 
         world.addBody(floor);
 
-        Dog dog = new Dog();
-        dog.insertInWorld(world);
+        Walker walker = new Walker();
+        walker.insertInWorld(world);
 
         /*Leg leg = new Leg();
         leg.translate(new Vector2(0, 4));
@@ -47,9 +44,9 @@ public class Main {
         Rectangle brect = new Rectangle(1.0, 1.0);
         BodyFixture bfix = new BodyFixture(brect);
         Renderer2D.GameObject bullet = new Renderer2D.GameObject();
-        bullet.translate(-5, -4);
+        bullet.translate(-5, -2);
         bullet.addFixture(bfix);
-        bullet.setLinearVelocity(new Vector2(5,4));
+        bullet.setLinearVelocity(new Vector2(30,0));
         bullet.setMass(new Mass(new Vector2(), 100, 10));
         world.addBody(bullet);
 

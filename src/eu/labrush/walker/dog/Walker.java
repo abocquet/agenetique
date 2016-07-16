@@ -13,36 +13,40 @@ import org.dyn4j.geometry.Vector2;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Dog {
+public class Walker {
 
     private ArrayList<Leg> legs = new ArrayList<>();
 
     private HashMap<String, Body> parts = new HashMap<>();
     private HashMap<String, Joint> joints = new HashMap<>();
 
-    public Dog() {
+    public Walker() {
 
         double height = 3 ;
 
         Renderer2D.GameObject trunc = new Renderer2D.GameObject() ;
         BodyFixture tfix = new BodyFixture(new Rectangle(2, height));
         trunc.addFixture(tfix);
-        trunc.setMass(MassType.NORMAL);
+        trunc.setMass(MassType.INFINITE);
         trunc.translate(0, height / 2);
+
+
 
         tfix.setFilter(new CategoryFilter(1,1));
 
         this.parts.put("trunc", trunc);
 
         Vector2[] legPos = {
-                new Vector2(-.5, 1),
-                new Vector2(.5, 1)
+                new Vector2(-.7, 1),
+                new Vector2(.7, 1)
         };
 
         for(int i = 0 ; i < legPos.length ; i++){
             Leg leg = new Leg();
             leg.attachTo(trunc, legPos[i]);
-            leg.setFilter(new CategoryFilter(2,2));
+
+            int mask = 2^(i+1);
+            leg.setFilter(new CategoryFilter(mask,mask));
             legs.add(leg);
         }
     }
@@ -53,4 +57,7 @@ public class Dog {
         joints.forEach((s,joint) -> world.addJoint(joint));
     }
 
+    public ArrayList<Leg> getLegs() {
+        return legs;
+    }
 }
