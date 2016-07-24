@@ -5,9 +5,7 @@ public abstract class AbstractFellowFactory {
     private int DNASize = 10 ;
     private int DNACard = 2 ;
 
-    public AbstractFellowFactory() {
-
-    }
+    public AbstractFellowFactory() {}
 
     public AbstractFellowFactory(int DNACard, int DNASize) {
         this.setDNACard(DNACard);
