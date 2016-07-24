@@ -6,7 +6,6 @@ import eu.labrush.walker.actionner.ActionnerSettings;
 import eu.labrush.walker.actionner.BipedeBodyActionner;
 import eu.labrush.walker.walker.BipedBody;
 import org.dyn4j.dynamics.World;
-import org.dyn4j.geometry.Interval;
 import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Rectangle;
 
@@ -35,7 +34,6 @@ public class Walker extends AbstractFellow implements Runnable {
     }
 
     @Override
-    //TODO: the simulation can return a negative value
     public int getFitness() {
         if(this.fitness != Integer.MIN_VALUE){
             return  this.fitness ;

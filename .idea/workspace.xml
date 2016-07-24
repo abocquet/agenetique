@@ -2,20 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bc56221a-fe50-45aa-b53a-4eba3e1aba33" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/walker/actionner/ActionnerSettings.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/walker/actionner/BipedeBodyActionner.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/walker/genetic/Nature.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/walker/genetic/Walker.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/walker/genetic/WalkerFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/walker/walker/Leg.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/walker/dog/Leg.java" afterPath="$PROJECT_DIR$/src/eu/labrush/walker/walker/SpringLeg.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/walker/dog/Walker.java" afterPath="$PROJECT_DIR$/src/eu/labrush/walker/walker/BipedBody.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/eu/labrush/walker/dog/Leg.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/eu/labrush/walker/dog/Walker.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractFellow.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractFellow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractFellowFactory.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractFellowFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractNature.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractNature.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/agenetic/numfun/Fellow.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/numfun/Fellow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/walker/Main.java" afterPath="$PROJECT_DIR$/src/eu/labrush/walker/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/operators/reproduction/Order1.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/operators/reproduction/Order1.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/walker/genetic/Walker.java" afterPath="$PROJECT_DIR$/src/eu/labrush/walker/genetic/Walker.java" />
     </list>
     <ignored path="agenetique.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,7 +36,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eu/labrush/walker/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="221">
@@ -56,16 +48,50 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="AbstractNature.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractNature.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="495">
+              <caret line="63" column="19" selection-start-line="63" selection-start-column="19" selection-end-line="63" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4990#4991#0" expanded="true" />
+                <element signature="e#5020#5021#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Walker.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eu/labrush/walker/genetic/Walker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+            <state relative-caret-position="202">
+              <caret line="67" column="6" selection-start-line="67" selection-start-column="6" selection-end-line="67" selection-end-column="6" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#982#983#0" expanded="true" />
-                <element signature="e#1011#1012#0" expanded="true" />
+                <element signature="e#946#947#0" expanded="true" />
+                <element signature="e#975#976#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Order1.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/operators/reproduction/Order1.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Fellow.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/numfun/Fellow.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -78,6 +104,16 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractFellow.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractFellow.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="29" column="23" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -123,7 +159,6 @@
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/operators/ReproductionOperator.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/Nature.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/Tuple.java" />
-        <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/operators/reproduction/Order1.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/Travel.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/TravelFactory.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/Main.java" />
@@ -143,17 +178,18 @@
         <option value="$PROJECT_DIR$/src/eu/labrush/walker/actionner/WalkerActionner.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/walker/actionner/BipedeActionner.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/walker/actionner/ActionnerSettings.java" />
-        <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/numfun/Fellow.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/walker/actionner/BipedeBodyActionner.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/walker/genetic/Fellow.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/walker/genetic/FellowFactory.java" />
-        <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractFellow.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractFellowFactory.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/walker/genetic/WalkerFactory.java" />
-        <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractNature.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/walker/genetic/Nature.java" />
-        <option value="$PROJECT_DIR$/src/eu/labrush/walker/genetic/Walker.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/walker/Main.java" />
+        <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractNature.java" />
+        <option value="$PROJECT_DIR$/src/eu/labrush/walker/genetic/Walker.java" />
+        <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractFellow.java" />
+        <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/operators/reproduction/Order1.java" />
+        <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/numfun/Fellow.java" />
       </list>
     </option>
   </component>
@@ -527,7 +563,7 @@
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="SearchEverywhereHistoryKey" value="world&#9;FILE&#9;file:///Users/adrienbocquet/Dropbox/TIPE/codes/agenetique/src/org/dyn4j/dynamics/World.java" />
+    <property name="SearchEverywhereHistoryKey" value="abs&#9;FILE&#9;file:///Users/adrienbocquet/Dropbox/TIPE/codes/agenetique/src/eu/labrush/agenetic/AbstractFellow.java&#10;abstra&#9;FILE&#9;file:///Users/adrienbocquet/Dropbox/TIPE/codes/agenetique/src/eu/labrush/agenetic/AbstractNature.java&#10;world&#9;FILE&#9;file:///Users/adrienbocquet/Dropbox/TIPE/codes/agenetique/src/org/dyn4j/dynamics/World.java" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -825,12 +861,12 @@
       <workItem from="1468777888771" duration="5744000" />
       <workItem from="1468963449897" duration="8457000" />
       <workItem from="1469054622588" duration="176000" />
-      <workItem from="1469380163585" duration="2427000" />
+      <workItem from="1469380163585" duration="3609000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102539000" />
+    <option name="totallyTimeSpent" value="103721000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -838,6 +874,7 @@
     </todo-panel>
     <todo-panel id="all">
       <are-packages-shown value="true" />
+      <flatten-packages value="true" />
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
@@ -852,7 +889,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28938907" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27494907" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299389" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1019,13 +1056,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/operators/reproduction/Order1.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="35" column="12" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/dyn4j/dynamics/contact/SequentialImpulses.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="177">
@@ -1141,13 +1171,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/numfun/Fellow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="81" selection-start-line="8" selection-start-column="81" selection-end-line="8" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1175,16 +1198,6 @@
         <state relative-caret-position="375">
           <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractFellow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="17" column="11" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1217,37 +1230,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractNature.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="521">
-          <caret line="154" column="29" selection-start-line="154" selection-start-column="29" selection-end-line="154" selection-end-column="29" />
-          <folding>
-            <element signature="e#4451#4452#0" expanded="true" />
-            <element signature="e#4489#4490#0" expanded="true" />
-            <element signature="e#4550#4551#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_31.jdk/Contents/Home/src.zip!/java/lang/Throwable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-494">
           <caret line="632" column="16" selection-start-line="632" selection-start-column="16" selection-end-line="632" selection-end-column="16" />
           <folding>
-            <element signature="e#26222#26223#0" expanded="true" />
-            <element signature="e#26265#26266#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/labrush/walker/genetic/Walker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#982#983#0" expanded="true" />
-            <element signature="e#1011#1012#0" expanded="true" />
+            <element signature="e#26222#26223#0" expanded="false" />
+            <element signature="e#26265#26266#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1269,6 +1258,54 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractNature.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="63" column="19" selection-start-line="63" selection-start-column="19" selection-end-line="63" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4990#4991#0" expanded="true" />
+            <element signature="e#5020#5021#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractFellow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="29" column="23" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eu/labrush/walker/genetic/Walker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="67" column="6" selection-start-line="67" selection-start-column="6" selection-end-line="67" selection-end-column="6" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#946#947#0" expanded="true" />
+            <element signature="e#975#976#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/traveller/operators/reproduction/Order1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/numfun/Fellow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>

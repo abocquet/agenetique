@@ -1,10 +1,11 @@
 package eu.labrush.agenetic;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.Collections;
+
+import static java.util.Collections.min;
 
 public abstract class AbstractNature {
 
@@ -45,10 +46,18 @@ public abstract class AbstractNature {
 
     protected void crossover() {
         Arrays.sort(this.population, (a, b) -> b.getFitness() - a.getFitness());
+        int minFitness = this.population[0].getFitness(); // the population is already sorted by fitness, the first fellow hqs the lower fitness
 
         BigDecimal totalFitness = BigDecimal.ZERO ;
         for(AbstractFellow f : this.population){
             totalFitness = totalFitness.add(BigDecimal.valueOf(f.getFitness()));
+        }
+
+        // if a fitness is negative, we add the absolute value of it to every fellow afterwards,
+        // at once so as to avoid tests in the loop
+        // As a result the worst fellow will have a score of 0
+        if(minFitness < 0){
+            totalFitness = totalFitness.add(BigDecimal.valueOf(minFitness * getPOPSIZE()));
         }
 
         AbstractFellow[] newPop = new AbstractFellow[this.POPSIZE];

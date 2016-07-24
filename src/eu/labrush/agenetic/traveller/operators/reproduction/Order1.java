@@ -58,9 +58,7 @@ public class Order1 implements ReproductionOperator {
                 c = (c+1) % DNASIZE ;
             }
 
-
-            /* TODO: restore false to true when it no longer bugs */
-            children[i] = factory.newInstance(dna, false);
+            children[i] = factory.newInstance(dna, true);
 
             /* We swap both parents so the second child has repaired DNA from the original father */
             offset++ ;

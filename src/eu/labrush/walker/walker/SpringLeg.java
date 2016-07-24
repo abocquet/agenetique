@@ -1,4 +1,4 @@
-package eu.labrush.walker.dog;
+package eu.labrush.walker.walker;
 
 import eu.labrush.walker.Renderer2D;
 import org.dyn4j.collision.CategoryFilter;
@@ -10,7 +10,7 @@ import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Rectangle;
 import org.dyn4j.geometry.Vector2;
 
-public class Leg {
+public class SpringLeg {
 
     private Renderer2D.GameObject sup ;
     private Renderer2D.GameObject inf ;
@@ -34,7 +34,7 @@ public class Leg {
 
     double spring_frequency = 10 ;
 
-    public Leg() {
+    public SpringLeg() {
         sup = new Renderer2D.GameObject();
         sup.addFixture(new Rectangle(.4, 2));
         sup.setMass(MassType.NORMAL);

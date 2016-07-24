@@ -28,9 +28,6 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
     /**
      * @return the fitness of the fellow ie its adaptation
      * higher is better
-     *
-     * Note: it must return a positive value, else it mess up with
-     * the biased wheel
      */
     abstract public int getFitness();
 
