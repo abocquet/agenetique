@@ -19,7 +19,7 @@ public class Nature extends AbstractNature {
     }
 
     public void evolve(){
-        evolve(false);
+        evolve(true);
     }
 
     public void evolve(boolean async){
@@ -41,16 +41,12 @@ public class Nature extends AbstractNature {
         AbstractFellow[] pop = getPopulation() ;
 
         for(int i = 0, c = getPOPSIZE() ; i < c ; i++){
-
             threads[i] = new Thread((Walker) pop[i]);
             threads[i].start();
-
         }
 
         try {
-            for(int i = 0, c = getPOPSIZE() ; i < c ; i++){
-                threads[i].join();
-            }
+            for(int i = 0, c = getPOPSIZE() ; i < c ; i++){ threads[i].join(); }
         } catch (Exception e){
             e.printStackTrace();
         }

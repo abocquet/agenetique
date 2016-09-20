@@ -3,9 +3,6 @@ package eu.labrush.agenetic;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
-import java.util.Collections;
-
-import static java.util.Collections.min;
 
 public abstract class AbstractNature {
 
@@ -46,7 +43,7 @@ public abstract class AbstractNature {
 
     protected void crossover() {
         Arrays.sort(this.population, (a, b) -> b.getFitness() - a.getFitness());
-        int minFitness = this.population[0].getFitness(); // the population is already sorted by fitness, the first fellow hqs the lower fitness
+        int minFitness = this.population[getPOPSIZE() - 1].getFitness(); // the population is already sorted by fitness, the first fellow hqs the lower fitness
 
         BigDecimal totalFitness = BigDecimal.ZERO ;
         for(AbstractFellow f : this.population){
@@ -57,7 +54,7 @@ public abstract class AbstractNature {
         // at once so as to avoid tests in the loop
         // As a result the worst fellow will have a score of 0
         if(minFitness < 0){
-            totalFitness = totalFitness.add(BigDecimal.valueOf(minFitness * getPOPSIZE()));
+            totalFitness = totalFitness.add(BigDecimal.valueOf(-minFitness * getPOPSIZE())); //Don't forget the minus to have a positive total !
         }
 
         AbstractFellow[] newPop = new AbstractFellow[this.POPSIZE];

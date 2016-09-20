@@ -5,4 +5,9 @@ public class ActionnerSettings {
     public double maxAngle ;
     public double minAngle ;
     public double phase;
+
+    public ActionnerSettings addMaxAngle(double angle){
+        this.maxAngle += angle ;
+        return this ;
+    }
 }

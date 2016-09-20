@@ -9,6 +9,8 @@ import org.dyn4j.dynamics.World;
 import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Rectangle;
 
+import static java.lang.Math.toRadians;
+
 /**
  * A wrapper which interfaces genetic algorithm and the dyn4j walker
  */
@@ -77,9 +79,10 @@ public class Walker extends AbstractFellow implements Runnable {
         BipedeBodyActionner actionner = new BipedeBodyActionner(walker);
 
         actionner.setLeftHip(  readDNA(this.getDna(), 0, 3, 2, 3, 4));
-        actionner.setLeftKnee( readDNA(this.getDna(), 12, 3, 2, 3, 4));
+        actionner.setLeftKnee( readDNA(this.getDna(), 12, 3, 2, 3, 4).addMaxAngle(toRadians(30)));
+
         actionner.setRightHip( readDNA(this.getDna(), 24, 3, 2, 3, 4));
-        actionner.setRightKnee(readDNA(this.getDna(), 36, 3, 2, 3, 4));
+        actionner.setRightKnee(readDNA(this.getDna(), 36, 3, 2, 3, 4).addMaxAngle(toRadians(30)));
 
         World world = new World();
         world.addBody(floor);
@@ -102,15 +105,15 @@ public class Walker extends AbstractFellow implements Runnable {
 
         int pos = start ;
 
-        settings.freq = readIntFromDNA(dna, pos, freq_length);
+        settings.freq = readIntFromDNA(dna, pos, freq_length) + 1 ; // A null freq is useless
         pos += freq_length ;
 
         settings.minAngle = readIntFromDNA(dna, pos, min_length);
-        settings.minAngle = Math.toRadians(10 * settings.minAngle) ;
+        settings.minAngle = toRadians(10 * settings.minAngle) ;
         pos += min_length ;
 
         settings.maxAngle = readIntFromDNA(dna, pos, max_length);
-        settings.maxAngle = Math.toRadians(10 * settings.maxAngle) ;
+        settings.maxAngle = toRadians(5 * settings.maxAngle) ;
         pos += max_length ;
 
         settings.phase = readIntFromDNA(dna, pos, phase_length);

@@ -1,28 +1,36 @@
 package eu.labrush.walker;
 
+import eu.labrush.walker.actionner.BipedeBodyActionner;
 import eu.labrush.walker.genetic.Nature;
+import eu.labrush.walker.genetic.Walker;
 import eu.labrush.walker.genetic.WalkerFactory;
+import eu.labrush.walker.walker.BipedBody;
+import org.dyn4j.dynamics.BodyFixture;
+import org.dyn4j.dynamics.World;
+import org.dyn4j.geometry.Mass;
+import org.dyn4j.geometry.MassType;
+import org.dyn4j.geometry.Rectangle;
+import org.dyn4j.geometry.Vector2;
+
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        /*Renderer2D window = new Renderer2D();
+        Renderer2D window = new Renderer2D();
         window.setVisible(true);
 
-        World world = new World() ;
-
-        Rectangle f1 = new Rectangle(16, 1);
-
-        Renderer2D.GameObject floor = new Renderer2D.GameObject();
-        floor.setMass(MassType.INFINITE);
-        floor.translate(0.0, -5.0);
-        floor.addFixture(f1);
-
-        world.addBody(floor);
-
-        BipedBody walker = new BipedBody();
-        walker.insertInWorld(world);
+        WalkerFactory wf = new WalkerFactory();
+        Walker walker = (Walker) wf.newInstance(new int[]{
+        //  freq   min  max    phase
+            0,0,0, 0,0, 0,0,0, 0,0,0,0, // left hip
+            0,0,0, 0,0, 0,0,0, 0,0,0,0, // left knee
+            0,0,0, 0,0, 0,0,0, 0,0,0,0, // right hip
+            0,0,0, 0,0, 0,0,0, 0,0,0,0  // right knee
+        });
+        World world = walker.newSimulation() ;
 
         Rectangle brect = new Rectangle(1.0, 1.0);
         BodyFixture bfix = new BodyFixture(brect);
@@ -31,17 +39,20 @@ public class Main {
         bullet.addFixture(bfix);
         bullet.setLinearVelocity(new Vector2(6,0));
         bullet.setMass(new Mass(new Vector2(), 100, 10));
-        world.addBody(bullet);
+        //world.addBody(bullet);
 
-        window.setWorld(world);*/
+        window.setWorld(world);
+        window.start();
 
-        Nature nature = new Nature(20, .5, .001, new WalkerFactory());
+        /*Nature nature = new Nature(50, .5, .001, new WalkerFactory());
 
-        /*System.out.println(nature);
+        nature.calc_pop_fitness();
+        System.out.println(nature);
 
-        for(int i = 0 ; i < 1 ; i++){
-            System.out.println(nature.getBest());
+        for(int i = 0 ; i < 100 ; i++){
             nature.evolve();
+            nature.calc_pop_fitness();
+            System.out.println("\nGen " + i + " : " + nature.getBest());
         }
         System.out.println("");
         System.out.println(nature);

@@ -26,7 +26,7 @@ public class BipedeBodyActionner {
         addListener(world, walker.getLegs().get(1), hip_right, knee_right);
     }
 
-    private void addListener(World world, SpringLeg leg,ActionnerSettings hip, ActionnerSettings knee){
+    private void addListener(World world, SpringLeg leg, ActionnerSettings hip, ActionnerSettings knee){
 
         world.addListener(new StepListener(){
 
@@ -44,8 +44,8 @@ public class BipedeBodyActionner {
             public void begin(Step step, World world) {
 
                 time += step.getDeltaTime();
-                leg.setKneeAngle(hip_avg + hip_amplitude * Math.sin(hip_pulse * time + hip.phase));
-                leg.setHipAngle(knee_avg + knee_amplitude * Math.sin(knee_pulse * time + knee.phase));
+                leg.setHipAngle(hip_avg + hip_amplitude * Math.sin(hip_pulse * time + hip.phase));
+                leg.setKneeAngle(-(knee_avg + knee_amplitude * Math.sin(knee_pulse * time + knee.phase)));
 
             }
 

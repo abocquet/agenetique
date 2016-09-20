@@ -28,11 +28,11 @@ public class SpringLeg {
     private Vector2 knee_distance_joint_anchor2 = new Vector2(-.3, -4);
     private Vector2 knee_revolute_joint_pos = new Vector2(0, -3);
 
-    private Vector2 hip_distance_joint_anchor1 = new Vector2(-.2, -.5) ;
-    private Vector2 hip_distance_joint_anchor2 = new Vector2(-.2, -1.5);
+    private Vector2 hip_distance_joint_anchor1 = new Vector2(-.4, -.5) ;
+    private Vector2 hip_distance_joint_anchor2 = new Vector2(-.4, -1.5);
     private Vector2 hip_revolute_joint_pos = new Vector2(0, -1);
 
-    double spring_frequency = 10 ;
+    double spring_frequency = 20 ;
 
     public SpringLeg() {
         sup = new Renderer2D.GameObject();
@@ -62,7 +62,7 @@ public class SpringLeg {
         foot_distance_joint.setDistance(1.07);
 
         knee_distance_joint.setFrequency(spring_frequency);
-        foot_distance_joint.setFrequency(spring_frequency * 4);
+        foot_distance_joint.setFrequency(spring_frequency);
 
         knee_revolute_joint = new RevoluteJoint(sup, inf, knee_revolute_joint_pos);
         knee_revolute_joint.setLimitEnabled(true);
@@ -78,7 +78,7 @@ public class SpringLeg {
 
         hip_distance_joint.setDampingRatio(1);
         hip_distance_joint.setDistance(hip_distance_joint_anchor1.distance(hip_distance_joint_anchor2));
-        hip_distance_joint.setFrequency(spring_frequency * 3);
+        hip_distance_joint.setFrequency(spring_frequency);
     }
 
     public void translate(Vector2 pos){
