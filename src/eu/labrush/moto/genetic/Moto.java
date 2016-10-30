@@ -3,34 +3,34 @@ package eu.labrush.moto.genetic;
 import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.moto.GroundDesigner;
 import eu.labrush.moto.Renderer2D;
+import org.dyn4j.collision.CategoryFilter;
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.World;
 import org.dyn4j.dynamics.joint.RevoluteJoint;
 import org.dyn4j.geometry.*;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Moto extends AbstractFellow implements Runnable {
 
     static GroundDesigner gd = null ;
-    static int AskedDNASIZE = 48 ;
+    public static int AskedDNASIZE = 48 ;
     private static int PeakNumber = -1 ;
     private static int WheelAdressLenght = -1 ;
 
-    private static double width = 3 ;
-    private static double height = 3 ;
+    private static double width = 6 ;
+    private static double height = 4 ;
 
     private static int Resolution = 4 ;
 
     private int fitness = Integer.MIN_VALUE ;
-    public Vector2[] peaks ;
+    private Vector2[] peaks ;
 
-    public Moto() {
+    Moto() {
         super(AskedDNASIZE, 2);
     }
 
-    public Moto(int[] dna) throws Exception {
+    Moto(int[] dna) throws Exception {
         super(dna, 2);
 
         if(dna.length != AskedDNASIZE){
@@ -45,7 +45,7 @@ public class Moto extends AbstractFellow implements Runnable {
     @Override
     public int getFitness() {
         if(this.fitness != Integer.MIN_VALUE){
-            return  this.fitness ;
+            return this.fitness ;
         }
 
         World world = this.getSim();
@@ -84,16 +84,17 @@ public class Moto extends AbstractFellow implements Runnable {
         Vector2 center = new Vector2(); // Le barycentre des points de la voiture
 
         this.peaks = new Vector2[PeakNumber];
-        int pow2peak = pow(2, PeakNumber);
+        int pow2peak = 2 ^ Resolution;
 
         int dna[] = getDna() ;
         int peaksCounter = 0 ; //semblable a peakNumber, mais peut prendre des valeurs inférieures car il indique le nombre de sommets différents
+
 
         for(int i = 0 ; i < PeakNumber ; i++){
             int x = readIntFromDNA(dna, 2 * i * Resolution, Resolution);
             int y = readIntFromDNA(dna, (2*i + 1) * Resolution, Resolution);
 
-            Vector2 newPeak = new Vector2(width * (double)x / pow2peak, height * (double)y / pow2peak);
+            Vector2 newPeak = new Vector2(width / pow2peak * (double)x, height / pow2peak * (double)y);
             boolean alreadyIn = false ;
 
             for(int j = 0 ; j < peaksCounter ; j++){
@@ -110,20 +111,19 @@ public class Moto extends AbstractFellow implements Runnable {
             }
         }
 
-        center.multiply(1 / PeakNumber);
-        Arrays.sort(Arrays.copyOfRange(peaks, 0, peaksCounter), (p1, p2) -> (int) -funSubstract(p1, center).getAngleBetween(funSubstract(p2, center)));
+        center.multiply(1 / (double)peaksCounter);
 
         Renderer2D.GameObject body = new Renderer2D.GameObject() ;
         body.setMassType(MassType.NORMAL);
 
         for(int i = 0 ; i < peaksCounter ; i++){
-            Vector2 p1 = peaks[i], p2 = peaks[(i+1) % (peaksCounter-1)] ;
+            Vector2 p1 = peaks[i % peaksCounter], p2 = peaks[(i+1) % peaksCounter] ;
 
             if(p1.equals(center) || p2.equals(center)){
                 continue ;
             }
 
-            if(p1.getAngleBetween(p2) > 0) {
+            if(funSubstract(p1, center).getAngleBetween(funSubstract(p2, center)) > 0) {
                 body.addFixture(new Triangle(center, p1, p2));
             } else {
                 body.addFixture(new Triangle(center, p2, p1));
@@ -141,7 +141,7 @@ public class Moto extends AbstractFellow implements Runnable {
         }
 
         for(int i = 0 ; i < 2 ; i++){
-            Vector2 selectedPeak = peaks[wheelAdress[i] % (peaksCounter - 1)];
+            Vector2 selectedPeak = peaks[wheelAdress[i] % peaksCounter];
 
             WheelParam param = new WheelParam(dna, (PeakNumber * Resolution + WheelAdressLenght) * 2 + 6 * i );
 
@@ -159,6 +159,9 @@ public class Moto extends AbstractFellow implements Runnable {
 
             world.addBody(wheel);
             world.addJoint(joint);
+
+            int mask = 2^(i+1);
+            wheel.getFixture(0).setFilter(new CategoryFilter(mask,mask));
         }
 
         gd.addToWorld(world, new Vector2(10, -2));
@@ -218,14 +221,6 @@ public class Moto extends AbstractFellow implements Runnable {
         Moto.height = height;
     }
 
-    private int pow (int x, int n)
-    {
-        if(n == 0) return 1;
-        else if (n % 2 == 0) return pow(x*x, n/2);
-        else return x * pow (x*x, n/2);
-
-    }
-
     private Vector2 funSubstract(Vector2 p1, Vector2 p2){
         return new Vector2(p1.x - p2.x, p1.y - p2.y);
     } //version fonctionnelle pour soustraire deux vecteurs
@@ -237,4 +232,5 @@ public class Moto extends AbstractFellow implements Runnable {
     public static GroundDesigner getGroundDesigner() {
         return gd;
     }
+
 }

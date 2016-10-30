@@ -1,58 +1,46 @@
 package eu.labrush.moto;
 
 import eu.labrush.moto.genetic.Moto;
+import eu.labrush.moto.genetic.MotoFactory;
+import eu.labrush.moto.genetic.Nature;
 import org.dyn4j.dynamics.World;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Moto.setPeakNumber(4);
-        Moto.setGroundDesigner(
-                new GroundDesigner().setDist(1000).setNbBlocks(500)
-        );
+        /*Moto.setGroundDesigner(new GroundDesigner().setNbBlocks(5000).setDist(10_000));
+        Moto.setPeakNumber(8);*/
 
-        int dna[] = {
-                0,0,0,0,
-                0,0,0,0,
+        /*System.out.println("Terrain généré");
 
-                0,0,0,0,
-                0,0,0,1,
+        Nature nature = new Nature(20, 0.5, 0.05, new MotoFactory());
+        System.out.println(nature);
 
-                0,0,0,1,
-                0,0,0,1,
+        for(int i = 0 ; i < 100 ; i++){
+            System.out.print(".");
 
-                0,0,0,1,
-                0,0,0,0,
-
-                1,1,
-                1,1,
-
-                1,0,
-                0,1,
-                0,0,
-
-                1,0,
-                0,1,
-                0,1, };
-
-        Moto moto = null;
-        try {
-            moto = new Moto(dna);
-        } catch (Exception e) {
-            e.printStackTrace();
+            if(i % 10 == 0) {
+                System.out.print("\n");
+                System.out.println(nature.getStats());
+            }
+            nature.evolve();
         }
 
-        System.out.println("Fitness: " + moto.getFitness());
+        System.out.println("");
+        System.out.println(nature);*/
 
-        Renderer2D window = new Renderer2D();
+        /*Renderer2D window = new Renderer2D();
         window.setVisible(true);
 
+        Moto moto = new Moto();
         World world = moto.getSim() ;
 
         window.setWorld(world);
         window.focusOn(world.getBody(0));
-        window.start();
+        window.start();*/
+
+        GraphicInterface fenetre = new GraphicInterface();
 
     }
 }

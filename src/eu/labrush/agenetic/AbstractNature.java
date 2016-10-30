@@ -161,4 +161,35 @@ public abstract class AbstractNature {
     public int getPOPSIZE() {
         return POPSIZE;
     }
+
+    public AbstractFellow getBest(){
+        AbstractFellow best = population[0];
+        for(int i = 1, c  = getPOPSIZE() ; i < c ; i++)
+        {
+            if(best.getFitness() < population[i].getFitness()){
+                best = population[i] ;
+            }
+        }
+
+        return best ;
+    }
+
+    public String getStats(){
+        int min = population[0].getFitness() ;
+        int sum, max ;
+
+        sum = min ;
+        max = min ;
+
+        for(int i = 0, c = getPOPSIZE() ; i < c ; i++){
+            int f = population[i].getFitness();
+            sum += f ;
+
+            if(min > f) min = f ;
+            if(max < f) max = f ;
+        }
+
+        return "Max: " + max + " == Min: " + min + " == Avg: " + ((double)sum / getPOPSIZE()) ;
+    }
+
 }

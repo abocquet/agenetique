@@ -28,7 +28,7 @@ public class Nature extends AbstractNature {
         return str ;
     }
 
-    public String getBest() {
+    public String introduceBest() {
         Arrays.sort(this.population);
         Fellow best = (Fellow) this.population[this.population.length - 1] ;
 
