@@ -1,10 +1,10 @@
 package eu.labrush.walker.genetic;
 
 import eu.labrush.agenetic.AbstractFellow;
-import eu.labrush.walker.Renderer2D;
 import eu.labrush.walker.actionner.ActionnerSettings;
 import eu.labrush.walker.actionner.BipedeBodyActionner;
 import eu.labrush.walker.walker.BipedBody;
+import org.dyn4j.Renderer2D;
 import org.dyn4j.dynamics.World;
 import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Rectangle;

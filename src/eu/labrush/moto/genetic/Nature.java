@@ -1,0 +1,54 @@
+package eu.labrush.moto.genetic;
+
+import eu.labrush.agenetic.AbstractFellow;
+import eu.labrush.agenetic.AbstractFellowFactory;
+import eu.labrush.agenetic.AbstractNature;
+
+import java.util.Arrays;
+
+public class Nature extends AbstractNature {
+
+    public Nature(int POPSIZE, double PCROSSOVER, double PMUTATION, AbstractFellowFactory factory) {
+        super(POPSIZE, PCROSSOVER, PMUTATION, factory);
+    }
+
+    public Moto getBest(){
+        Arrays.sort(population);
+        return (Moto) population[population.length - 1] ;
+    }
+
+    public void evolve(){
+        evolve(true);
+    }
+
+    public void evolve(boolean async){
+        if(async){
+            calc_pop_fitness();
+        }
+
+        crossover();
+        mutate();
+    }
+
+    /**
+     * This method is irrelevant only since the fellow "remember" its fitness
+     * ie. it runs the simulation once
+     */
+    public void calc_pop_fitness() {
+
+        Thread[] threads = new Thread[getPOPSIZE()];
+        AbstractFellow[] pop = getPopulation() ;
+
+        for(int i = 0, c = getPOPSIZE() ; i < c ; i++){
+            threads[i] = new Thread((Moto) pop[i]);
+            threads[i].start();
+        }
+
+        try {
+            for(int i = 0, c = getPOPSIZE() ; i < c ; i++){ threads[i].join(); }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+}

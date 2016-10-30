@@ -1,6 +1,5 @@
 package eu.labrush.walker.walker;
 
-import eu.labrush.walker.Renderer2D;
 import org.dyn4j.collision.CategoryFilter;
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.World;
@@ -9,6 +8,7 @@ import org.dyn4j.dynamics.joint.RevoluteJoint;
 import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Rectangle;
 import org.dyn4j.geometry.Vector2;
+import org.dyn4j.Renderer2D;
 
 public class SpringLeg {
 

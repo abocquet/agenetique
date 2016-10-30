@@ -2,8 +2,6 @@
   <library name="dyn4j-3.2.2-sources">
     <CLASSES />
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$PROJECT_DIR$/dyn4j-3.2.2-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

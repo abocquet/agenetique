@@ -1,6 +1,6 @@
 package eu.labrush.walker.walker;
 
-import eu.labrush.walker.Renderer2D;
+import org.dyn4j.Renderer2D;
 import org.dyn4j.collision.CategoryFilter;
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.BodyFixture;
