@@ -1,7 +1,7 @@
-package eu.labrush.agenetic.traveller.operators.mutation;
+package eu.labrush.traveller.operators.mutation;
 
 import eu.labrush.agenetic.AbstractFellow;
-import eu.labrush.agenetic.traveller.operators.MutationOperator;
+import eu.labrush.traveller.operators.MutationOperator;
 
 public class im implements MutationOperator {
 

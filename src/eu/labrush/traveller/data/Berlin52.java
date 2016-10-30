@@ -1,4 +1,4 @@
-package eu.labrush.agenetic.traveller.data;
+package eu.labrush.traveller.data;
 
 public class Berlin52 implements PointSet {
 

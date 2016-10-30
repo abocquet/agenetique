@@ -1,7 +1,7 @@
-package eu.labrush.agenetic.traveller;
+package eu.labrush.traveller;
 
 import eu.labrush.agenetic.AbstractFellow;
-import eu.labrush.agenetic.traveller.data.Point;
+import eu.labrush.traveller.data.Point;
 
 import java.util.Arrays;
 

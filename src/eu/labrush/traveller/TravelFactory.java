@@ -1,8 +1,8 @@
-package eu.labrush.agenetic.traveller;
+package eu.labrush.traveller;
 
 import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.agenetic.AbstractFellowFactory;
-import eu.labrush.agenetic.traveller.data.Point;
+import eu.labrush.traveller.data.Point;
 
 public class TravelFactory extends AbstractFellowFactory {
     private final Point[] places;

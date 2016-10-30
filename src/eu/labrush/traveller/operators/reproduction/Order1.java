@@ -1,13 +1,10 @@
-package eu.labrush.agenetic.traveller.operators.reproduction;
+package eu.labrush.traveller.operators.reproduction;
 
 import eu.labrush.agenetic.AbstractFellow;
-import eu.labrush.agenetic.AbstractFellowFactory;
 import eu.labrush.agenetic.Tuple;
-import eu.labrush.agenetic.traveller.TravelFactory;
-import eu.labrush.agenetic.traveller.operators.ReproductionOperator;
+import eu.labrush.traveller.TravelFactory;
+import eu.labrush.traveller.operators.ReproductionOperator;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
 public class Order1 implements ReproductionOperator {

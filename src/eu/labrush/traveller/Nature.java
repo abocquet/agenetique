@@ -1,11 +1,11 @@
-package eu.labrush.agenetic.traveller;
+package eu.labrush.traveller;
 
 import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.agenetic.AbstractNature;
 import eu.labrush.agenetic.Tuple;
-import eu.labrush.agenetic.traveller.data.PointSet;
+import eu.labrush.traveller.data.PointSet;
 
-import eu.labrush.agenetic.traveller.operators.* ;
+import eu.labrush.traveller.operators.* ;
 
 import java.util.Arrays;
 
