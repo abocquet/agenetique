@@ -3,6 +3,7 @@ package eu.labrush.moto.genetic;
 import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.agenetic.AbstractFellowFactory;
 import eu.labrush.agenetic.AbstractNature;
+import eu.labrush.moto.GroundDesigner;
 import eu.labrush.observer.Observable;
 import eu.labrush.observer.Observer;
 
@@ -10,9 +11,11 @@ public class Nature extends AbstractNature implements Observable {
 
     Observer observer = null;
     int fitnessCalculated = 0 ;
+    private GroundDesigner gd ;
 
-    public Nature(int POPSIZE, double PCROSSOVER, double PMUTATION, AbstractFellowFactory factory) {
+    public Nature(int POPSIZE, double PCROSSOVER, double PMUTATION, AbstractFellowFactory factory, GroundDesigner gd) {
         super(POPSIZE, PCROSSOVER, PMUTATION, factory);
+        setGroundDesigner(gd);
     }
 
     public void evolve(){
@@ -38,6 +41,7 @@ public class Nature extends AbstractNature implements Observable {
             Moto moto = (Moto) pop[i] ;
 
             threads[i] = new Thread(() -> {
+                moto.setGroundDesigner(gd);
                 moto.getFitness();
                 fitnessCalculated++ ;
                 notifyObserver(String.valueOf((100 * fitnessCalculated / getPOPSIZE())));
@@ -51,6 +55,8 @@ public class Nature extends AbstractNature implements Observable {
         } catch (Exception e){
             e.printStackTrace();
         }
+
+        notifyObserver("done");
 
     }
 
@@ -69,4 +75,9 @@ public class Nature extends AbstractNature implements Observable {
         if(observer != null)
             observer.update(str);
     }
+
+    public GroundDesigner getGroundDesigner() {
+        return gd;
+    }
+    public void setGroundDesigner(GroundDesigner gd){ this.gd = gd ;}
 }

@@ -4,7 +4,10 @@ import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.moto.GroundDesigner;
 import eu.labrush.moto.Renderer2D;
 import org.dyn4j.collision.CategoryFilter;
+import org.dyn4j.collision.Filter;
+import org.dyn4j.collision.Fixture;
 import org.dyn4j.dynamics.Body;
+import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.World;
 import org.dyn4j.dynamics.joint.RevoluteJoint;
 import org.dyn4j.geometry.*;
@@ -13,24 +16,24 @@ import java.util.LinkedList;
 
 public class Moto extends AbstractFellow implements Runnable {
 
-    static GroundDesigner gd = null ;
+    private GroundDesigner gd = null ;
     public static int AskedDNASIZE = 48 ;
     private static int PeakNumber = -1 ;
     private static int WheelAdressLenght = -1 ;
 
-    private static double width = 6 ;
-    private static double height = 4 ;
+    private static double width = 3 ;
+    private static double height = 2 ;
 
     private static int Resolution = 4 ;
 
     private int fitness = Integer.MIN_VALUE ;
     private Vector2[] peaks ;
 
-    Moto() {
+    public Moto() {
         super(AskedDNASIZE, 2);
     }
 
-    Moto(int[] dna) throws Exception {
+    public Moto(int[] dna) throws Exception {
         super(dna, 2);
 
         if(dna.length != AskedDNASIZE){
@@ -44,6 +47,7 @@ public class Moto extends AbstractFellow implements Runnable {
 
     @Override
     public int getFitness() {
+
         if(this.fitness != Integer.MIN_VALUE){
             return this.fitness ;
         }
@@ -57,7 +61,7 @@ public class Moto extends AbstractFellow implements Runnable {
         int sum = 0 ;
 
         while(stepsToRun > 0){
-            world.update(stepSamplingRate);
+            world.step(stepSamplingRate);
 
             int currentPos = (int) (1000 * moto.getWorldCenter().x) ;
             takenPositions.addLast(currentPos);
@@ -67,12 +71,19 @@ public class Moto extends AbstractFellow implements Runnable {
                 sum -= takenPositions.pop();
             }
 
-            if(currentPos * 100 > sum){
+            if(currentPos > sum / 100){
                 stepsToRun += stepSamplingRate ;
             }
 
             stepsToRun -= stepSamplingRate ;
         }
+
+
+        Renderer2D window = new Renderer2D();
+        window.setVisible(true);
+        window.focusOn(moto);
+        window.setWorld(world);
+        window.start();
 
         this.fitness = (int)(moto.getWorldCenter().x * 10) ;
         return this.fitness ;
@@ -84,7 +95,7 @@ public class Moto extends AbstractFellow implements Runnable {
         Vector2 center = new Vector2(); // Le barycentre des points de la voiture
 
         this.peaks = new Vector2[PeakNumber];
-        int pow2peak = 2 ^ Resolution;
+        int pow2res = 2 ^ Resolution;
 
         int dna[] = getDna() ;
         int peaksCounter = 0 ; //semblable a peakNumber, mais peut prendre des valeurs inférieures car il indique le nombre de sommets différents
@@ -94,7 +105,7 @@ public class Moto extends AbstractFellow implements Runnable {
             int x = readIntFromDNA(dna, 2 * i * Resolution, Resolution);
             int y = readIntFromDNA(dna, (2*i + 1) * Resolution, Resolution);
 
-            Vector2 newPeak = new Vector2(width / pow2peak * (double)x, height / pow2peak * (double)y);
+            Vector2 newPeak = new Vector2(width * ((double)x) / pow2res, height * ((double)y) / pow2res);
             boolean alreadyIn = false ;
 
             for(int j = 0 ; j < peaksCounter ; j++){
@@ -119,15 +130,20 @@ public class Moto extends AbstractFellow implements Runnable {
         for(int i = 0 ; i < peaksCounter ; i++){
             Vector2 p1 = peaks[i % peaksCounter], p2 = peaks[(i+1) % peaksCounter] ;
 
-            if(p1.equals(center) || p2.equals(center)){
+            if(p1.equals(center) || p2.equals(center) || p1.equals(p2)){
                 continue ;
             }
 
-            if(funSubstract(p1, center).getAngleBetween(funSubstract(p2, center)) > 0) {
-                body.addFixture(new Triangle(center, p1, p2));
-            } else {
-                body.addFixture(new Triangle(center, p2, p1));
+            BodyFixture fixture ;
+            try {
+                fixture = new BodyFixture(new Triangle(center, p1, p2));
+            } catch (IllegalArgumentException e){
+                fixture = new BodyFixture(new Triangle(center, p2, p1));
             }
+
+            fixture.setFriction(50_000);
+            fixture.setDensity(2.0);
+            body.addFixture(fixture);
 
         }
 
@@ -164,11 +180,13 @@ public class Moto extends AbstractFellow implements Runnable {
             wheel.getFixture(0).setFilter(new CategoryFilter(mask,mask));
         }
 
-        gd.addToWorld(world, new Vector2(10, -2));
-
         body.setMass(new Mass(new Vector2(), 100, 100));
         world.addBody(body);
         world.setUserData(body);
+
+        if(gd != null){
+            gd.addToWorld(world);
+        }
 
         return world ;
     }
@@ -225,12 +243,13 @@ public class Moto extends AbstractFellow implements Runnable {
         return new Vector2(p1.x - p2.x, p1.y - p2.y);
     } //version fonctionnelle pour soustraire deux vecteurs
 
-    public static void setGroundDesigner(GroundDesigner gd) {
-        Moto.gd = gd;
+    public void setGroundDesigner(GroundDesigner gd) {
+        this.gd = gd;
     }
 
-    public static GroundDesigner getGroundDesigner() {
+    public GroundDesigner getGroundDesigner() {
         return gd;
     }
+
 
 }

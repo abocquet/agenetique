@@ -12,8 +12,12 @@ public class GroundDesigner {
 
     private int dist, nbBlocks ;
     private Vector2[] ground = null ;
+    private Vector2 offset = new Vector2();
 
-    GroundDesigner() {}
+    GroundDesigner() {
+        this.dist = 2000 ;
+        this.nbBlocks = 200 ;
+    }
 
     GroundDesigner(int dist, int nbBlocks) {
         this.dist = dist ;
@@ -21,7 +25,7 @@ public class GroundDesigner {
     }
 
 
-    private Vector2[] generateGround(){
+    public Vector2[] generateGround(){
 
         double[] xAxe = new double[this.nbBlocks + 1] ;
         double[] yAxe = new double[this.nbBlocks + 1] ;
@@ -57,7 +61,7 @@ public class GroundDesigner {
 
     }
 
-    public void addToWorld(World world, Vector2 offset){
+    public void addToWorld(World world){
 
         if(this.ground == null){
             this.ground = generateGround();
@@ -101,5 +105,13 @@ public class GroundDesigner {
     public GroundDesigner setGround(Vector2[] ground) {
         this.ground = ground;
         return this ;
+    }
+
+    public Vector2 getOffset() {
+        return offset;
+    }
+
+    public void setOffset(Vector2 offset) {
+        this.offset = offset;
     }
 }

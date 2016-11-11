@@ -124,7 +124,7 @@ public class Renderer2D extends JFrame {
      * Default constructor for the window
      */
     public Renderer2D() {
-        super("Graphics2D Example");
+        super("Genetic algorithm");
         // setup the JFrame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -252,7 +252,8 @@ public class Renderer2D extends JFrame {
         // convert from nanoseconds to seconds
         double elapsedTime = diff / NANO_TO_BASE;
         // update the world with the elapsed time
-        this.world.update(elapsedTime);
+        //this.world.update(elapsedTime);
+        this.world.step(1);
     }
 
     public void renderJoint(Graphics2D g){

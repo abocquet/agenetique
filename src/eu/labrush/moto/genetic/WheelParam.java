@@ -10,8 +10,8 @@ class WheelParam {
 
     public void readFromDna(int[] dna, int start){
         this.size = 0.25 * (double)(1 + readIntFromDNA(dna, start, 2));
-        this.speed = Math.PI * (double)(1 + readIntFromDNA(dna, start + 2, 2));
-        this.torque = 800 * (1 + readIntFromDNA(dna, start + 4, 2));
+        this.speed = 0.8 * Math.PI * (double)(1 + readIntFromDNA(dna, start + 2, 2));
+        this.torque = 600 * (1 + readIntFromDNA(dna, start + 4, 2));
     }
 
     /**

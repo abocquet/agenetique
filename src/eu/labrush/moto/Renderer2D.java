@@ -7,6 +7,12 @@ import java.awt.*;
 
 public class Renderer2D extends org.dyn4j.Renderer2D {
 
+    public Renderer2D(){
+        super();
+        setLocation(300, 100);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+
     Body bodyFocus = null ;
 
     public void focusOn(Body body){
