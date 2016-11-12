@@ -1,14 +1,12 @@
 package eu.labrush.car.simulation;
 
-import org.dyn4j.Epsilon;
 import org.dyn4j.geometry.Vector2;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-public class Car {
+class Car {
 
     private Vector2 position = new Vector2(100, 300);
     private double speed = 0; // Linear speed
@@ -27,14 +25,14 @@ public class Car {
 
     private Detector[] detectors ;
 
-    public Car() {
+    Car() {
         detectors = new Detector[15] ;
         for (int i = -7 ; i <= 7 ; i ++){
             detectors[i + 7] = new Detector(i * Math.PI / 12, 180);
         }
     }
 
-    public double[] updateDetectors(ArrayList<Line2D> boundaries){
+    public void updateDetectors(ArrayList<Line2D> boundaries){
 
         for (int i = 0 ; i < detectors.length ; i++) {
             detectors[i].performDetection(boundaries, this.position, this.angle);

@@ -32,7 +32,7 @@ public class Layer {
         this.weights = weights;
     }
 
-    public void compute(double[][] weights, double values[]){
+    private void compute(double[][] weights, double values[]){
 
         System.out.println(Arrays.deepToString(weights));
 

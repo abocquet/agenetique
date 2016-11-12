@@ -14,7 +14,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class GraphicInterface extends JFrame {
+class GraphicInterface extends JFrame {
 
     private CardLayout cl = new CardLayout();
     private JPanel optionPanel = new JPanel();
@@ -30,11 +30,11 @@ public class GraphicInterface extends JFrame {
 
     private int generationsLeft = 0 ; // Le nombre d'évolutions à calculer
 
-    DefaultMutableTreeNode racine ;
+    private DefaultMutableTreeNode racine ;
 
-    Nature nature ;
-    ArrayList<int[][]> genes = new ArrayList<>();
-    ArrayList<GroundDesigner> grounds = new ArrayList<>();
+    private Nature nature ;
+    private ArrayList<int[][]> genes = new ArrayList<>();
+    private ArrayList<GroundDesigner> grounds = new ArrayList<>();
 
     public GraphicInterface(){
         this.setTitle("Genetic Motos");
@@ -46,13 +46,13 @@ public class GraphicInterface extends JFrame {
         Container content = this.getContentPane() ;
         content.setLayout(cl);
 
-        /** On parametre la nature */
+        /* On parametre la nature */
 
             Moto.setPeakNumber(8);
             nature = new Nature(20, 0.5, 0.05, new MotoFactory(), new GroundDesigner());
         nature.getGroundDesigner().setOffset(new Vector2(-5, -5));
 
-        /** On parametre la fenetre qui présente les options et les générations **/
+        /* On parametre la fenetre qui présente les options et les générations **/
 
             optionPanel.setLayout(new BoxLayout(optionPanel, BoxLayout.PAGE_AXIS));
             optionPanel.add(buildTree());
@@ -69,7 +69,7 @@ public class GraphicInterface extends JFrame {
 
             content.add(optionPanel, "option");
 
-        /** Puis la fenetre de progression dans l'évolution d'une génération **/
+        /* Puis la fenetre de progression dans l'évolution d'une génération **/
 
             progressPanel.setLayout(new GridBagLayout());
             JPanel subPanel = new JPanel();

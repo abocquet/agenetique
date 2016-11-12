@@ -5,9 +5,9 @@ public abstract class AbstractFellowFactory {
     private int DNASize = 10 ;
     private int DNACard = 2 ;
 
-    public AbstractFellowFactory() {}
+    protected AbstractFellowFactory() {}
 
-    public AbstractFellowFactory(int DNACard, int DNASize) {
+    protected AbstractFellowFactory(int DNACard, int DNASize) {
         this.setDNACard(DNACard);
         this.setDNASize(DNASize);
     }
@@ -19,7 +19,7 @@ public abstract class AbstractFellowFactory {
         return DNASize;
     }
 
-    public void setDNASize(int DNASize) {
+    protected void setDNASize(int DNASize) {
         this.DNASize = DNASize;
     }
 
@@ -27,7 +27,7 @@ public abstract class AbstractFellowFactory {
         return DNACard;
     }
 
-    public void setDNACard(int DNACard) {
+    protected void setDNACard(int DNACard) {
         this.DNACard = DNACard;
     }
 }

@@ -1,6 +1,6 @@
 package eu.labrush.agenetic.numfun;
 
-public interface NumFunInterface {
+interface NumFunInterface {
 
     Object getArguments(int[] dna);
     int getY(int[] dna);

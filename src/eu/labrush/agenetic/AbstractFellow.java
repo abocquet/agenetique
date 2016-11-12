@@ -11,7 +11,7 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
     private int DNASIZE = 10 ;
     private int DNACARD = 2; //the number of symbols that can be used in the DNA from 0 to n - 1
 
-    public AbstractFellow(int DNASIZE, int DNACARD){
+    protected AbstractFellow(int DNASIZE, int DNACARD){
         this.DNACARD = DNACARD ;
         this.DNASIZE = DNASIZE ;
 
@@ -19,7 +19,7 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
         for(int i = 0 ; i < DNASIZE ; i++) this.dna[i] = ((int) (Math.random() * 10000) % DNACARD);
     }
 
-    public AbstractFellow(int[] dna, int DNACARD) {
+    protected AbstractFellow(int[] dna, int DNACARD) {
         this.dna = dna ;
         this.DNASIZE = dna.length ;
         this.DNACARD = DNACARD ;
@@ -42,7 +42,7 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
         return dna;
     }
 
-    public void setDna(int[] dna) {
+    protected void setDna(int[] dna) {
         if(dna.length != DNASIZE){
             try {
                 throw new Exception("DNA size does not match");
@@ -63,7 +63,7 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
         return DNASIZE;
     }
 
-    public int getDNACARD() {
+    protected int getDNACARD() {
         return DNACARD;
     }
 

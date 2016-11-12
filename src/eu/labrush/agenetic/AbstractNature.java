@@ -14,7 +14,7 @@ public abstract class AbstractNature {
     protected double PCROSSOVER = 0.5;
     private int POPSIZE = 10;
 
-    public AbstractNature(int POPSIZE, double PCROSSOVER, double PMUTATION, AbstractFellowFactory factory) {
+    protected AbstractNature(int POPSIZE, double PCROSSOVER, double PMUTATION, AbstractFellowFactory factory) {
 
         this.PMUTATION = PMUTATION;
         this.POPSIZE = POPSIZE;
@@ -58,7 +58,7 @@ public abstract class AbstractNature {
         }
 
         AbstractFellow[] newPop = new AbstractFellow[this.POPSIZE];
-        int i = 0 ;
+        int i;
 
         // We keep a tenth of the best of each generation
         for(i = 0 ; i < population.length / 10 ; i++){
@@ -154,7 +154,7 @@ public abstract class AbstractNature {
         return population;
     }
 
-    public void setPOPSIZE(int POPSIZE) {
+    protected void setPOPSIZE(int POPSIZE) {
         this.POPSIZE = POPSIZE;
     }
 
@@ -162,7 +162,7 @@ public abstract class AbstractNature {
         return POPSIZE;
     }
 
-    public AbstractFellow getBest(){
+    protected AbstractFellow getBest(){
         AbstractFellow best = population[0];
         for(int i = 1, c  = getPOPSIZE() ; i < c ; i++)
         {

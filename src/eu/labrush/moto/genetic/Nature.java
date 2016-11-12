@@ -9,8 +9,8 @@ import eu.labrush.observer.Observer;
 
 public class Nature extends AbstractNature implements Observable {
 
-    Observer observer = null;
-    int fitnessCalculated = 0 ;
+    private Observer observer = null;
+    private int fitnessCalculated = 0 ;
     private GroundDesigner gd ;
 
     public Nature(int POPSIZE, double PCROSSOVER, double PMUTATION, AbstractFellowFactory factory, GroundDesigner gd) {
@@ -22,7 +22,7 @@ public class Nature extends AbstractNature implements Observable {
         evolve(true);
     }
 
-    public void evolve(boolean async){
+    private void evolve(boolean async){
         if(async){ // On calcule une fois tous les fitness de façon asynchrone en profitant du multicoeur
             calc_pop_fitness();
         }
@@ -79,5 +79,5 @@ public class Nature extends AbstractNature implements Observable {
     public GroundDesigner getGroundDesigner() {
         return gd;
     }
-    public void setGroundDesigner(GroundDesigner gd){ this.gd = gd ;}
+    private void setGroundDesigner(GroundDesigner gd){ this.gd = gd ;}
 }

@@ -2,7 +2,7 @@ package eu.labrush.neural;
 
 import java.util.ArrayList;
 
-public class Network {
+class Network {
 
     private Layer in ;
     private Layer out ;

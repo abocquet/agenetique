@@ -10,7 +10,7 @@ import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Rectangle;
 import org.dyn4j.geometry.Vector2;
 
-public class Leg {
+class Leg {
 
     private Renderer2D.GameObject sup ;
     private Renderer2D.GameObject inf ;
@@ -25,7 +25,7 @@ public class Leg {
     private Vector2 knee_revolute_joint_pos = new Vector2(0, -3);
     private Vector2 hip_revolute_joint_pos = new Vector2(0, -1);
 
-    double spring_frequency = 10 ;
+    private double spring_frequency = 10 ;
 
     public Leg() {
         sup = new Renderer2D.GameObject();
@@ -62,7 +62,7 @@ public class Leg {
         hip_revolute_joint = new RevoluteJoint(sup, body, pos.copy().add(hip_revolute_joint_pos));
     }
 
-    public void translate(Vector2 pos){
+    private void translate(Vector2 pos){
         sup.translate(pos);
         inf.translate(pos);
         foot.translate(pos);

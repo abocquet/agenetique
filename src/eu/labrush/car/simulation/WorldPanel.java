@@ -13,7 +13,6 @@ import static java.awt.event.KeyEvent.*;
 
 public class WorldPanel extends JPanel implements KeyListener {
 
-    private Graphics2D g;
     private World world ;
 
     public WorldPanel(World world) {
@@ -26,12 +25,12 @@ public class WorldPanel extends JPanel implements KeyListener {
         this.requestFocusInWindow();
     }
 
-    public void paintComponent(Graphics g) {
-        this.g = (Graphics2D) g;
-        this.g.setColor(Color.WHITE);
-        this.g.drawRect(0, 0, this.getWidth(), this.getHeight());
+    public void paintComponent(Graphics g1) {
+        Graphics2D g = (Graphics2D) g1;
+        g.setColor(Color.WHITE);
+        g.drawRect(0, 0, this.getWidth(), this.getHeight());
 
-        this.g.setColor(Color.BLACK);
+        g.setColor(Color.BLACK);
 
         for(Car c: world.getCars()) {
             AffineTransform transform = new AffineTransform();
@@ -40,16 +39,16 @@ public class WorldPanel extends JPanel implements KeyListener {
 
             double w = c.getWidth(), h = c.getHeight() ;
             Shape rotatedRect = transform.createTransformedShape(new Rectangle2D.Double(-w/2, -h/2, w, h));
-            this.g.draw(rotatedRect);
+            g.draw(rotatedRect);
 
             for(Detector d: c.getDetectors()){
                 Shape rotatedLine = transform.createTransformedShape(new Line2D.Double(0, 0, d.getDistance() * Math.cos(d.getAngle()), d.getDistance() * Math.sin(d.getAngle())));
-                this.g.draw(rotatedLine);
+                g.draw(rotatedLine);
             }
         }
 
         for (Line2D l: world.boundaries){
-            this.g.draw(l);
+            g.draw(l);
         }
 
         g.dispose();

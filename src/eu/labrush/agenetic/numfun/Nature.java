@@ -4,7 +4,7 @@ import eu.labrush.agenetic.AbstractNature;
 
 import java.util.Arrays;
 
-public class Nature extends AbstractNature {
+class Nature extends AbstractNature {
 
     public Nature(int POPSIZE, double PCROSSOVER, double PMUTATION, NumFunction fun) {
         super();

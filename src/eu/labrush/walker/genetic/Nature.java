@@ -3,7 +3,6 @@ package eu.labrush.walker.genetic;
 import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.agenetic.AbstractFellowFactory;
 import eu.labrush.agenetic.AbstractNature;
-import eu.labrush.agenetic.numfun.Fellow;
 
 import java.util.Arrays;
 
@@ -22,7 +21,7 @@ public class Nature extends AbstractNature {
         evolve(true);
     }
 
-    public void evolve(boolean async){
+    private void evolve(boolean async){
         if(async){
             calc_pop_fitness();
         }
@@ -35,7 +34,7 @@ public class Nature extends AbstractNature {
      * This method is irrelevant only since the fellow "remember" its fitness
      * ie. it runs the simulation once
      */
-    public void calc_pop_fitness() {
+    private void calc_pop_fitness() {
 
         Thread[] threads = new Thread[getPOPSIZE()];
         AbstractFellow[] pop = getPopulation() ;

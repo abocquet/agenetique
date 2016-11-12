@@ -9,7 +9,7 @@ import org.dyn4j.dynamics.World;
 
 public class BipedeBodyActionner {
 
-    BipedBody walker;
+    private BipedBody walker;
 
     private ActionnerSettings hip_left ;
     private ActionnerSettings hip_right ;
