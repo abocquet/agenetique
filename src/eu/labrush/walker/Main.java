@@ -1,20 +1,13 @@
 package eu.labrush.walker;
 
-import eu.labrush.walker.actionner.BipedeBodyActionner;
-import eu.labrush.walker.genetic.Nature;
 import eu.labrush.walker.genetic.Walker;
 import eu.labrush.walker.genetic.WalkerFactory;
-import eu.labrush.walker.walker.BipedBody;
 import org.dyn4j.Renderer2D;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.World;
 import org.dyn4j.geometry.Mass;
-import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Rectangle;
 import org.dyn4j.geometry.Vector2;
-
-import java.util.Arrays;
-import java.util.Scanner;
 
 public class Main {
 

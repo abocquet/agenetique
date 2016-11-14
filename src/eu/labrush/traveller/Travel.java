@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class Travel extends AbstractFellow {
 
-    static Point[] places ;
+    private static Point[] places ;
 
     public Travel(Point[] places){
         super(places.length, places.length);

@@ -1,6 +1,7 @@
 package eu.labrush.agenetic;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.Arrays;
 
@@ -13,6 +14,8 @@ public abstract class AbstractNature {
     protected double PMUTATION = 0.05;
     protected double PCROSSOVER = 0.5;
     private int POPSIZE = 10;
+
+    private int genCounter = 0;
 
     protected AbstractNature(int POPSIZE, double PCROSSOVER, double PMUTATION, AbstractFellowFactory factory) {
 
@@ -39,7 +42,11 @@ public abstract class AbstractNature {
     public void evolve(){
         crossover();
         mutate();
+
+        genCounter++ ;
     }
+
+    public int getGenerationNumber() { return this.genCounter ; }
 
     protected void crossover() {
         Arrays.sort(this.population, (a, b) -> b.getFitness() - a.getFitness());
@@ -174,22 +181,5 @@ public abstract class AbstractNature {
         return best ;
     }
 
-    public String getStats(){
-        int min = population[0].getFitness() ;
-        int sum, max ;
-
-        sum = min ;
-        max = min ;
-
-        for(int i = 0, c = getPOPSIZE() ; i < c ; i++){
-            int f = population[i].getFitness();
-            sum += f ;
-
-            if(min > f) min = f ;
-            if(max < f) max = f ;
-        }
-
-        return "Max: " + max + " == Min: " + min + " == Avg: " + ((double)sum / getPOPSIZE()) ;
-    }
 
 }

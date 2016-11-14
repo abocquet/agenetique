@@ -2,10 +2,8 @@ package eu.labrush.car.simulation;
 
 import org.dyn4j.geometry.Vector2;
 
-import javax.sound.sampled.Line;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 
 public class World {

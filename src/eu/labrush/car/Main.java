@@ -2,15 +2,6 @@ package eu.labrush.car;
 
 import eu.labrush.car.simulation.Renderer;
 import eu.labrush.car.simulation.World;
-import eu.labrush.neural.Network;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.geom.Line2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {

@@ -4,8 +4,6 @@ import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.moto.GroundDesigner;
 import eu.labrush.moto.Renderer2D;
 import org.dyn4j.collision.CategoryFilter;
-import org.dyn4j.collision.Filter;
-import org.dyn4j.collision.Fixture;
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.World;

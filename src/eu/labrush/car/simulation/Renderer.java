@@ -4,8 +4,7 @@ import javax.swing.*;
 
 public class Renderer extends JFrame {
 
-
-    public static int FRAMERATE = 60;
+    private static int FRAMERATE = 60;
 
     private WorldPanel pan ;
     private World world ;

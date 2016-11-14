@@ -13,7 +13,7 @@ public class Renderer2D extends org.dyn4j.Renderer2D {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
-    Body bodyFocus = null ;
+    private Body bodyFocus = null ;
 
     public void focusOn(Body body){
         bodyFocus = body ;

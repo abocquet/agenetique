@@ -1,14 +1,8 @@
 package eu.labrush.moto;
 
 import eu.labrush.moto.genetic.Moto;
-import eu.labrush.moto.genetic.MotoFactory;
-import eu.labrush.moto.genetic.Nature;
-import org.dyn4j.dynamics.Step;
-import org.dyn4j.dynamics.StepListener;
 import org.dyn4j.dynamics.World;
 import org.dyn4j.geometry.Vector2;
-
-import java.util.ListIterator;
 
 public class Main {
 
@@ -65,7 +59,7 @@ public class Main {
         System.out.println("");
         System.out.println(nature);*/
 
-        Renderer2D window = new Renderer2D();
+       /* Renderer2D window = new Renderer2D();
         window.setVisible(true);
 
         //Moto moto = new Moto();
@@ -79,9 +73,9 @@ public class Main {
         World world = moto.getSim() ;
         window.setWorld(world);
         window.focusOn(world.getBody(0));
-        window.start();
+        window.start();*/
 
-        //GraphicInterface fenetre = new GraphicInterface();
+        GraphicInterface fenetre = new GraphicInterface();
 
     }
 }

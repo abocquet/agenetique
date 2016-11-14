@@ -32,7 +32,7 @@ public class SpringLeg {
     private Vector2 hip_distance_joint_anchor2 = new Vector2(-.4, -1.5);
     private Vector2 hip_revolute_joint_pos = new Vector2(0, -1);
 
-    double spring_frequency = 20 ;
+    private double spring_frequency = 20 ;
 
     public SpringLeg() {
         sup = new Renderer2D.GameObject();
@@ -81,7 +81,7 @@ public class SpringLeg {
         hip_distance_joint.setFrequency(spring_frequency);
     }
 
-    public void translate(Vector2 pos){
+    private void translate(Vector2 pos){
         sup.translate(pos);
         inf.translate(pos);
         foot.translate(pos);
