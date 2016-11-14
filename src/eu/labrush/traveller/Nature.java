@@ -57,8 +57,15 @@ public class Nature extends AbstractNature {
     }
 
     public int getShortest(){
-        Arrays.sort(population);
-        Travel best = (Travel) population[population.length - 1] ;
+        Travel best = (Travel) population[0];
+
+        for(int i = 0, c = population.length ; i < c ; i++){
+            Travel current = (Travel) population[i] ;
+            if(best.getDistance() > current.getDistance()){
+                best = current ;
+            }
+        }
+
         return best.getDistance() ;
     }
 }

@@ -1,7 +1,11 @@
 package eu.labrush.traveller.data;
 
-public class Berlin52 implements PointSet {
+public class Berlin52 extends PointSet {
 
+
+    public Berlin52(String name, String desc, int minDist, int[] x, int[] y) {
+        super("", "", 0, new int[]{0}, new int[]{0});
+    }
 
     @Override
     public Point[] getPoints() {
@@ -19,9 +23,17 @@ public class Berlin52 implements PointSet {
     }
 
     @Override
-    public String introduceYourself() {
-        return "Hi, I'm Berlin52, I am the list of 52 locations in Berlin and the best know solution to my set is 7542" ;
+    public String getName() {
+        return "Berlin 52";
     }
 
+    @Override
+    public String getDesc() {
+        return "I am the list of 52 locations in Berlin" ;
+    }
 
+    @Override
+    public int getMinDist() {
+        return 7542;
+    }
 }

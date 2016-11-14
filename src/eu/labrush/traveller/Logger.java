@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 public class Logger extends eu.labrush.agenetic.Logger {
     public Logger(String filename, AbstractNature nature) {
-        super(filename, nature, "generation;trajet le plus long;trajet le plus court;distance moyenne;");
+        super(filename, nature, "timestamp;generation;trajet le plus long;trajet le plus court;distance moyenne;");
     }
 
     @Override
@@ -28,6 +28,6 @@ public class Logger extends eu.labrush.agenetic.Logger {
             if(max < d) max = d ;
         }
 
-        return max + ";" + min + ";" + sum.divide(BigDecimal.valueOf(population.length), 5).toString() + ";"  ;
+        return System.currentTimeMillis() + ";" + max + ";" + min + ";" + sum.divide(BigDecimal.valueOf(population.length), 5).toString() + ";"  ;
     }
 }
