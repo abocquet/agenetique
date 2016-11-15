@@ -1,15 +1,15 @@
 package eu.labrush.traveller;
 
 import eu.labrush.agenetic.AbstractFellow;
-import eu.labrush.agenetic.AbstractNature;
+import eu.labrush.agenetic.AbstractParrallelNature;
 import eu.labrush.agenetic.Tuple;
 import eu.labrush.traveller.data.PointSet;
-
-import eu.labrush.traveller.operators.* ;
+import eu.labrush.traveller.operators.MutationOperator;
+import eu.labrush.traveller.operators.ReproductionOperator;
 
 import java.util.Arrays;
 
-public class Nature extends AbstractNature {
+public class Nature extends AbstractParrallelNature {
 
     private ReproductionOperator reproductionOperator ;
     private MutationOperator mutationOperator ;
@@ -17,18 +17,12 @@ public class Nature extends AbstractNature {
     private PointSet problem ;
 
     public Nature(int POPSIZE, double PCROSSOVER, double PMUTATION, PointSet problem, ReproductionOperator ro, MutationOperator mo) {
+        super(POPSIZE, PCROSSOVER, PMUTATION, new TravelFactory(problem.getPoints()));
+
         this.reproductionOperator = ro ;
         this.mutationOperator = mo ;
 
-        this.PMUTATION = PMUTATION;
-        this.PCROSSOVER = PCROSSOVER;
-        setPOPSIZE(POPSIZE);
-
         this.problem = problem ;
-
-        this.factory = new TravelFactory(problem.getPoints());
-
-        initPopulation();
     }
 
     @Override

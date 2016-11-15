@@ -7,12 +7,11 @@ import java.util.Arrays;
 
 public class Travel extends AbstractFellow {
 
-    private static Point[] places ;
+    private Point[] places ;
 
     public Travel(Point[] places){
         super(places.length, places.length);
-
-        Travel.places = places ;
+        this.places = places ;
 
         //In this particular problem, DNACARD = DNASIZE
         int[] order = new int[getDNACARD()] ;
@@ -46,8 +45,7 @@ public class Travel extends AbstractFellow {
      */
     public Travel(int[] dna, Point[] places, boolean safe){
         super(dna, places.length);
-
-        Travel.places = places ;
+        this.places = places ;
 
         if(!safe && !isPermutation()) {
             try {
@@ -69,7 +67,12 @@ public class Travel extends AbstractFellow {
         return true ;
     }
 
+    private int score = -1 ;
     public int getDistance() {
+        if(score > 0){
+            return this.score ;
+        }
+
         int[] order = this.getDna() ;
         int distance  = 0 ;
 
@@ -78,7 +81,7 @@ public class Travel extends AbstractFellow {
         }
 
         distance += Point.distance(places[0], places[order[getDNACARD()-1]]);
-
+        this.score = distance ;
         return distance ;
     }
 

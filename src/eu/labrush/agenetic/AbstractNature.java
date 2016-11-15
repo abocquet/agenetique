@@ -19,12 +19,12 @@ public abstract class AbstractNature {
 
     protected AbstractNature(int POPSIZE, double PCROSSOVER, double PMUTATION, AbstractFellowFactory factory) {
 
-        this.PMUTATION = PMUTATION;
         this.POPSIZE = POPSIZE;
-
+        this.PMUTATION = PMUTATION;
         this.PCROSSOVER = PCROSSOVER;
 
         this.factory = factory ;
+
         initPopulation();
     }
 
@@ -141,21 +141,6 @@ public abstract class AbstractNature {
 
         return new Tuple<>(children[0], children[1]);
         }
-
-    @Override
-    public String toString() {
-        String str = "[" ;
-        Arrays.sort(population);
-
-        for(AbstractFellow f : population){
-            str += f.getFitness() + " " ;
-        }
-
-        str += "]";
-
-        return str ;
-    }
-
 
     public AbstractFellow[] getPopulation() {
         return population;
