@@ -76,13 +76,6 @@ public class Moto extends AbstractFellow implements Runnable {
             stepsToRun -= stepSamplingRate ;
         }
 
-
-        Renderer2D window = new Renderer2D();
-        window.setVisible(true);
-        window.focusOn(moto);
-        window.setWorld(world);
-        window.start();
-
         this.fitness = (int)(moto.getWorldCenter().x * 10) ;
         return this.fitness ;
     }

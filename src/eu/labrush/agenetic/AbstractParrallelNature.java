@@ -43,7 +43,6 @@ abstract public class AbstractParrallelNature extends AbstractNature {
         } catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
 }

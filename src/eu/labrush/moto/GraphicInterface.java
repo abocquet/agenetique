@@ -48,8 +48,8 @@ class GraphicInterface extends JFrame {
 
         /* On parametre la nature */
 
-            Moto.setPeakNumber(8);
-            nature = new Nature(20, 0.5, 0.05, new MotoFactory(), new GroundDesigner());
+            Moto.setPeakNumber(5);
+            nature = new Nature(20, 0.5, 0.05, new MotoFactory(), new GroundDesigner(2000, 200));
         nature.getGroundDesigner().setOffset(new Vector2(-5, -5));
 
         /* On parametre la fenetre qui présente les options et les générations **/
@@ -90,7 +90,6 @@ class GraphicInterface extends JFrame {
                     }
 
                     nature.evolve();
-                    saveGenes();
                 }).start();
             });
 
@@ -145,8 +144,10 @@ class GraphicInterface extends JFrame {
                             path.getPathComponent(2).toString()
                     ).useDelimiter("\\D+").nextInt();
 
-                    Moto moto = new Moto(genes.get(generation - 1)[fellow] );
-                    moto.setGroundDesigner(grounds.get(generation - 1));
+                    System.out.println(generation);
+
+                    Moto moto = new Moto(genes.get(generation )[fellow] );
+                    moto.setGroundDesigner(grounds.get(generation));
                     World world = moto.getSim();
 
                     Renderer2D simulationWindow = new Renderer2D();
@@ -172,7 +173,6 @@ class GraphicInterface extends JFrame {
         for(int i = 0, c = nature.getPOPSIZE() ; i < c ; i++){
             currentPop[i] = nature.getPopulation()[i].getDna() ;
             DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode("Fellow #" + i + "(fitness: " + nature.getPopulation()[i].getFitness() + ")");
-            //DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode("Fellow #" + i );
             rep.add(rep2);
         }
 

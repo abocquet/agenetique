@@ -6,92 +6,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc56221a-fe50-45aa-b53a-4eba3e1aba33" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractParrallelNature.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/a280.xml" afterPath="$PROJECT_DIR$/problems/a280.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/berlin52.xml" afterPath="$PROJECT_DIR$/problems/berlin52.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/bier127.xml" afterPath="$PROJECT_DIR$/problems/bier127.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/brd14051.xml" afterPath="$PROJECT_DIR$/problems/brd14051.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/ch130.xml" afterPath="$PROJECT_DIR$/problems/ch130.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/ch150.xml" afterPath="$PROJECT_DIR$/problems/ch150.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/d1291.xml" afterPath="$PROJECT_DIR$/problems/d1291.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/d15112.xml" afterPath="$PROJECT_DIR$/problems/d15112.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/d1655.xml" afterPath="$PROJECT_DIR$/problems/d1655.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/d18512.xml" afterPath="$PROJECT_DIR$/problems/d18512.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/d198.xml" afterPath="$PROJECT_DIR$/problems/d198.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/d2103.xml" afterPath="$PROJECT_DIR$/problems/d2103.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/d493.xml" afterPath="$PROJECT_DIR$/problems/d493.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/d657.xml" afterPath="$PROJECT_DIR$/problems/d657.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/eil101.xml" afterPath="$PROJECT_DIR$/problems/eil101.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/eil51.xml" afterPath="$PROJECT_DIR$/problems/eil51.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/eil76.xml" afterPath="$PROJECT_DIR$/problems/eil76.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/fl1400.xml" afterPath="$PROJECT_DIR$/problems/fl1400.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/fl1577.xml" afterPath="$PROJECT_DIR$/problems/fl1577.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/fl3795.xml" afterPath="$PROJECT_DIR$/problems/fl3795.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/fl417.xml" afterPath="$PROJECT_DIR$/problems/fl417.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/fnl4461.xml" afterPath="$PROJECT_DIR$/problems/fnl4461.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/gil262.xml" afterPath="$PROJECT_DIR$/problems/gil262.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/kroA100.xml" afterPath="$PROJECT_DIR$/problems/kroA100.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/kroA150.xml" afterPath="$PROJECT_DIR$/problems/kroA150.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/kroA200.xml" afterPath="$PROJECT_DIR$/problems/kroA200.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/kroB100.xml" afterPath="$PROJECT_DIR$/problems/kroB100.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/kroB150.xml" afterPath="$PROJECT_DIR$/problems/kroB150.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/kroB200.xml" afterPath="$PROJECT_DIR$/problems/kroB200.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/kroC100.xml" afterPath="$PROJECT_DIR$/problems/kroC100.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/kroD100.xml" afterPath="$PROJECT_DIR$/problems/kroD100.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/kroE100.xml" afterPath="$PROJECT_DIR$/problems/kroE100.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/lin105.xml" afterPath="$PROJECT_DIR$/problems/lin105.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/lin318.xml" afterPath="$PROJECT_DIR$/problems/lin318.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/linhp318.xml" afterPath="$PROJECT_DIR$/problems/linhp318.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/nrw1379.xml" afterPath="$PROJECT_DIR$/problems/nrw1379.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/p654.xml" afterPath="$PROJECT_DIR$/problems/p654.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/pcb1173.xml" afterPath="$PROJECT_DIR$/problems/pcb1173.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/pcb3038.xml" afterPath="$PROJECT_DIR$/problems/pcb3038.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/pcb442.xml" afterPath="$PROJECT_DIR$/problems/pcb442.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/pr1002.xml" afterPath="$PROJECT_DIR$/problems/pr1002.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/pr107.xml" afterPath="$PROJECT_DIR$/problems/pr107.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/pr124.xml" afterPath="$PROJECT_DIR$/problems/pr124.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/pr136.xml" afterPath="$PROJECT_DIR$/problems/pr136.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/pr144.xml" afterPath="$PROJECT_DIR$/problems/pr144.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/pr152.xml" afterPath="$PROJECT_DIR$/problems/pr152.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/pr226.xml" afterPath="$PROJECT_DIR$/problems/pr226.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/pr2392.xml" afterPath="$PROJECT_DIR$/problems/pr2392.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/pr264.xml" afterPath="$PROJECT_DIR$/problems/pr264.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/pr299.xml" afterPath="$PROJECT_DIR$/problems/pr299.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/pr439.xml" afterPath="$PROJECT_DIR$/problems/pr439.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/pr76.xml" afterPath="$PROJECT_DIR$/problems/pr76.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/rat195.xml" afterPath="$PROJECT_DIR$/problems/rat195.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/rat575.xml" afterPath="$PROJECT_DIR$/problems/rat575.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/rat783.xml" afterPath="$PROJECT_DIR$/problems/rat783.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/rat99.xml" afterPath="$PROJECT_DIR$/problems/rat99.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/rd100.xml" afterPath="$PROJECT_DIR$/problems/rd100.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/rd400.xml" afterPath="$PROJECT_DIR$/problems/rd400.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/rl11849.xml" afterPath="$PROJECT_DIR$/problems/rl11849.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/rl1304.xml" afterPath="$PROJECT_DIR$/problems/rl1304.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/rl1323.xml" afterPath="$PROJECT_DIR$/problems/rl1323.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/rl1889.xml" afterPath="$PROJECT_DIR$/problems/rl1889.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/rl5915.xml" afterPath="$PROJECT_DIR$/problems/rl5915.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/rl5934.xml" afterPath="$PROJECT_DIR$/problems/rl5934.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/st70.xml" afterPath="$PROJECT_DIR$/problems/st70.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/ts225.xml" afterPath="$PROJECT_DIR$/problems/ts225.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/tsp225.xml" afterPath="$PROJECT_DIR$/problems/tsp225.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/u1060.xml" afterPath="$PROJECT_DIR$/problems/u1060.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/u1432.xml" afterPath="$PROJECT_DIR$/problems/u1432.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/u159.xml" afterPath="$PROJECT_DIR$/problems/u159.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/u1817.xml" afterPath="$PROJECT_DIR$/problems/u1817.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/u2152.xml" afterPath="$PROJECT_DIR$/problems/u2152.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/u2319.xml" afterPath="$PROJECT_DIR$/problems/u2319.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/u574.xml" afterPath="$PROJECT_DIR$/problems/u574.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/u724.xml" afterPath="$PROJECT_DIR$/problems/u724.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/usa13509.xml" afterPath="$PROJECT_DIR$/problems/usa13509.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/vm1084.xml" afterPath="$PROJECT_DIR$/problems/vm1084.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems/vm1748.xml" afterPath="$PROJECT_DIR$/problems/vm1748.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractNature.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractNature.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractParrallelNature.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractParrallelNature.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/moto/GraphicInterface.java" afterPath="$PROJECT_DIR$/src/eu/labrush/moto/GraphicInterface.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/moto/Main.java" afterPath="$PROJECT_DIR$/src/eu/labrush/moto/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/moto/genetic/Moto.java" afterPath="$PROJECT_DIR$/src/eu/labrush/moto/genetic/Moto.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/moto/genetic/Nature.java" afterPath="$PROJECT_DIR$/src/eu/labrush/moto/genetic/Nature.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/traveller/Main.java" afterPath="$PROJECT_DIR$/src/eu/labrush/traveller/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/traveller/Nature.java" afterPath="$PROJECT_DIR$/src/eu/labrush/traveller/Nature.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/traveller/Travel.java" afterPath="$PROJECT_DIR$/src/eu/labrush/traveller/Travel.java" />
     </list>
     <ignored path="agenetique.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -161,10 +81,8 @@
         <option value="$PROJECT_DIR$/src/eu/labrush/observer/Observable.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/moto/FancyProgressBar.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/moto/Renderer2DPanel.java" />
-        <option value="$PROJECT_DIR$/src/eu/labrush/moto/GraphicInterface.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/moto/genetic/WheelParam.java" />
         <option value="$PROJECT_DIR$/src/org/dyn4j/Renderer2D.java" />
-        <option value="$PROJECT_DIR$/src/eu/labrush/moto/genetic/Moto.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/neural/Network.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/neural/Layer.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/neural/GNetwork.java" />
@@ -174,11 +92,9 @@
         <option value="$PROJECT_DIR$/src/eu/labrush/car/simulation/World.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/car/simulation/Car.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/car/simulation/WorldPanel.java" />
-        <option value="$PROJECT_DIR$/src/eu/labrush/moto/GroundDesigner.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/traveller/data/Point.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/car/simulation/Renderer.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/moto/Renderer2D.java" />
-        <option value="$PROJECT_DIR$/src/eu/labrush/moto/Main.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/Main.java" />
         <option value="$PROJECT_DIR$/traveller.csv" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/Logger.java" />
@@ -187,13 +103,17 @@
         <option value="$PROJECT_DIR$/src/eu/labrush/traveller/data/PointSetFactory.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/traveller/Logger.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/eu/labrush/moto/genetic/Nature.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/traveller/Nature.java" />
-        <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractParrallelNature.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractNature.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/traveller/Main.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractFellow.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/traveller/Travel.java" />
+        <option value="$PROJECT_DIR$/src/eu/labrush/moto/GroundDesigner.java" />
+        <option value="$PROJECT_DIR$/src/eu/labrush/moto/genetic/Moto.java" />
+        <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractParrallelNature.java" />
+        <option value="$PROJECT_DIR$/src/eu/labrush/moto/Main.java" />
+        <option value="$PROJECT_DIR$/src/eu/labrush/moto/genetic/Nature.java" />
+        <option value="$PROJECT_DIR$/src/eu/labrush/moto/GraphicInterface.java" />
       </list>
     </option>
   </component>
@@ -403,6 +323,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="agenetique" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="agenetique" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="labrush" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="agenetic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -438,7 +380,7 @@
       <recent name="eu.labrush.numfun" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main (2)">
+  <component name="RunManager" selected="Application.Main (4)">
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="eu.labrush.agenetic.Main" />
@@ -795,12 +737,12 @@
       <workItem from="1479136045392" duration="7780000" />
       <workItem from="1479161209592" duration="238000" />
       <workItem from="1479161521832" duration="143000" />
-      <workItem from="1479218640419" duration="4359000" />
+      <workItem from="1479218640419" duration="5649000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="211561000" />
+    <option name="totallyTimeSpent" value="212851000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -823,12 +765,12 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294621" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23901394" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1511254" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299389" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14547677" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14547677" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294621" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32583067" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22555012" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1015,13 +957,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/labrush/moto/Renderer2D.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/labrush/walker/genetic/Nature.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1029,24 +964,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/labrush/moto/GroundDesigner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="18" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/labrush/car/simulation/WorldPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/labrush/moto/GraphicInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="19" column="19" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -1069,9 +990,9 @@
         <state relative-caret-position="691">
           <caret line="70" column="25" selection-start-line="70" selection-start-column="25" selection-end-line="70" selection-end-column="25" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1859#1860#0" expanded="true" />
-            <element signature="e#1891#1892#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1859#1860#0" expanded="false" />
+            <element signature="e#1891#1892#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1149,17 +1070,7 @@
         <state relative-caret-position="135">
           <caret line="9" column="31" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
           <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/labrush/moto/genetic/Nature.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1177,7 +1088,7 @@
         <state relative-caret-position="495">
           <caret line="33" column="139" selection-start-line="33" selection-start-column="139" selection-end-line="33" selection-end-column="139" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1187,17 +1098,9 @@
         <state relative-caret-position="165">
           <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
           <folding>
-            <element signature="e#394#395#0" expanded="true" />
-            <element signature="e#435#436#0" expanded="true" />
+            <element signature="e#394#395#0" expanded="false" />
+            <element signature="e#435#436#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/labrush/moto/genetic/Moto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="26" column="30" selection-start-line="26" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1206,7 +1109,7 @@
         <state relative-caret-position="13">
           <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1227,29 +1130,76 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractFellow.java">
+    <entry file="file://$PROJECT_DIR$/src/eu/labrush/moto/genetic/Moto.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+        <state relative-caret-position="674">
+          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
           <folding>
-            <element signature="e#1532#1533#0" expanded="true" />
-            <element signature="e#1592#1593#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/labrush/moto/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/eu/labrush/moto/Renderer2D.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="61" column="9" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="9" />
+        <state relative-caret-position="390">
+          <caret line="31" column="28" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractFellow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="31" column="24" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eu/labrush/moto/GraphicInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="106" column="65" selection-start-line="106" selection-start-column="65" selection-end-line="106" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eu/labrush/moto/GroundDesigner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="76" column="35" selection-start-line="76" selection-start-column="35" selection-end-line="76" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eu/labrush/moto/genetic/Nature.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#721#722#0" expanded="true" />
+            <element signature="e#749#750#0" expanded="true" />
+            <element signature="e#1602#1603#0" expanded="true" />
+            <element signature="e#1633#1634#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractParrallelNature.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
+        <state relative-caret-position="345">
+          <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="49" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eu/labrush/moto/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="42" column="11" selection-start-line="42" selection-start-column="11" selection-end-line="42" selection-end-column="11" />
           <folding />
         </state>
       </provider>

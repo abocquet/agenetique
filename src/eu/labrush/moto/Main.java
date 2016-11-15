@@ -8,8 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Moto.setPeakNumber(4);
-
+        /*Moto.setPeakNumber(4);
 
         int dna[] = {
                 0,0,0,0,
@@ -41,7 +40,7 @@ public class Main {
             moto = new Moto(dna);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
         /*Nature nature = new Nature(20, 0.5, 0.05, new MotoFactory(), new GroundDesigner(200, 20));
         System.out.println(nature);
@@ -59,23 +58,23 @@ public class Main {
         System.out.println("");
         System.out.println(nature);*/
 
-       /* Renderer2D window = new Renderer2D();
+       /*Renderer2D window = new Renderer2D();
         window.setVisible(true);
 
-        //Moto moto = new Moto();
+        moto = new Moto();
 
-        GroundDesigner gd = new GroundDesigner(2000, 200);
+        GroundDesigner gd = new GroundDesigner(20, 20);
         moto.setGroundDesigner(gd);
         gd.setOffset(new Vector2(0,-5));
 
-        System.out.println(moto.getFitness());
+        //System.out.println(moto.getFitness());
 
         World world = moto.getSim() ;
         window.setWorld(world);
         window.focusOn(world.getBody(0));
         window.start();*/
 
-        GraphicInterface fenetre = new GraphicInterface();
+       GraphicInterface fenetre = new GraphicInterface();
 
     }
 }
