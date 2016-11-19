@@ -1,7 +1,6 @@
 package eu.labrush.agenetic;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.Arrays;
 
@@ -19,12 +18,11 @@ public abstract class AbstractNature {
 
     protected AbstractNature(int POPSIZE, double PCROSSOVER, double PMUTATION, AbstractFellowFactory factory) {
 
-        this.POPSIZE = POPSIZE;
-        this.PMUTATION = PMUTATION;
+        this.POPSIZE = POPSIZE ;
+        this.PMUTATION = PMUTATION ;
         this.PCROSSOVER = PCROSSOVER;
 
         this.factory = factory ;
-
         initPopulation();
     }
 
@@ -38,13 +36,43 @@ public abstract class AbstractNature {
         }
     }
 
-
     public void evolve(){
+        evolve(false);
+    }
+
+    public void evolve(boolean async){
+        if(async){ // On calcule une fois tous les fitness de façon asynchrone en profitant du multicoeur
+            calc_pop_fitness();
+        }
+
         crossover();
         mutate();
 
         genCounter++ ;
     }
+
+    protected void calc_pop_fitness() {
+
+        Thread[] threads = new Thread[getPOPSIZE()];
+        AbstractFellow[] pop = getPopulation() ;
+
+        for(int i = 0, c = getPOPSIZE() ; i < c ; i++){
+            AbstractFellow t = pop[i] ;
+
+            threads[i] = new Thread(() -> {
+                t.getFitness();
+            });
+
+            threads[i].start();
+        }
+
+        try {
+            for(int i = 0, c = getPOPSIZE() ; i < c ; i++){ threads[i].join(); }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
     public int getGenerationNumber() { return this.genCounter ; }
 
@@ -113,7 +141,7 @@ public abstract class AbstractNature {
 
                 finalement on passe de l'autre coté pour éviter de manipuler des flottants)
                  */
-                if(Math.random() * (DNACARD - 1) <= PMUTATION * DNACARD) f.getDna()[i] = ((int) (Math.random() * 10000) % DNACARD);
+                if(Math.random() * (DNACARD - 1) <= PMUTATION * DNACARD) f.setDNA(i, ((int) (Math.random() * 10000) % DNACARD));
             }
         }
     }
@@ -129,11 +157,11 @@ public abstract class AbstractNature {
             int[] dna = new int[DNASIZE];
 
             for (int j = 0; j < splitPoint; j++) {
-                dna[j] = male.getDna()[j];
+                dna[j] = male.getDNA(j);
             }
 
             for (int j = splitPoint; j < DNASIZE; j++) {
-                dna[j] = female.getDna()[j];
+                dna[j] = female.getDNA(j);
             }
 
             children[i] = this.factory.newInstance(dna) ;

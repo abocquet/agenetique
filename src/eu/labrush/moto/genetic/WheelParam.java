@@ -1,30 +1,32 @@
 package eu.labrush.moto.genetic;
 
+import eu.labrush.agenetic.AbstractFellow;
+
 class WheelParam {
     public double speed, size ;
     public int torque ;
 
-    public WheelParam(int[] dna, int start) {
-        readFromDna(dna, start);
+    public WheelParam(AbstractFellow f, int start) {
+        readFromDna(f, start);
     }
 
-    public void readFromDna(int[] dna, int start){
-        this.size = 0.25 * (double)(1 + readIntFromDNA(dna, start, 2));
-        this.speed = 0.8 * Math.PI * (double)(1 + readIntFromDNA(dna, start + 2, 2));
-        this.torque = 600 * (1 + readIntFromDNA(dna, start + 4, 2));
+    public void readFromDna(AbstractFellow f, int start){
+        this.size = 0.25 * (double)(1 + readIntFromDNA(f, start, 2));
+        this.speed = 0.8 * Math.PI * (double)(1 + readIntFromDNA(f, start + 2, 2));
+        this.torque = 600 * (1 + readIntFromDNA(f, start + 4, 2));
     }
 
     /**
-     * @param dna
+     * @param f
      * @param start
      * @param length
      * @return binary input as int
      */
-    private int readIntFromDNA(int[] dna, int start, int length) {
+    private int readIntFromDNA(AbstractFellow f, int start, int length) {
         int x = 0 ;
         int tmp = 1 ;
         for(int i = start ; i < start + length ; i++){
-            if(dna[i] == 1) {
+            if(f.getDNA(i) == 1) {
                 x += tmp ;
             }
             tmp *= 2 ;

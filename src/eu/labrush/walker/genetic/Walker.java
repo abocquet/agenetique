@@ -17,7 +17,6 @@ import static java.lang.Math.toRadians;
 public class Walker extends AbstractFellow implements Runnable {
 
     static final int AskedDNASIZE = 48 ;
-    private int fitness = Integer.MIN_VALUE ;
 
     public Walker() {
         super(AskedDNASIZE, 2);
@@ -36,10 +35,7 @@ public class Walker extends AbstractFellow implements Runnable {
     }
 
     @Override
-    public int getFitness() {
-        if(this.fitness != Integer.MIN_VALUE){
-            return  this.fitness ;
-        }
+    public int calcFitness() {
 
         Rectangle frect = new Rectangle(10_000, 1);
         Renderer2D.GameObject floor = new Renderer2D.GameObject();
@@ -50,10 +46,10 @@ public class Walker extends AbstractFellow implements Runnable {
         BipedBody walker = new BipedBody() ;
         BipedeBodyActionner actionner = new BipedeBodyActionner(walker);
 
-        actionner.setLeftHip(  readDNA(this.getDna(), 0, 3, 2, 3, 4));
-        actionner.setLeftKnee( readDNA(this.getDna(), 12, 3, 2, 3, 4));
-        actionner.setRightHip( readDNA(this.getDna(), 24, 3, 2, 3, 4));
-        actionner.setRightKnee(readDNA(this.getDna(), 36, 3, 2, 3, 4));
+        actionner.setLeftHip(  readDNA(this.cloneDNA(), 0, 3, 2, 3, 4));
+        actionner.setLeftKnee( readDNA(this.cloneDNA(), 12, 3, 2, 3, 4));
+        actionner.setRightHip( readDNA(this.cloneDNA(), 24, 3, 2, 3, 4));
+        actionner.setRightKnee(readDNA(this.cloneDNA(), 36, 3, 2, 3, 4));
 
         World world = new World();
         world.addBody(floor);
@@ -63,8 +59,8 @@ public class Walker extends AbstractFellow implements Runnable {
         world.step(10_000);
         System.out.print(".");
 
-        this.fitness = (int) (walker.getDistance() * 1000);
-        return this.fitness ;
+        int fitness = (int) (walker.getDistance() * 1000);
+        return this.fitness + 100;
     }
 
     //TODO: delete once tests completed
@@ -78,11 +74,11 @@ public class Walker extends AbstractFellow implements Runnable {
         BipedBody walker = new BipedBody() ;
         BipedeBodyActionner actionner = new BipedeBodyActionner(walker);
 
-        actionner.setLeftHip(  readDNA(this.getDna(), 0, 3, 2, 3, 4));
-        actionner.setLeftKnee( readDNA(this.getDna(), 12, 3, 2, 3, 4).addMaxAngle(toRadians(30)));
+        actionner.setLeftHip(  readDNA(this.cloneDNA(), 0, 3, 2, 3, 4)); //TODO: correct value so as to avoid to clone dna each time
+        actionner.setLeftKnee( readDNA(this.cloneDNA(), 12, 3, 2, 3, 4).addMaxAngle(toRadians(30)));
 
-        actionner.setRightHip( readDNA(this.getDna(), 24, 3, 2, 3, 4));
-        actionner.setRightKnee(readDNA(this.getDna(), 36, 3, 2, 3, 4).addMaxAngle(toRadians(30)));
+        actionner.setRightHip( readDNA(this.cloneDNA(), 24, 3, 2, 3, 4));
+        actionner.setRightKnee(readDNA(this.cloneDNA(), 36, 3, 2, 3, 4).addMaxAngle(toRadians(30)));
 
         World world = new World();
         world.addBody(floor);

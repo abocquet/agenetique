@@ -20,9 +20,8 @@ public class Main {
             Logger logger = new Logger("logs/" + problem.getName() + ".csv", nature);
 
             int i = 0, p = 100;
-            nature.evolve(true);
             while (nature.getShortest() * 100 > problem.getMinDist() * 105) {
-                if (i % p == 0) {
+                if (i % p == 0 ) {
                     logger.log();
                      System.out.println("Génération " + i + " " + nature.getShortest() + " / " + problem.getMinDist());
                 }
@@ -31,6 +30,7 @@ public class Main {
                 i++;
             }
 
+            logger.log();
             System.out.println("Problem " + name + " génération " + i + " " + nature.getShortest() + " / "  + problem.getMinDist() + "\n");
         }
 

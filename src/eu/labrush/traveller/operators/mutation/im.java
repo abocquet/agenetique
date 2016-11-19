@@ -21,16 +21,14 @@ public class im implements MutationOperator {
                     s1 = tmp ;
                 }
 
-                int[] dna = f.getDna() ;
-
                 int m = (s1 + s2) / 2 ;
+
                 for(int i = 0 ; i < m - s1 ; i++){
-                    int tmp = f.getDna()[s1 + i] ;
-                    dna[s1+i] = dna[s2 - i];
-                    dna[s2-i] = tmp ;
+                    int tmp = f.getDNA(s1 + i) ;
+                    f.setDNA(s1+i, f.getDNA(s2 - i));
+                    f.setDNA(s2-i, tmp) ;
                 }
             }
         }
-
     }
 }

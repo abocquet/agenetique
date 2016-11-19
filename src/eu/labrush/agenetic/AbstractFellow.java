@@ -4,6 +4,9 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
 
     private int[] dna ;
 
+    protected int fitness = -1 ;
+    private boolean DNAEdited = false ;
+
     /**
         If you want to adapt DNASIZE and DNACARD, change the static class
         value inside the Nature class before creating any new Fellow
@@ -29,7 +32,15 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
      * @return the fitness of the fellow ie its adaptation
      * higher is better
      */
-    abstract public int getFitness();
+    public final int getFitness(){
+        if(this.fitness < 0 || DNAEdited){
+            this.fitness = this.calcFitness();
+        }
+
+        return this.fitness ;
+    }
+
+    protected abstract int calcFitness();
 
     @Override
     public String toString() {
@@ -38,8 +49,14 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
                 '}';
     }
 
-    public int[] getDna() {
-        return dna;
+
+    public int getDNA(int index){
+        return this.dna[index] ;
+    }
+
+    public void setDNA(int index, int value){
+        this.dna[index] = value ;
+        this.DNAEdited = true ;
     }
 
     protected void setDna(int[] dna) {
@@ -59,12 +76,12 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
         return this.getFitness() - mate.getFitness();
     }
 
-    public int getDNASIZE() {
-        return DNASIZE;
-    }
-
+    public int getDNASIZE() { return DNASIZE; }
     protected int getDNACARD() {
         return DNACARD;
     }
+
+
+    public int[] cloneDNA(){ return  this.dna.clone(); }
 
 }

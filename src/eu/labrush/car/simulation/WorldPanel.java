@@ -33,20 +33,33 @@ public class WorldPanel extends JPanel implements KeyListener {
         g.setColor(Color.BLACK);
 
         for(Car c: world.getCars()) {
+
             AffineTransform transform = new AffineTransform();
             transform.translate(c.getX(), c.getY());
             transform.rotate(c.getAngle());
 
+            if(c != world.user && c.isRunning()) {
+                g.setColor(Color.BLACK);
+                for (Detector d : c.getDetectors()) {
+                    Shape rotatedLine = transform.createTransformedShape(new Line2D.Double(0, 0, d.getDistance() * Math.cos(d.getAngle()), d.getDistance() * Math.sin(d.getAngle())));
+                    g.draw(rotatedLine);
+                }
+            }
+
+            if(c.isRunning()) {
+                g.setColor(Color.ORANGE);
+            } else {
+                g.setColor(Color.gray);
+            }
+
             double w = c.getWidth(), h = c.getHeight() ;
             Shape rotatedRect = transform.createTransformedShape(new Rectangle2D.Double(-w/2, -h/2, w, h));
             g.draw(rotatedRect);
+            g.fill(rotatedRect);
 
-            for(Detector d: c.getDetectors()){
-                Shape rotatedLine = transform.createTransformedShape(new Line2D.Double(0, 0, d.getDistance() * Math.cos(d.getAngle()), d.getDistance() * Math.sin(d.getAngle())));
-                g.draw(rotatedLine);
-            }
         }
 
+        g.setColor(Color.BLACK);
         for (Line2D l: world.boundaries){
             g.draw(l);
         }
@@ -63,16 +76,16 @@ public class WorldPanel extends JPanel implements KeyListener {
     public void keyPressed (KeyEvent e) {
         switch (e.getKeyCode()) {
             case VK_LEFT:
-                world.userCar.increaseAngle(-Math.PI / 30);
+                world.user.increaseAngle(-Math.PI / 30);
                 break;
             case VK_RIGHT:
-                world.userCar.increaseAngle(Math.PI / 30);
+                world.user.increaseAngle(Math.PI / 30);
                 break;
             case VK_UP:
-                world.userCar.increaseSpeed(10);
+                world.user.increaseSpeed(10);
                 break;
             case VK_DOWN:
-                world.userCar.increaseSpeed(-10);
+                world.user.increaseSpeed(-10);
                 break ;
         }
     }

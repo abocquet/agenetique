@@ -8,6 +8,7 @@ import java.util.Arrays;
 public class Travel extends AbstractFellow {
 
     private Point[] places ;
+    private int distance = 0 ;
 
     public Travel(Point[] places){
         super(places.length, places.length);
@@ -57,7 +58,7 @@ public class Travel extends AbstractFellow {
     }
 
     private boolean isPermutation() {
-        int[] dna = this.getDna().clone() ;
+        int[] dna = this.cloneDNA();
         Arrays.sort(dna);
 
         for(int i = 0 ; i < getDNASIZE() ; i++){
@@ -68,25 +69,24 @@ public class Travel extends AbstractFellow {
     }
 
     private int score = -1 ;
-    public int getDistance() {
-        if(score > 0){
-            return this.score ;
-        }
 
-        int[] order = this.getDna() ;
+    @Override
+    public int calcFitness() {
+        return Integer.MAX_VALUE - getDistance() ; // We reverse the process to transform it into a max research ;
+    }
+
+    public int getDistance() {
         int distance  = 0 ;
 
         for(int i = 0 ; i < getDNACARD() - 1 ; i ++){
-            distance += Point.distance(places[order[i]], places[order[i+1]]);
+            distance += Point.distance(places[getDNA(i)], places[getDNA(i+1)]);
         }
 
-        distance += Point.distance(places[0], places[order[getDNACARD()-1]]);
+        distance += Point.distance(places[0], places[getDNA(getDNACARD()-1)]);
         this.score = distance ;
+        this.distance = distance ;
+
         return distance ;
     }
 
-    @Override
-    public int getFitness() {
-        return Integer.MAX_VALUE - getDistance(); // We reverse the process to transform it into a max research
-    }
 }

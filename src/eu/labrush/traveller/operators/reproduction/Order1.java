@@ -31,11 +31,11 @@ public class Order1 implements ReproductionOperator {
             Arrays.fill(dna, -1);
 
             for(int j = s1 ; j < s2 ; j++){
-                dna[j] = parents[offset].getDna()[j] ;
+                dna[j] = parents[offset].getDNA(j) ;
             }
 
             int c = s2 ; // The cursor that points on the second parent dna
-            int[] completion_dna = parents[(offset + 1) %  2].getDna() ;
+            int[] completion_dna = parents[(offset + 1) %  2].cloneDNA() ;
 
             for(int j = s2 ; j < DNASIZE ; j++){
                 while(arrayContains(dna,  completion_dna[c], DNASIZE)){

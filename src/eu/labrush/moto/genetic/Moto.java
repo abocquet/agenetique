@@ -44,7 +44,7 @@ public class Moto extends AbstractFellow implements Runnable {
     }
 
     @Override
-    public int getFitness() {
+    public int calcFitness() {
 
         if(this.fitness != Integer.MIN_VALUE){
             return this.fitness ;
@@ -88,13 +88,11 @@ public class Moto extends AbstractFellow implements Runnable {
         this.peaks = new Vector2[PeakNumber];
         int pow2res = 2 ^ Resolution;
 
-        int dna[] = getDna() ;
         int peaksCounter = 0 ; //semblable a peakNumber, mais peut prendre des valeurs inférieures car il indique le nombre de sommets différents
 
-
         for(int i = 0 ; i < PeakNumber ; i++){
-            int x = readIntFromDNA(dna, 2 * i * Resolution, Resolution);
-            int y = readIntFromDNA(dna, (2*i + 1) * Resolution, Resolution);
+            int x = readIntFromDNA(this, 2 * i * Resolution, Resolution);
+            int y = readIntFromDNA(this, (2*i + 1) * Resolution, Resolution);
 
             Vector2 newPeak = new Vector2(width * ((double)x) / pow2res, height * ((double)y) / pow2res);
             boolean alreadyIn = false ;
@@ -139,8 +137,8 @@ public class Moto extends AbstractFellow implements Runnable {
         }
 
         int wheelAdress[] = {
-                readIntFromDNA(dna, PeakNumber * Resolution * 2, WheelAdressLenght),
-                readIntFromDNA(dna, PeakNumber * Resolution * 2+ WheelAdressLenght, WheelAdressLenght)
+                readIntFromDNA(this, PeakNumber * Resolution * 2, WheelAdressLenght),
+                readIntFromDNA(this, PeakNumber * Resolution * 2+ WheelAdressLenght, WheelAdressLenght)
         } ;
 
         if(wheelAdress[0] == wheelAdress[1]){
@@ -150,7 +148,7 @@ public class Moto extends AbstractFellow implements Runnable {
         for(int i = 0 ; i < 2 ; i++){
             Vector2 selectedPeak = peaks[wheelAdress[i] % peaksCounter];
 
-            WheelParam param = new WheelParam(dna, (PeakNumber * Resolution + WheelAdressLenght) * 2 + 6 * i );
+            WheelParam param = new WheelParam(this, (PeakNumber * Resolution + WheelAdressLenght) * 2 + 6 * i );
 
             Renderer2D.GameObject wheel = new Renderer2D.GameObject();
             wheel.addFixture(new Circle(param.size));
@@ -183,17 +181,16 @@ public class Moto extends AbstractFellow implements Runnable {
     }
 
     /**
-     *
-     * @param dna
+     * @param f a fellow
      * @param start
      * @param length
      * @return binary input as int
      */
-    private int readIntFromDNA(int[] dna, int start, int length) {
+    private int readIntFromDNA(AbstractFellow f, int start, int length) {
         int x = 0 ;
         int tmp = 1 ;
         for(int i = start ; i < start + length ; i++){
-            if(dna[i] == 1) {
+            if(f.getDNA(i) == 1) {
                 x += tmp ;
             }
             tmp *= 2 ;

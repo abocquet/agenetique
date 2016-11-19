@@ -1,7 +1,7 @@
 package eu.labrush.traveller;
 
 import eu.labrush.agenetic.AbstractFellow;
-import eu.labrush.agenetic.AbstractParrallelNature;
+import eu.labrush.agenetic.AbstractNature;
 import eu.labrush.agenetic.Tuple;
 import eu.labrush.traveller.data.PointSet;
 import eu.labrush.traveller.operators.MutationOperator;
@@ -9,7 +9,7 @@ import eu.labrush.traveller.operators.ReproductionOperator;
 
 import java.util.Arrays;
 
-public class Nature extends AbstractParrallelNature {
+public class Nature extends AbstractNature {
 
     private ReproductionOperator reproductionOperator ;
     private MutationOperator mutationOperator ;
@@ -45,7 +45,7 @@ public class Nature extends AbstractParrallelNature {
         str += this.problem.introduceYourself() + "\"\n" ;
 
         str += "\nThe best travel found has a distance of " + best.getDistance() ;
-        str += " and follows the path\n" + Arrays.toString(best.getDna());
+        str += " and follows the path\n" + Arrays.toString(best.cloneDNA());
 
         return str ;
     }

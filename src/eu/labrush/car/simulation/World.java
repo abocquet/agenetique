@@ -2,21 +2,35 @@ package eu.labrush.car.simulation;
 
 import org.dyn4j.geometry.Vector2;
 
+import java.awt.*;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class World {
 
-    ArrayList<Car> cars = new ArrayList<>();
-    Car userCar = new Car();
+    Car[] cars ;
+    Car user;
+    private int carsAlive ;
 
     ArrayList<Line2D> boundaries = new ArrayList<>();
 
     public World() {
-        cars.add(userCar);
+        initialize();
+    }
+
+    private void initialize() {
+        int nbCars = 1 ;
+        cars = new Car[nbCars];
+        for(int i = 0 ; i < nbCars ; i++){
+            cars[i] = new Car();
+        }
+
+        //user = cars[0] ;
+        carsAlive = nbCars ;
+
         addRectBoundary(50, 50, 620, 380);
-        addBoundary(50, 250, 250, 250);
+        addRectBoundary(120, 120, 480, 240);
     }
 
     /**
@@ -24,12 +38,18 @@ public class World {
      */
     public void step(double time){
 
-        Iterator<Car> it = cars.iterator();
-        while(it.hasNext()) {
-            Car c = it.next();
-            c.getPosition().add(
-                    new Vector2(c.getAngle()).product(c.getSpeed() * time / 1000)
-            );
+        for(int i = 0 ; i < cars.length ; i++) {
+            Car c = cars[i] ;
+
+            if(!c.isRunning())
+                continue;
+
+            Vector2 dpos = new Vector2(c.getAngle()).product(c.getSpeed() * time / 1000);
+            c.getPosition().add(dpos);
+
+            if(cars[i].getDriver() != null) {
+                cars[i].getDriver().increaseDistance(dpos.getMagnitude());
+            }
 
             double x = c.getX(), y = c.getY(), w =  c.getWidth()/2, h =  c.getHeight()/2 ;
             double cos = Math.cos(c.getAngle()), sin = Math.sin(c.getAngle()) ;
@@ -50,19 +70,24 @@ public class World {
             for (Line2D boundary: boundaries) {
                 for(Line2D cB: carBorders){
                     if(cB.intersectsLine(boundary)){
-                        it.remove();
+                        c.setRunning(false) ;
+                        carsAlive-- ;
                         break ;
                     }
                 }
             }
 
-            c.updateDetectors(boundaries);
-            c.drive();
+            if(carsAlive <= 0){
+                initialize();
+            }
+
+            if(c != this.user)
+                c.drive(boundaries);
         }
 
     }
 
-    public ArrayList<Car> getCars() {
+    public Car[] getCars() {
         return cars;
     }
 

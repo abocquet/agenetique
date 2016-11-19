@@ -15,12 +15,12 @@ public class Fellow extends AbstractFellow {
         super(dna, DNACARD);
     }
 
-    public int getFitness() {
-        return fun.getY(this.getDna());
+    public int calcFitness() {
+        return fun.getY(this.cloneDNA());
     }
 
     public String getX(){
-        return fun.getArguments(this.getDna()).toString();
+        return fun.getArguments(this.cloneDNA()).toString();
     }
 
     public static NumFunction getFun() {

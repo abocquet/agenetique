@@ -21,7 +21,7 @@ public class Nature extends AbstractNature {
         evolve(true);
     }
 
-    private void evolve(boolean async){
+    public void evolve(boolean async){
         if(async){
             calc_pop_fitness();
         }
@@ -34,7 +34,7 @@ public class Nature extends AbstractNature {
      * This method is irrelevant only since the fellow "remember" its fitness
      * ie. it runs the simulation once
      */
-    private void calc_pop_fitness() {
+    public void calc_pop_fitness() {
 
         Thread[] threads = new Thread[getPOPSIZE()];
         AbstractFellow[] pop = getPopulation() ;

@@ -34,8 +34,6 @@ public class Layer {
 
     private void compute(double[][] weights, double values[]){
 
-        System.out.println(Arrays.deepToString(weights));
-
         if(weights.length != values.length || weights[0].length != this.neurons){
             System.err.println("Links between this layer and the previous one are not compatible");
         }
@@ -43,10 +41,9 @@ public class Layer {
         for(int i = 0 ; i < neurons ; i ++){
             for(int j = 0 ; j < values.length ; j++){
                 this.values[i] += values[j] * weights[j][i] ;
-                System.out.println(this.values[i] + " " + values[j] + " " + weights[j][i]);
             }
 
-            //this.values[i] = sigma(this.values[i]);
+            this.values[i] = sigma(this.values[i]);
         }
 
         if(next != null){
@@ -60,7 +57,6 @@ public class Layer {
         }
 
         this.values = values;
-        System.out.println(Arrays.deepToString(this.weights));
         if(next != null){
             next.compute(this.weights, this.values);
         }
