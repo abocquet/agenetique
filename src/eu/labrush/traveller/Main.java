@@ -9,10 +9,18 @@ public class Main {
 
     public static void main(String[] args) {
 
+
+        //runTests(new String[]{"d18512"});
+        runTests(new String[]{"berlin52", "kroA100", "kroA150", "kroA200", "lin318", "pr439", "rat575", "rat783", "rl1304", "rl1889"});
+
+    }
+
+
+    private static void runTests(String[] names){
         PointSetFactory factory = new PointSetFactory() ;
         //System.out.println(factory.getProblems());
 
-        for(String name: new String[]{"berlin52", "kroA100", "kroA150", "kroA200", "lin318", "pr439", "rat575", "rat783", "rl1304", "rl1889"}){
+        for(String name: names){
             PointSet problem = factory.getSet(name);
             System.out.println(problem.getDesc());
 
@@ -21,9 +29,9 @@ public class Main {
 
             int i = 0, p = 100;
             while (nature.getShortest() * 100 > problem.getMinDist() * 105) {
-                if (i % p == 0 ) {
+                if (i % p == 0) {
                     logger.log();
-                     System.out.println("Génération " + i + " " + nature.getShortest() + " / " + problem.getMinDist());
+                    System.out.println("Génération " + i + " " + nature.getShortest() + " / " + problem.getMinDist());
                 }
 
                 nature.evolve(true);
@@ -33,19 +41,7 @@ public class Main {
             logger.log();
             System.out.println("Problem " + name + " génération " + i + " " + nature.getShortest() + " / "  + problem.getMinDist() + "\n");
         }
-
-        //System.out.println("");
-        //System.out.println("Génération " + i + " " + nature.getShortest() + " / "  + problem.getMinDist());
-        //System.out.println(nature.introduceYourself());
-
-
     }
+
 }
 
-/*for(int i = 0, N = 10_000, p = 10 ; i < N+1 ; i++){
-            if(i % p == 0) {
-                logger.log();
-                System.out.println(i/p + " / " + N/p);
-            }
-            nature.evolve();
-        }*/
