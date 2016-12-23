@@ -2,41 +2,23 @@ package eu.labrush.car.genetic;
 
 import eu.labrush.agenetic.AbstractFellow;
 
-import java.util.Arrays;
+public class Driver extends AbstractFellow {
 
-public class Driver extends AbstractFellow{
-
-    private static final int hiddenLayers = 1;
+    private static final int hiddenLayers = 5;
     private static final int nodePerLayers = 16;
     private static final int amplitude = 2; //The weight of each links goes from -amplitude to +amplitude
     private static final int detectors = 8;
     private static final int outputs = 2 ; //Left or right
     private static final int bitsPerWeight = 3;
 
-    private double distance = 0 ;
+    private double distance = 1 ;
 
-    public Driver(){
-        super(
-                (int)Math.ceil(
-                        ((double)
-                                nodePerLayers * (detectors + nodePerLayers * (hiddenLayers - 1) + outputs) * bitsPerWeight
-                        )
-                ),
-                2
-        );
+    public Driver(int DNASIZE, int DNACARD) {
+        super(DNASIZE, DNACARD);
     }
 
     protected Driver(int[] dna) {
         super(dna, 2);
-    }
-
-    @Override
-    protected int calcFitness() {
-        return (int) distance ;
-    }
-
-    public void increaseDistance(double d){
-        this.distance += d ;
     }
 
     public double[][][] getWeights() {
@@ -58,7 +40,7 @@ public class Driver extends AbstractFellow{
 
             for (int i = 0; i < nodePerLayers; i++) {
                 for (int j = 0; j < nodePerLayers; j++) {
-                    weights[j][i][j] = readWeight(pos);
+                    weights[k][i][j] = readWeight(pos);
 
                     pos += bitsPerWeight;
                 }
@@ -91,6 +73,36 @@ public class Driver extends AbstractFellow{
         }
 
         return x;
+    }
+
+    @Override
+    protected int calcFitness() {
+        return (int) this.distance;
+
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public static int getHiddenLayers() {
+        return hiddenLayers;
+    }
+
+    public static int getNodePerLayers() {
+        return nodePerLayers;
+    }
+
+    public static int getDetectors() {
+        return detectors;
+    }
+
+    public static int getOutputs() {
+        return outputs;
+    }
+
+    public static int getBitsPerWeight() {
+        return bitsPerWeight;
     }
 
 }

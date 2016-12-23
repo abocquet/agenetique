@@ -1,11 +1,12 @@
 package eu.labrush.car.simulation;
 
+import eu.labrush.agenetic.AbstractFellow;
+import eu.labrush.car.genetic.Driver;
+import eu.labrush.car.genetic.Nature;
 import org.dyn4j.geometry.Vector2;
 
-import java.awt.*;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class World {
 
@@ -14,24 +15,37 @@ public class World {
     private int carsAlive ;
 
     ArrayList<Line2D> boundaries = new ArrayList<>();
+    private Nature nature ;
+
+    Driver[] drivers ;
 
     public World() {
-        initialize();
+        drivers = new Driver[2];
+
+        for (int i = 0 ; i < drivers.length ;i++){
+            drivers[i] = new Driver(480, 2);
+        }
     }
 
-    private void initialize() {
-        int nbCars = 1 ;
+    private void setup() {
+        if(this.nature == null) return ;
+
+        AbstractFellow[] drivers = nature.getPopulation();
+
+        int nbCars = drivers.length ;
         cars = new Car[nbCars];
-        for(int i = 0 ; i < nbCars ; i++){
-            cars[i] = new Car();
+
+        for(int i = 0 ; i < nbCars ; i ++){
+            Driver d = (Driver)drivers[i];
+            cars[i] = new Car(d);
         }
 
-        //user = cars[0] ;
         carsAlive = nbCars ;
 
         addRectBoundary(50, 50, 620, 380);
         addRectBoundary(120, 120, 480, 240);
     }
+
 
     /**
      * @param time time elapsed in ms
@@ -47,8 +61,8 @@ public class World {
             Vector2 dpos = new Vector2(c.getAngle()).product(c.getSpeed() * time / 1000);
             c.getPosition().add(dpos);
 
-            if(cars[i].getDriver() != null) {
-                cars[i].getDriver().increaseDistance(dpos.getMagnitude());
+            if(c.getDriver() != null) {
+                c.increaseDistance(dpos.getMagnitude());
             }
 
             double x = c.getX(), y = c.getY(), w =  c.getWidth()/2, h =  c.getHeight()/2 ;
@@ -67,22 +81,30 @@ public class World {
                     new Line2D.Double(p4x, p4y, p1x, p1y)
             };
 
+            searchCollision:
             for (Line2D boundary: boundaries) {
                 for(Line2D cB: carBorders){
                     if(cB.intersectsLine(boundary)){
                         c.setRunning(false) ;
                         carsAlive-- ;
-                        break ;
+                        break searchCollision ;
                     }
                 }
             }
 
-            if(carsAlive <= 0){
-                initialize();
-            }
 
             if(c != this.user)
                 c.drive(boundaries);
+        }
+
+        if(this.carsAlive == 0){
+            for(Car c: cars){
+                c.getDriver().setDistance(c.getDistance());
+            }
+
+            System.out.println(nature.getBest());
+            nature.evolve();
+            setup();
         }
 
     }
@@ -104,5 +126,10 @@ public class World {
         addBoundary(x+w, y, x+w, y+h);
         addBoundary(x, y+h, x+w, y+h);
         addBoundary(x, y+h, x, y);
+    }
+
+    public void setNature(Nature nature) {
+        this.nature = nature;
+        setup();
     }
 }

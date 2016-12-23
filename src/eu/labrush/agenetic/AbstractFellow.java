@@ -11,7 +11,7 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
         If you want to adapt DNASIZE and DNACARD, change the static class
         value inside the Nature class before creating any new Fellow
      */
-    private int DNASIZE = 10 ;
+    private int DNASIZE = -1;
     private int DNACARD = 2; //the number of symbols that can be used in the DNA from 0 to n - 1
 
     protected AbstractFellow(int DNASIZE, int DNACARD){

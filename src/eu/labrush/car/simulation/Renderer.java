@@ -6,9 +6,9 @@ public class Renderer extends JFrame {
 
     private static int FRAMERATE = 60;
 
-    private WorldPanel pan ;
     private World world ;
 
+    private WorldPanel pan ;
     private Thread t = null;
 
     public Renderer(World world) {
