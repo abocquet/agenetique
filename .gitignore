@@ -1,5 +1,4 @@
 out/
-traveller.csv
 logs/*
-.idea/*
 *.iml
+/.idea/
