@@ -68,8 +68,6 @@ public class Travel extends AbstractFellow {
         return true ;
     }
 
-    private int score = -1 ;
-
     @Override
     public int calcFitness() {
         return Integer.MAX_VALUE - getDistance() ; // We reverse the process to transform it into a max research ;
@@ -83,7 +81,6 @@ public class Travel extends AbstractFellow {
         }
 
         distance += Point.distance(places[0], places[getDNA(getDNACARD()-1)]);
-        this.score = distance ;
         this.distance = distance ;
 
         return distance ;
