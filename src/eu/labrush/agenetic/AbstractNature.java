@@ -53,21 +53,26 @@ public abstract class AbstractNature {
 
     protected void calc_pop_fitness() {
 
-        Thread[] threads = new Thread[getPOPSIZE()];
+        int cores = Runtime.getRuntime().availableProcessors();
+        Thread[] threads = new Thread[cores];
         AbstractFellow[] pop = getPopulation() ;
 
-        for(int i = 0, c = getPOPSIZE() ; i < c ; i++){
-            AbstractFellow t = pop[i] ;
+        for(int i = 0 ; i < cores ; i++){
+            int j = i;
+            int c = getPOPSIZE();
 
             threads[i] = new Thread(() -> {
-                t.getFitness();
+                for(int k = cores * j ; k < cores*(j+1) && k < c ; k++) {
+                    AbstractFellow t = pop[k];
+                    t.getFitness();
+                }
             });
 
             threads[i].start();
         }
 
         try {
-            for(int i = 0, c = getPOPSIZE() ; i < c ; i++){ threads[i].join(); }
+            for(int i = 0 ; i < cores ; i++){ threads[i].join(); }
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -182,7 +187,7 @@ public abstract class AbstractNature {
         return POPSIZE;
     }
 
-    protected AbstractFellow getBest(){
+    public AbstractFellow getBest(){
         AbstractFellow best = population[0];
         for(int i = 1, c  = getPOPSIZE() ; i < c ; i++)
         {

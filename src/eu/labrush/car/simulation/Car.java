@@ -1,18 +1,18 @@
 package eu.labrush.car.simulation;
 
 import eu.labrush.car.genetic.Driver;
+import eu.labrush.car.genetic.DriverFactory;
 import eu.labrush.neural.NeuralNetwork;
 import org.dyn4j.geometry.Vector2;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 class Car {
 
     private Vector2 position = new Vector2(120, 70);
-    private double speed = 40; // Linear speed
+    private double speed = 200; // Linear speed
 
     private double angle = 0;
     private Dimension dimension = new Dimension(20, 20);
@@ -32,6 +32,7 @@ class Car {
     private boolean running = true ;
     private Driver driver ;
 
+    private double distance = .0;
 
     Car(Driver driver){
         this.driver = driver ;
@@ -47,7 +48,7 @@ class Car {
 
         detectors = new Detector[nbDetectors] ;
         for (int i = 0 ; i < nbDetectors ; i ++){
-            detectors[i] = new Detector(angle * 2 * (double)i - maxAngle, 100);
+            detectors[i] = new Detector(angle * 2 * (double)i - maxAngle, 300);
         }
 
         /*-------------------------------
@@ -61,9 +62,8 @@ class Car {
     }
 
     Car(){
-        this(new Driver());
+        this((Driver) (new DriverFactory()).newInstance());
     }
-
 
     /**
      * Utilise le réseau de neurones pour décider de tourner à gauche ou a droite selon la distance des détecteurs
@@ -86,16 +86,13 @@ class Car {
 
     }
 
-    /*private double[][] randomBidimentionnalArray(int x, int y){
-        double[][] t = new double[x][y] ;
-        for(int i = 0 ; i < x ; i++){
-            for(int j = 0 ; j < y ; j++){
-                t[i][j] = (Math.random()  - .5) * 10 ;
-            }
-        }
+    public void increaseDistance(double d){
+        this.distance += d ;
+    }
 
-        return t ;
-    }*/
+    public double getDistance() {
+        return distance;
+    }
 
     Detector[] getDetectors() {
         return detectors;
@@ -116,4 +113,5 @@ class Car {
     public Driver getDriver() {
         return driver;
     }
+
 }
