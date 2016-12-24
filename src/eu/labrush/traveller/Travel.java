@@ -3,13 +3,12 @@ package eu.labrush.traveller;
 import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.traveller.data.Point;
 
-import java.math.BigInteger;
 import java.util.Arrays;
 
 public class Travel extends AbstractFellow {
 
     private Point[] places ;
-    private BigInteger distance ;
+    private long distance ;
 
     public Travel(Point[] places){
         super(places.length, places.length);
@@ -70,18 +69,18 @@ public class Travel extends AbstractFellow {
     }
 
     @Override
-    public BigInteger calcFitness() {
-        return getDistance().negate() ;
+    public long calcFitness() {
+        return - getDistance() ;
     }
 
-    public BigInteger getDistance() {
-        BigInteger distance  = BigInteger.valueOf(0) ;
+    public long getDistance() {
+        long distance  = 0 ;
 
         for(int i = 0 ; i < getDNACARD() - 1 ; i ++){
-            distance = distance.add(Point.distance(places[getDNA(i)], places[getDNA(i+1)]));
+            distance += Point.distance(places[getDNA(i)], places[getDNA(i+1)]);
         }
 
-        distance = distance.add(Point.distance(places[0], places[getDNA(getDNACARD()-1)]));
+        distance += Point.distance(places[0], places[getDNA(getDNACARD()-1)]);
         this.distance = distance ;
 
         return distance ;

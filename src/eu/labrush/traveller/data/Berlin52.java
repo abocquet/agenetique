@@ -1,11 +1,9 @@
 package eu.labrush.traveller.data;
 
-import java.math.BigInteger;
-
 public class Berlin52 extends PointSet {
 
     public Berlin52(String name, String desc, int minDist, int[] x, int[] y) {
-        super("", "", BigInteger.ZERO, new int[]{0}, new int[]{0});
+        super("", "", 0, new int[]{0}, new int[]{0});
     }
 
     @Override
@@ -34,7 +32,7 @@ public class Berlin52 extends PointSet {
     }
 
     @Override
-    public BigInteger getMinDist() {
-        return new BigInteger("7542");
+    public long getMinDist() {
+        return 7542;
     }
 }

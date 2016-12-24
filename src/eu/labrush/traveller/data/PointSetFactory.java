@@ -8,10 +8,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 
 public class PointSetFactory {
 
@@ -67,7 +64,7 @@ public class PointSetFactory {
         String desc = document.getElementsByTagName("comment").item(0).getTextContent();
         int minDist = Integer.parseInt(document.getElementsByTagName("best").item(0).getTextContent());
 
-        return new PointSet(name, desc, BigInteger.valueOf(minDist), x, y);
+        return new PointSet(name, desc, minDist, x, y);
     }
 
     public ArrayList<String> getProblems() {

@@ -5,16 +5,14 @@ import eu.labrush.traveller.data.PointSetFactory;
 import eu.labrush.traveller.operators.mutation.im;
 import eu.labrush.traveller.operators.reproduction.Order1;
 
-import java.math.BigInteger;
-
 public class Main {
 
     public static void main(String[] args) {
 
         //System.out.println(factory.getProblems());
 
-        runTests(new String[]{"brd14051"});
-        //runTests(new String[]{"berlin52", "kroA100", "kroA150", "kroA200", "lin318", "pr439", "rat575", "rat783", "rl1304", "rl1889"});
+        //runTests(new String[]{"brd14051"});
+        runTests(new String[]{"berlin52", "kroA100", "kroA150", "kroA200", "lin318", "pr439", "rat575", "rat783", "rl1304", "rl1889"});
 
         System.out.println("DONE !!!");
 
@@ -31,11 +29,11 @@ public class Main {
             Nature nature = new Nature(50, 0.5, 0.05, problem, new Order1(), new im());
             Logger logger = new Logger("logs/" + problem.getName() + "_" + System.currentTimeMillis() + ".csv", nature);
 
-            int i = 0, p = 1000;
-            while (nature.getShortest().multiply(BigInteger.valueOf(100)).compareTo(problem.getMinDist().multiply(BigInteger.valueOf(105))) > 0) {
+            int i = 0, p = 100;
+            while (nature.getShortest() * 100 > problem.getMinDist() * 105) {
                 if (i % p == 0) {
                     logger.log();
-                    //System.out.println("Génération " + i + " " + nature.getShortest() + " / " + problem.getMinDist());
+                    System.out.println("Génération " + i + " " + nature.getShortest() + " / " + problem.getMinDist());
                 }
 
                 nature.evolve(false);

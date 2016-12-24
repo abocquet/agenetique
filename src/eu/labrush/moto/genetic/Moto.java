@@ -10,7 +10,6 @@ import org.dyn4j.dynamics.World;
 import org.dyn4j.dynamics.joint.RevoluteJoint;
 import org.dyn4j.geometry.*;
 
-import java.math.BigInteger;
 import java.util.LinkedList;
 
 public class Moto extends AbstractFellow implements Runnable {
@@ -25,7 +24,7 @@ public class Moto extends AbstractFellow implements Runnable {
 
     private static int Resolution = 4 ;
 
-    private BigInteger fitness = null ;
+    private long fitness = Long.MIN_VALUE ;
     private Vector2[] peaks ;
 
     public Moto() {
@@ -45,9 +44,9 @@ public class Moto extends AbstractFellow implements Runnable {
     }
 
     @Override
-    public BigInteger calcFitness() {
+    public long calcFitness() {
 
-        if(this.fitness != null){
+        if(this.fitness != Long.MIN_VALUE){
             return this.fitness ;
         }
 
@@ -77,7 +76,7 @@ public class Moto extends AbstractFellow implements Runnable {
             stepsToRun -= stepSamplingRate ;
         }
 
-        this.fitness = BigInteger.valueOf((long)(moto.getWorldCenter().x * 10));
+        this.fitness = (long)(moto.getWorldCenter().x * 10);
         return this.fitness ;
     }
 

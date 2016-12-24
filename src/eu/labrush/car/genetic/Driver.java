@@ -2,8 +2,6 @@ package eu.labrush.car.genetic;
 
 import eu.labrush.agenetic.AbstractFellow;
 
-import java.math.BigInteger;
-
 public class Driver extends AbstractFellow {
 
     private static final int hiddenLayers = 5;
@@ -78,8 +76,8 @@ public class Driver extends AbstractFellow {
     }
 
     @Override
-    protected BigInteger calcFitness() {
-        return BigInteger.valueOf((long) this.distance);
+    protected long calcFitness() {
+        return (long) this.distance;
 
     }
 

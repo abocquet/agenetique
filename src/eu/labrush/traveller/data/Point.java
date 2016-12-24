@@ -1,6 +1,5 @@
 package eu.labrush.traveller.data;
 
-import java.math.BigInteger;
 
 public class Point {
     public int x ;
@@ -11,9 +10,9 @@ public class Point {
         this.y = y ;
     }
 
-    public static BigInteger distance(Point p1, Point p2){
+    public static long distance(Point p1, Point p2){
         int dx = p1.x - p2.x ;
         int dy = p1.y - p2.y ;
-        return BigInteger.valueOf((long) Math.sqrt((double) (dx*dx + dy*dy))) ;
+        return (long) Math.sqrt((double) (dx*dx + dy*dy)) ;
     }
 }
