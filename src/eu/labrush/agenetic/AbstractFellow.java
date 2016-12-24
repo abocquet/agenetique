@@ -1,10 +1,12 @@
 package eu.labrush.agenetic;
 
+import java.math.BigInteger;
+
 public abstract class AbstractFellow implements Comparable<AbstractFellow> {
 
     private int[] dna ;
 
-    protected int fitness = -1 ;
+    protected BigInteger fitness ;
     private boolean DNAEdited = false ;
 
     /**
@@ -32,15 +34,15 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
      * @return the fitness of the fellow ie its adaptation
      * higher is better
      */
-    public final int getFitness(){
-        if(this.fitness < 0 || DNAEdited){
+    public final BigInteger getFitness(){
+        if(this.fitness == null || this.fitness.compareTo(BigInteger.ZERO) > 0|| DNAEdited){
             this.fitness = this.calcFitness();
         }
 
         return this.fitness ;
     }
 
-    protected abstract int calcFitness();
+    protected abstract BigInteger calcFitness();
 
     @Override
     public String toString() {
@@ -73,7 +75,7 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
 
     @Override
     public int compareTo(AbstractFellow mate) {
-        return this.getFitness() - mate.getFitness();
+        return this.getFitness().compareTo(mate.getFitness());
     }
 
     public int getDNASIZE() { return DNASIZE; }

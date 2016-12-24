@@ -1,12 +1,14 @@
 package eu.labrush.traveller.data;
 
+import java.math.BigInteger;
+
 public class PointSet {
 
     int x[], y[] ;
     String name, desc ;
-    int minDist ;
+    BigInteger minDist ;
 
-    public PointSet(String name, String desc, int minDist, int[] x, int[] y) {
+    public PointSet(String name, String desc, BigInteger minDist, int[] x, int[] y) {
         this.x = x;
         this.y = y;
         this.name = name;
@@ -37,7 +39,7 @@ public class PointSet {
         return desc;
     }
 
-    public int getMinDist() {
+    public BigInteger getMinDist() {
         return minDist;
     }
 }

@@ -2,6 +2,8 @@ package eu.labrush.agenetic.numfun;
 
 import eu.labrush.agenetic.AbstractFellow;
 
+import java.math.BigInteger;
+
 public class Fellow extends AbstractFellow {
 
     static private NumFunction fun ;
@@ -15,8 +17,8 @@ public class Fellow extends AbstractFellow {
         super(dna, DNACARD);
     }
 
-    public int calcFitness() {
-        return fun.getY(this.cloneDNA());
+    public BigInteger calcFitness() {
+        return BigInteger.valueOf(fun.getY(this.cloneDNA()));
     }
 
     public String getX(){

@@ -1,6 +1,8 @@
 package eu.labrush.agenetic;
 
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.Arrays;
 
@@ -82,30 +84,36 @@ public abstract class AbstractNature {
     public int getGenerationNumber() { return this.genCounter ; }
 
     protected void crossover() {
-        Arrays.sort(this.population, (a, b) -> b.getFitness() - a.getFitness());
-        int minFitness = this.population[getPOPSIZE() - 1].getFitness(); // the population is already sorted by fitness, the first fellow hqs the lower fitness
+        Arrays.sort(population, (a, b) -> b.getFitness().compareTo(a.getFitness()));
 
-        BigDecimal totalFitness = BigDecimal.ZERO ;
+        BigInteger minFitness = this.population[0].getFitness();
+
+        BigDecimal totalFitness = BigDecimal.valueOf(0) ;
         for(AbstractFellow f : this.population){
-            totalFitness = totalFitness.add(BigDecimal.valueOf(f.getFitness()));
+            if(f.getFitness().compareTo(minFitness) < 0){
+                minFitness = f.getFitness() ;
+            }
         }
 
         // if a fitness is negative, we add the absolute value of it to every fellow afterwards,
         // at once so as to avoid tests in the loop
         // As a result the worst fellow will have a score of 0
-        if(minFitness < 0){
-            totalFitness = totalFitness.add(BigDecimal.valueOf(-minFitness * getPOPSIZE())); //Don't forget the minus to have a positive total !
+        minFitness = minFitness.negate() ; //Don't forget the minus to have a positive total !
+        totalFitness.add(new BigDecimal(minFitness.multiply(BigInteger.valueOf(getPOPSIZE()))));
+
+        for(AbstractFellow f : this.population){
+            totalFitness = totalFitness.add(new BigDecimal(f.getFitness()));
         }
 
         AbstractFellow[] newPop = new AbstractFellow[this.POPSIZE];
-        int i;
+        int i = 1 ;
 
-        // We keep a tenth of the best of each generation
-        for(i = 0 ; i < population.length / 10 ; i++){
-            newPop[i] = population[i] ;
+        // We keep the best of each generation
+        for(i = 0 ; i < getPOPSIZE() / 10 ; i++){
+            newPop[i] = population[i];
         }
 
-        BigDecimal cursor = BigDecimal.ZERO ;
+        BigDecimal cursor = BigDecimal.valueOf(0) ;
         while(i < POPSIZE){
 
             int c = cursor.intValue() ;
@@ -119,7 +127,13 @@ public abstract class AbstractNature {
                 i++ ;
             }
 
-            BigDecimal part = BigDecimal.valueOf(population[c].getFitness());
+            //We add the lowest fitness to every fellow so it's always postive
+            BigDecimal part = new BigDecimal(population[c].getFitness().add(minFitness));
+
+            if(part.compareTo(BigDecimal.ZERO) < 0){
+                System.err.print("ERREUR de part: " + part);
+            }
+
             part = part.divide(totalFitness, 10, RoundingMode.HALF_UP);
             cursor = cursor.add(part) ;
         }
@@ -191,7 +205,7 @@ public abstract class AbstractNature {
         AbstractFellow best = population[0];
         for(int i = 1, c  = getPOPSIZE() ; i < c ; i++)
         {
-            if(best.getFitness() < population[i].getFitness()){
+            if(best.getFitness().compareTo(population[i].getFitness()) < 0){
                 best = population[i] ;
             }
         }

@@ -3,10 +3,12 @@ package eu.labrush.traveller;
 import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.agenetic.AbstractNature;
 import eu.labrush.agenetic.Tuple;
+import eu.labrush.agenetic.numfun.Fellow;
 import eu.labrush.traveller.data.PointSet;
 import eu.labrush.traveller.operators.MutationOperator;
 import eu.labrush.traveller.operators.ReproductionOperator;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 
 public class Nature extends AbstractNature {
@@ -50,16 +52,7 @@ public class Nature extends AbstractNature {
         return str ;
     }
 
-    public int getShortest(){
-        Travel best = (Travel) population[0];
-
-        for(int i = 0, c = population.length ; i < c ; i++){
-            Travel current = (Travel) population[i] ;
-            if(best.getDistance() > current.getDistance()){
-                best = current ;
-            }
-        }
-
-        return best.getDistance() ;
+    public BigInteger getShortest(){
+        return ((Travel)this.getBest()).getDistance();
     }
 }
