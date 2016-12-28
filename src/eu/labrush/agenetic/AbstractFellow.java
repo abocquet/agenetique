@@ -32,7 +32,7 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
      * @return the fitness of the fellow ie its adaptation
      * higher is better
      */
-    public final long getFitness(){
+    public long getFitness(){
         if(this.fitness == Long.MIN_VALUE || DNAEdited){
             this.fitness = this.calcFitness();
         }

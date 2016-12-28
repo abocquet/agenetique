@@ -7,15 +7,17 @@ import org.dyn4j.geometry.Vector2;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 class Car {
 
     private Vector2 position = new Vector2(120, 70);
-    private double speed = 200; // Linear speed
+    private double speed = 50; // Linear speed
+    private double trigger = 0.1 ;
 
     private double angle = 0;
-    private Dimension dimension = new Dimension(20, 20);
+    private Dimension dimension = new Dimension(10, 10);
 
     public double getX() { return position.x; }
     public double getY() { return position.y; }
@@ -48,7 +50,7 @@ class Car {
 
         detectors = new Detector[nbDetectors] ;
         for (int i = 0 ; i < nbDetectors ; i ++){
-            detectors[i] = new Detector(angle * 2 * (double)i - maxAngle, 300);
+            detectors[i] = new Detector(angle * 2 * (double)i - maxAngle, 120);
         }
 
         /*-------------------------------
@@ -78,9 +80,10 @@ class Car {
         }
 
         double[] res = this.brain.compute(distances);
-        if(res[1] - res[0] > .2){
+        //System.out.println(res[1] - res[0]);
+        if(res[1] - res[0] > trigger){
             angle += 0.02 ;
-        } else if(res[1] - res[0] < -.2){
+        } else if(res[1] - res[0] < -trigger){
             angle -= 0.02 ;
         }
 
@@ -114,4 +117,11 @@ class Car {
         return driver;
     }
 
+    public void setPosition(Point2D position) {
+        this.position = new Vector2(position.getX(), position.getY());
+    }
+
+    public void setAngle(double angle) {
+        this.angle = angle;
+    }
 }

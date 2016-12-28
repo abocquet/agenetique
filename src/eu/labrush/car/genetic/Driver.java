@@ -4,14 +4,14 @@ import eu.labrush.agenetic.AbstractFellow;
 
 public class Driver extends AbstractFellow {
 
-    private static final int hiddenLayers = 5;
-    private static final int nodePerLayers = 16;
-    private static final int amplitude = 2; //The weight of each links goes from -amplitude to +amplitude
+    private static final int hiddenLayers = 1;
+    private static final int nodePerLayers = 32;
+    private static final double amplitude = 1; //The weight of each links goes from -amplitude to +amplitude
     private static final int detectors = 8;
     private static final int outputs = 2 ; //Left or right
-    private static final int bitsPerWeight = 3;
+    private static final int bitsPerWeight = 8 ;
 
-    private double distance = 1 ;
+    private double distance = -1 ;
 
     public Driver(int DNASIZE, int DNACARD) {
         super(DNASIZE, DNACARD);
@@ -73,6 +73,10 @@ public class Driver extends AbstractFellow {
         }
 
         return x;
+    }
+
+    public long getFitness(){
+        return this.calcFitness();
     }
 
     @Override

@@ -19,8 +19,10 @@ public class World {
 
     Driver[] drivers ;
 
+    private MapGenerator map = new MapGenerator(50, 50, 750, 750); ;
+
     public World() {
-        drivers = new Driver[2];
+        drivers = new Driver[0];
 
         for (int i = 0 ; i < drivers.length ;i++){
             drivers[i] = new Driver(480, 2);
@@ -28,22 +30,25 @@ public class World {
     }
 
     private void setup() {
-        if(this.nature == null) return ;
+        if (this.nature == null) return;
+
+        boundaries.clear();
+        //addBoudaries(map.getRandomizedGrid(15, 35));
+        addBoudaries(map.getSquareGrid());
 
         AbstractFellow[] drivers = nature.getPopulation();
 
-        int nbCars = drivers.length ;
+        int nbCars = drivers.length;
         cars = new Car[nbCars];
 
-        for(int i = 0 ; i < nbCars ; i ++){
-            Driver d = (Driver)drivers[i];
+        for (int i = 0; i < nbCars; i++) {
+            Driver d = (Driver) drivers[i];
             cars[i] = new Car(d);
+            cars[i].setPosition(map.getStart());
+            //cars[i].setAngle(Math.PI / 2);
         }
 
-        carsAlive = nbCars ;
-
-        addRectBoundary(50, 50, 620, 380);
-        addRectBoundary(120, 120, 480, 240);
+        carsAlive = nbCars;
     }
 
 
@@ -102,7 +107,6 @@ public class World {
                 c.getDriver().setDistance(c.getDistance());
             }
 
-            System.out.println(nature.getBest());
             nature.evolve();
             setup();
         }
@@ -115,6 +119,10 @@ public class World {
 
     public ArrayList<Line2D> getBoundaries() {
         return boundaries;
+    }
+
+    public void addBoudaries(ArrayList<Line2D> lines){
+        this.boundaries.addAll(lines);
     }
 
     public void addBoundary(double sx, double sy, double ex, double ey){
@@ -131,5 +139,9 @@ public class World {
     public void setNature(Nature nature) {
         this.nature = nature;
         setup();
+    }
+
+    public MapGenerator getMap() {
+        return map;
     }
 }

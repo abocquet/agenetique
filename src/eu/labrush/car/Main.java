@@ -24,7 +24,7 @@ public class Main {
         System.out.println(Arrays.toString(res));*/
 
         World world = new World();
-        Nature nature = new Nature(30, 0.5, 0.05, new DriverFactory());
+        Nature nature = new Nature(10, 0.5, 0.1, new DriverFactory());
         world.setNature(nature);
 
         Renderer renderer = new Renderer(world);

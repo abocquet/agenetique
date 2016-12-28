@@ -15,6 +15,10 @@ public class WorldPanel extends JPanel implements KeyListener {
 
     private World world ;
 
+    private String backGroundColor = "#26A65B" ;
+    private String roadColor = "#87D37C";
+    private String carColor = "#e67e22" ;
+
     public WorldPanel(World world) {
 
         this.world = world ;
@@ -27,11 +31,20 @@ public class WorldPanel extends JPanel implements KeyListener {
 
     public void paintComponent(Graphics g1) {
         Graphics2D g = (Graphics2D) g1;
-        g.setColor(Color.WHITE);
-        g.drawRect(0, 0, this.getWidth(), this.getHeight());
+        g.setColor(Color.decode(backGroundColor));
+        g.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+        g.setColor(Color.decode(roadColor));
+        for(Rectangle2D r: world.getMap().getRoad()){
+            g.fill(r);
+        }
 
         g.setColor(Color.BLACK);
+        for (Line2D l: world.boundaries){
+            g.draw(l);
+        }
 
+        g.setColor(Color.BLACK);
         for(Car c: world.getCars()) {
 
             AffineTransform transform = new AffineTransform();
@@ -47,7 +60,7 @@ public class WorldPanel extends JPanel implements KeyListener {
             }
 
             if(c.isRunning()) {
-                g.setColor(Color.ORANGE);
+                g.setColor(Color.decode(carColor));
             } else {
                 g.setColor(Color.gray);
             }
@@ -57,11 +70,6 @@ public class WorldPanel extends JPanel implements KeyListener {
             g.draw(rotatedRect);
             g.fill(rotatedRect);
 
-        }
-
-        g.setColor(Color.BLACK);
-        for (Line2D l: world.boundaries){
-            g.draw(l);
         }
 
         g.dispose();

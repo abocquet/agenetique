@@ -1,8 +1,6 @@
 package eu.labrush.neural;
 
 
-import java.util.Arrays;
-
 public class Layer {
 
     private int neurons  ;
