@@ -4,7 +4,7 @@ import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.agenetic.AbstractFellowFactory;
 import eu.labrush.agenetic.operators.MutationInterface;
 
-public class im implements MutationInterface {
+public class Im implements MutationInterface {
 
     @Override
     public void mutate(AbstractFellow[] population, double PMUTATION, AbstractFellowFactory factory) {

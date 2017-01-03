@@ -1,10 +1,5 @@
 package eu.labrush.agenetic;
 
-import eu.labrush.traveller.Nature;
-import eu.labrush.traveller.data.Berlin52;
-import eu.labrush.traveller.operators.mutation.im;
-import eu.labrush.traveller.operators.reproduction.Order1;
-
 public class Main {
 
     public static void main(String[] args) {

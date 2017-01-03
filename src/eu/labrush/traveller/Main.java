@@ -2,7 +2,7 @@ package eu.labrush.traveller;
 
 import eu.labrush.traveller.data.PointSet;
 import eu.labrush.traveller.data.PointSetFactory;
-import eu.labrush.traveller.operators.mutation.im;
+import eu.labrush.traveller.operators.mutation.Im;
 import eu.labrush.traveller.operators.reproduction.Order1;
 
 public class Main {
@@ -26,7 +26,7 @@ public class Main {
             PointSet problem = factory.getSet(name);
             System.out.println(problem.getDesc());
 
-            Nature nature = new Nature(50, 0.5, 0.05, problem, new Order1(), new im());
+            Nature nature = new Nature(50, 0.5, 0.05, problem, new Order1(), new Im());
             Logger logger = new Logger("logs/" + problem.getName() + "_" + System.currentTimeMillis() + ".csv", nature);
 
             int i = 0, p = 100;

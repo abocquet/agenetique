@@ -19,8 +19,8 @@ public class Order1 implements CrossoverInterface {
         int offset = 0 ;
 
         for(int i = 0 ; i < 2 ; i++) {
-            int s1 = (int) (Math.random() * 1000) % DNASIZE;
-            int s2 = (int) (Math.random() * 1000) % DNASIZE;
+            int s1 = (int) (Math.random() * 2 * DNASIZE) % DNASIZE;
+            int s2 = (int) (Math.random() * 2 * DNASIZE) % DNASIZE;
 
             if(s2 < s1){
                 int tmp = s2 ;
