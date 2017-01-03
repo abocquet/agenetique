@@ -1,16 +1,17 @@
 package eu.labrush.traveller.operators.reproduction;
 
 import eu.labrush.agenetic.AbstractFellow;
+import eu.labrush.agenetic.AbstractFellowFactory;
 import eu.labrush.agenetic.Tuple;
+import eu.labrush.agenetic.operators.CrossoverInterface;
 import eu.labrush.traveller.TravelFactory;
-import eu.labrush.traveller.operators.ReproductionOperator;
 
 import java.util.Arrays;
 
-public class Order1 implements ReproductionOperator {
+public class Order1 implements CrossoverInterface {
 
     @Override
-    public Tuple<AbstractFellow, AbstractFellow> reproduce(AbstractFellow male, AbstractFellow female, TravelFactory factory) {
+    public Tuple<AbstractFellow, AbstractFellow> reproduce(AbstractFellow male, AbstractFellow female, AbstractFellowFactory factory) {
 
         AbstractFellow[] parents = new AbstractFellow[]{male, female};
         AbstractFellow[] children = new AbstractFellow[2] ;
@@ -55,7 +56,7 @@ public class Order1 implements ReproductionOperator {
                 c = (c+1) % DNASIZE ;
             }
 
-            children[i] = factory.newInstance(dna, true);
+            children[i] = ((TravelFactory)factory).newInstance(dna, true);
 
             /* We swap both parents so the second child has repaired DNA from the original father */
             offset++ ;

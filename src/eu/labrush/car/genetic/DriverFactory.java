@@ -2,24 +2,29 @@ package eu.labrush.car.genetic;
 
 import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.agenetic.AbstractFellowFactory;
+import eu.labrush.car.neural.AbstractWeightEncoder;
 
 public class DriverFactory extends AbstractFellowFactory {
 
-    public DriverFactory() {
+    AbstractWeightEncoder we ;
+
+    public DriverFactory(AbstractWeightEncoder we) {
         super(
                 2,
-                (int)Math.ceil(
-                ((double) Driver.getNodePerLayers() * (Driver.getDetectors() + Driver.getNodePerLayers() * (Driver.getHiddenLayers() - 1) + Driver.getOutputs()) * Driver.getBitsPerWeight()))
+                we.requiredDNASize()
         );
+
+        this.we = we ;
     }
 
     @Override
     public AbstractFellow newInstance() {
-        return new Driver(this.getDNASize(), this.getDNACard());
+        return new Driver(this.getDNASize(), this.getDNACard(), we);
     }
 
     @Override
     public AbstractFellow newInstance(int[] dna) {
-        return new Driver(dna);
+        return new Driver(dna, we);
+
     }
 }

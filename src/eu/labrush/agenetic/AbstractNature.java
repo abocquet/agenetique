@@ -1,5 +1,10 @@
 package eu.labrush.agenetic;
 
+import eu.labrush.agenetic.operators.DefaultMutationOperator;
+import eu.labrush.agenetic.operators.OnePointCrossover;
+import eu.labrush.agenetic.operators.MutationInterface;
+import eu.labrush.agenetic.operators.CrossoverInterface;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
@@ -7,8 +12,10 @@ import java.util.Arrays;
 public abstract class AbstractNature {
 
     protected AbstractFellow[] population;
-
     protected AbstractFellowFactory factory ;
+
+    private CrossoverInterface reproductionOperator ;
+    private MutationInterface mutationOperator ;
 
     protected double PMUTATION = 0.05;
     protected double PCROSSOVER = 0.5;
@@ -16,14 +23,22 @@ public abstract class AbstractNature {
 
     private int genCounter = 0;
 
-    protected AbstractNature(int POPSIZE, double PCROSSOVER, double PMUTATION, AbstractFellowFactory factory) {
+    public AbstractNature(int POPSIZE, double PCROSSOVER, double PMUTATION, AbstractFellowFactory factory, CrossoverInterface ro, MutationInterface mo) {
 
         this.POPSIZE = POPSIZE ;
         this.PMUTATION = PMUTATION ;
         this.PCROSSOVER = PCROSSOVER;
 
         this.factory = factory ;
+
+        this.reproductionOperator = ro ;
+        this.mutationOperator = mo ;
+
         initPopulation();
+    }
+
+    public AbstractNature(int POPSIZE, double PCROSSOVER, double PMUTATION, AbstractFellowFactory factory) {
+        this(POPSIZE, PCROSSOVER, PMUTATION, factory, new OnePointCrossover(), new DefaultMutationOperator());
     }
 
     protected AbstractNature() {}
@@ -78,7 +93,6 @@ public abstract class AbstractNature {
         }
     }
 
-
     public int getGenerationNumber() { return this.genCounter ; }
 
     protected void crossover() {
@@ -96,97 +110,84 @@ public abstract class AbstractNature {
         // if a fitness is negative, we add the absolute value of it to every fellow afterwards,
         // at once so as to avoid tests in the loop
         // As a result the worst fellow will have a score of 0
-        minFitness = - minFitness ; //Don't forget the minus to have a positive total !
         BigDecimal bigMinFitness = BigDecimal.valueOf(minFitness);
+        minFitness = - minFitness ; //Don't forget the minus to have a positive total !
         //totalFitness = totalFitness.add(bigMinFitness.multiply(BigDecimal.valueOf(getPOPSIZE())));
 
         for(AbstractFellow f : this.population){
             totalFitness = totalFitness.add(new BigDecimal(f.getFitness()));
         }
 
+        BigDecimal[] parts = new BigDecimal[getPOPSIZE()];
+        for(int i = 0 ; i < getPOPSIZE() ; i++){
+            parts[i] = new BigDecimal(population[i].getFitness()).add(bigMinFitness).divide(totalFitness, 10, RoundingMode.HALF_UP);
+
+            if(parts[i].compareTo(BigDecimal.ZERO) < 0){
+                System.err.println("ERREUR de part: " + parts[i]);
+            }
+        }
+
+
         AbstractFellow[] newPop = new AbstractFellow[this.POPSIZE];
         int i ;
 
         // We keep the best of each generation
-        for(i = 0 ; i < getPOPSIZE() / 10 ; i++){
+        for(i = 0 ; i <= (double)getPOPSIZE() / 10 ; i++){
             newPop[i] = population[i];
         }
 
-        BigDecimal cursor = BigDecimal.valueOf(0) ;
-        while(i < POPSIZE){
+        while(i < POPSIZE) {
 
-            int c = cursor.intValue() ;
+            int c = biasedWheel(parts);
 
-            if(Math.random() <= PCROSSOVER){
-                Tuple<AbstractFellow, AbstractFellow> children = this.reproduce(population[c], population[(int)(Math.random() * 10000) % POPSIZE]);
-                if(i < POPSIZE) { newPop[i] = children.fst ; i++ ; }
-                if(i < POPSIZE) { newPop[i] = children.snd ; i++ ; }
+            if (Math.random() <= PCROSSOVER) {
+                Tuple<AbstractFellow, AbstractFellow> children = this.reproduce(population[c], population[(int) (Math.random() * 10000) % POPSIZE]);
+                if (i < POPSIZE) {
+                    newPop[i] = children.fst;
+                    i++;
+                }
+                if (i < POPSIZE) {
+                    newPop[i] = children.snd;
+                    i++;
+                }
             } else {
-                newPop[i] = this.population[c % POPSIZE] ;
-                i++ ;
+                newPop[i] = this.population[c % POPSIZE];
+                i++;
             }
-
-            //We add the lowest fitness to every fellow so it's always postive
-            BigDecimal part = BigDecimal.valueOf(population[c].getFitness()).add(bigMinFitness);
-
-            if(part.compareTo(BigDecimal.ZERO) < 0){
-                System.err.print("ERREUR de part: " + part);
-            }
-
-            part = part.divide(totalFitness, 10, RoundingMode.HALF_UP);
-            cursor = cursor.add(part) ;
         }
 
         this.population = newPop ;
-
     }
 
     protected void mutate() {
-
-        int DNACARD = this.factory.getDNACard() ;
-
-        for(AbstractFellow f: population){
-            for(int i = 0 ; i < f.getDNASIZE() ; i++){
-                /*
-                "flip": on choisit de muter
-                "mutation" on a une mutation
-                "indentique" le gene n'a pas changé après tirage
-
-                p(mutation) = p(flip inter non(identique))
-                or flip et indentique sont indépendants
-                d'ou p(mutation) = p(flip) * p(non(identique))
-                ie p(flip) = p(mutation) / p(non(non(identique)) = p(mutation) / (1 - 1 / DNACARD))
-
-                finalement on passe de l'autre coté pour éviter de manipuler des flottants)
-                 */
-                if(Math.random() * (DNACARD - 1) <= PMUTATION * DNACARD) f.setDNA(i, ((int) (Math.random() * 10000) % DNACARD));
-            }
-        }
+        mutationOperator.mutate(population, PMUTATION, factory);
     }
 
-    protected Tuple<AbstractFellow, AbstractFellow> reproduce(AbstractFellow male, AbstractFellow female)  {
+    protected Tuple<AbstractFellow, AbstractFellow> reproduce(AbstractFellow male, AbstractFellow female) {
+        return reproductionOperator.reproduce(male, female, this.factory);
+    }
 
-        int DNASIZE = this.factory.getDNASize() ;
+    private int biasedWheel(BigDecimal[] parts){
+        BigDecimal rand = BigDecimal.valueOf(Math.random());
+        BigDecimal current = BigDecimal.valueOf(0);
 
-        AbstractFellow[] children = new AbstractFellow[2] ;
-
-        for(int i = 0 ; i < 2 ; i++) {
-            int splitPoint = (int) (Math.random() * 1000) % DNASIZE;
-            int[] dna = new int[DNASIZE];
-
-            for (int j = 0; j < splitPoint; j++) {
-                dna[j] = male.getDNA(j);
+        for(int i = 0 ; i < getPOPSIZE() - 1 ; i++){
+            if(rand.compareTo(current) >= 0 && rand.compareTo(current.add(parts[i])) < 0){
+                return i;
             }
 
-            for (int j = splitPoint; j < DNASIZE; j++) {
-                dna[j] = female.getDNA(j);
-            }
-
-            children[i] = this.factory.newInstance(dna) ;
+            current = current.add(parts[i]);
         }
 
-        return new Tuple<>(children[0], children[1]);
+        if(rand.compareTo(current) >= 0){
+            return getPOPSIZE() - 1;
         }
+
+        System.err.println("Bla ?");
+        return 0;
+    }
+
+
 
     public AbstractFellow[] getPopulation() {
         return population;
@@ -213,4 +214,7 @@ public abstract class AbstractNature {
     }
 
 
+    public AbstractFellowFactory getFactory() {
+        return factory;
+    }
 }

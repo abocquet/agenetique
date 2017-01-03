@@ -25,7 +25,7 @@ public class World {
         drivers = new Driver[0];
 
         for (int i = 0 ; i < drivers.length ;i++){
-            drivers[i] = new Driver(480, 2);
+            drivers[i] = (Driver)nature.getFactory().newInstance();
         }
     }
 
@@ -96,7 +96,6 @@ public class World {
                     }
                 }
             }
-
 
             if(c != this.user)
                 c.drive(boundaries);

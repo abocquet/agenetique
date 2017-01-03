@@ -1,7 +1,10 @@
 package eu.labrush.car;
 
+import eu.labrush.agenetic.operators.DefaultMutationOperator;
 import eu.labrush.car.genetic.DriverFactory;
 import eu.labrush.car.genetic.Nature;
+import eu.labrush.car.genetic.operators.ReproductionOperator;
+import eu.labrush.car.neural.BinaryWeightEncoder;
 import eu.labrush.car.simulation.Renderer;
 import eu.labrush.car.simulation.World;
 
@@ -24,7 +27,7 @@ public class Main {
         System.out.println(Arrays.toString(res));*/
 
         World world = new World();
-        Nature nature = new Nature(10, 0.5, 0.1, new DriverFactory());
+        Nature nature = new Nature(10, 0.5, 0.1, new DriverFactory(new BinaryWeightEncoder()), new ReproductionOperator(), new DefaultMutationOperator());
         world.setNature(nature);
 
         Renderer renderer = new Renderer(world);
