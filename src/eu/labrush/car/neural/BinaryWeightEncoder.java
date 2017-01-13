@@ -4,9 +4,11 @@ import eu.labrush.agenetic.AbstractFellow;
 
 public class BinaryWeightEncoder extends AbstractWeightEncoder {
 
-    protected int hiddenLayers = 1;
-    protected int nodePerLayers = 4;
-    protected int bitsPerWeight = 2 ;
+    public BinaryWeightEncoder() {
+        hiddenLayers = 1;
+        nodePerLayers = 4;
+        bitsPerWeight = 2 ;
+    }
 
     @Override
     public int requiredDNASize() {

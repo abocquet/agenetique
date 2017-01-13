@@ -182,8 +182,6 @@ public class Moto extends AbstractFellow implements Runnable {
 
     /**
      * @param f a fellow
-     * @param start
-     * @param length
      * @return binary input as int
      */
     private int readIntFromDNA(AbstractFellow f, int start, int length) {

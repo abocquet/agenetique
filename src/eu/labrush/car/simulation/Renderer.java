@@ -17,7 +17,7 @@ public class Renderer extends JFrame {
 
         this.setTitle("Car Race !");
         this.setSize(800, 800);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setContentPane(this.pan);
         this.setVisible(true);

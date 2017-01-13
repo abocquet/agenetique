@@ -20,14 +20,29 @@ public abstract class AbstractNature {
     protected double PMUTATION = 0.05;
     protected double PCROSSOVER = 0.5;
     private int POPSIZE = 10;
+    protected int ELITISM = 1;
+    protected double PINSERTION = 0.5 ;
 
     private int genCounter = 0;
 
-    public AbstractNature(int POPSIZE, double PCROSSOVER, double PMUTATION, AbstractFellowFactory factory, CrossoverInterface ro, MutationInterface mo) {
+    /**
+     *
+     * @param POPSIZE the popumlation size
+     * @param ELITISM the number of the best fellows kept every generation
+     * @param PCROSSOVER the probability a fellow reproduces vs is introduced in the next generation
+     * @param PMUTATION the probability a fellow is mutated
+     * @param PINSERTION the probabilty a new random fellow is introduced each generation
+     * @param factory the fellow factory
+     * @param ro the reproduction operator
+     * @param mo the mutation operator
+     */
+    public AbstractNature(int POPSIZE, int ELITISM, double PCROSSOVER, double PMUTATION, double PINSERTION, AbstractFellowFactory factory, CrossoverInterface ro, MutationInterface mo) {
 
         this.POPSIZE = POPSIZE ;
-        this.PMUTATION = PMUTATION ;
-        this.PCROSSOVER = PCROSSOVER;
+        this.PMUTATION = Math.min(PMUTATION, 1) ;
+        this.PCROSSOVER = Math.min(PCROSSOVER, 1);
+        this.ELITISM = Math.min(ELITISM, POPSIZE) ;
+        this.PINSERTION = Math.min(PINSERTION, 1) ;
 
         this.factory = factory ;
 
@@ -37,8 +52,8 @@ public abstract class AbstractNature {
         initPopulation();
     }
 
-    public AbstractNature(int POPSIZE, double PCROSSOVER, double PMUTATION, AbstractFellowFactory factory) {
-        this(POPSIZE, PCROSSOVER, PMUTATION, factory, new OnePointCrossover(), new DefaultMutationOperator());
+    public AbstractNature(int POPSIZE, int ELITISM, double PCROSSOVER, double PMUTATION, double PINSERTION, AbstractFellowFactory factory) {
+        this(POPSIZE, ELITISM, PCROSSOVER, PMUTATION, PINSERTION, factory, new OnePointCrossover(), new DefaultMutationOperator());
     }
 
     protected AbstractNature() {}
@@ -60,8 +75,22 @@ public abstract class AbstractNature {
             calc_pop_fitness();
         }
 
+        int[][] elite = new int[ELITISM][] ;
+
+        // We keep the best of each generation
+        for(int i = 0 ; i < ELITISM ; i++){
+            elite[i] = population[i].cloneDNA() ;
+        }
         crossover();
         mutate();
+
+        for (int j = 0; j < ELITISM ; j++) {
+            population[j] = factory.newInstance(elite[j]);
+        }
+
+        if(Math.random() < PINSERTION) {
+            population[POPSIZE - 1] = factory.newInstance();
+        }
 
         genCounter++ ;
     }
@@ -112,7 +141,7 @@ public abstract class AbstractNature {
         // As a result the worst fellow will have a score of 0
         BigDecimal bigMinFitness = BigDecimal.valueOf(minFitness);
         minFitness = - minFitness ; //Don't forget the minus to have a positive total !
-        //totalFitness = totalFitness.add(bigMinFitness.multiply(BigDecimal.valueOf(getPOPSIZE())));
+        //totalFitness = totalFitness.add(bigMinFitness.multiply(BigDecimal.valueOf(getPOPSIZE()))); // todo: wtf ? why commented ?
 
         for(AbstractFellow f : this.population){
             totalFitness = totalFitness.add(new BigDecimal(f.getFitness()));
@@ -129,12 +158,7 @@ public abstract class AbstractNature {
 
 
         AbstractFellow[] newPop = new AbstractFellow[this.POPSIZE];
-        int i ;
-
-        // We keep the best of each generation
-        for(i = 0 ; i <= (double)getPOPSIZE() / 10 ; i++){
-            newPop[i] = population[i];
-        }
+        int i = 0 ;
 
         while(i < POPSIZE) {
 

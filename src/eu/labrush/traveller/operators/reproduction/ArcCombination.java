@@ -10,6 +10,12 @@ import java.util.Arrays;
 
 
 //TODO: TESTS
+
+/**
+ * Crée la matrice des villes adjacent pour chaque point puis
+ * 1 - prend la ville qui a le plus petit nombre de voisins si elle existe
+ * 2 - en choisie une au hasard sinon
+ */
 public class ArcCombination implements CrossoverInterface {
     @Override
     public Tuple<AbstractFellow, AbstractFellow> reproduce(AbstractFellow f1, AbstractFellow f2, AbstractFellowFactory factory) {
@@ -26,7 +32,6 @@ public class ArcCombination implements CrossoverInterface {
             }
         }
 
-        AbstractFellow[] parents = new AbstractFellow[]{f1, f2};
         AbstractFellow[] children = new AbstractFellow[2] ;
 
         for(int i = 0 ; i < 2 ; i++) {

@@ -19,7 +19,7 @@ public class World {
 
     Driver[] drivers ;
 
-    private MapGenerator map = new MapGenerator(50, 50, 750, 750); ;
+    private MapGenerator map = new MapGenerator(50, 50, 750, 750);
 
     public World() {
         drivers = new Driver[0];

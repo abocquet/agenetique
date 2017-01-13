@@ -26,9 +26,7 @@ public class Logger {
             this.writer.println(firstLine);
             this.writer.flush();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
@@ -55,15 +53,15 @@ public class Logger {
         BigDecimal sum = new BigDecimal(min) ;
         max = min ;
 
-        for(int i = 0, c = population.length ; i < c ; i++){
-            long f = population[i].getFitness();
-            sum = sum.add(new BigDecimal(f)) ;
+        for (AbstractFellow aPopulation : population) {
+            long f = aPopulation.getFitness();
+            sum = sum.add(new BigDecimal(f));
 
-            if(min > f) min = f ;
-            if(max < f) max = f ;
+            if (min > f) min = f;
+            if (max < f) max = f;
         }
 
-        return max + ";" + min + ";" + sum.divide(BigDecimal.valueOf(population.length)) + ";" ;
+        return max + ";" + min + ";" + sum.divide(BigDecimal.valueOf(population.length), 10) + ";" ;
 
     }
 

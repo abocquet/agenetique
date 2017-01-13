@@ -1,9 +1,5 @@
 package eu.labrush.moto;
 
-import eu.labrush.moto.genetic.Moto;
-import org.dyn4j.dynamics.World;
-import org.dyn4j.geometry.Vector2;
-
 public class Main {
 
     public static void main(String[] args) {

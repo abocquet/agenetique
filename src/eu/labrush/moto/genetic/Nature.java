@@ -13,8 +13,8 @@ public class Nature extends AbstractNature implements Observable {
     private int fitnessCalculated = 0 ;
     private GroundDesigner gd ;
 
-    public Nature(int POPSIZE, double PCROSSOVER, double PMUTATION, AbstractFellowFactory factory, GroundDesigner gd) {
-        super(POPSIZE, PCROSSOVER, PMUTATION, factory);
+    public Nature(int POPSIZE, int ELITISM, double PCROSSOVER, double PMUTATION, double PINSERTION, AbstractFellowFactory factory, GroundDesigner gd) {
+        super(POPSIZE, ELITISM, PCROSSOVER, PMUTATION, PINSERTION, factory);
         setGroundDesigner(gd);
     }
 

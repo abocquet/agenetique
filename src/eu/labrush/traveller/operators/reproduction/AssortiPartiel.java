@@ -8,7 +8,11 @@ import eu.labrush.traveller.TravelFactory;
 
 import java.util.Arrays;
 
-//TODO: TESTS
+/**
+ * fait une partition en 3 de chaque parent,
+ * recopie la premiere et la deniere partie du parent A dans un enfant A et complete
+ * la 2eme avec avec celui du parent B
+ */
 public class AssortiPartiel implements CrossoverInterface {
     @Override
     public Tuple<AbstractFellow, AbstractFellow> reproduce(AbstractFellow f1, AbstractFellow f2, AbstractFellowFactory factory) {
@@ -26,21 +30,35 @@ public class AssortiPartiel implements CrossoverInterface {
         }
 
         for (int i = 0; i < 2; i++) {
+            int i1 = (i+1) % 2 ;
+
             int dna[] = new int[DNASIZE];
+            Arrays.fill(dna, -1);
 
             for (int j = 0 ; j < XP1; j++)       { dna[j] = parents[i].getDNA(j); }
             for (int j = XP2 ; j < DNASIZE; j++) { dna[j] = parents[i].getDNA(j); }
 
-            int cursor = 0 ;
+            int cursor = XP1 ;
             for (int j = XP1; j < XP2; j++) {
-                while(Arrays.asList(dna).contains(parents[(i+1 % 2)].getDNA(cursor))){
-                    cursor = (cursor + 1) % DNASIZE ;
+                while(arrayContains(dna, parents[i1].getDNA(cursor))) {
+                    cursor = (cursor + 1) % DNASIZE;
                 }
+
+                dna[j] = parents[i1].getDNA(cursor) ;
+                cursor = (cursor + 1) % DNASIZE ;
             }
 
-            children[i] = ((TravelFactory)factory).newInstance(dna, false); // TODO: set false to true once tested
+            children[i] = ((TravelFactory)factory).newInstance(dna, true);
         }
 
         return new Tuple<>(children[0], children[1]);
+    }
+
+    private boolean arrayContains(int[] u, int e){
+        for(int i = 0 ; i < u.length ; i++){
+            if(u[i] == e) return true ;
+        }
+
+        return false ;
     }
 }

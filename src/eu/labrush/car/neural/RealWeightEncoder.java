@@ -4,12 +4,15 @@ import eu.labrush.agenetic.AbstractFellow;
 
 public class RealWeightEncoder extends AbstractWeightEncoder {
 
-    protected int detectors = 8;
-    protected int outputs = 4; //Left or right / faster or slower
+    public RealWeightEncoder() {
+        detectors = 8;
+        outputs = 3;
 
-    protected int hiddenLayers = 1;
-    protected int nodePerLayers = 4;
-    protected int bitsPerWeight = 8;
+        hiddenLayers = 1;
+        nodePerLayers = 4;
+        bitsPerWeight = 8;
+    }
+
     private double amplitude = 1 ;
 
     @Override
@@ -19,7 +22,7 @@ public class RealWeightEncoder extends AbstractWeightEncoder {
 
     @Override
     public  double readWeight(int pos, AbstractFellow f){
-        return 2 * amplitude * readIntFromDNA(f, pos, bitsPerWeight) / Math.pow(2, bitsPerWeight) - (double)amplitude;
+        return 2 * amplitude * readIntFromDNA(f, pos, bitsPerWeight) / Math.pow(2, bitsPerWeight) - amplitude;
     }
 
     private int readIntFromDNA(AbstractFellow f, int start, int length) {

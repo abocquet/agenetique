@@ -40,7 +40,7 @@ class GraphicInterface extends JFrame {
         this.setTitle("Genetic Motos");
         this.setSize(250, 600);
         this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocation(50, 100);
 
         Container content = this.getContentPane() ;
@@ -49,7 +49,7 @@ class GraphicInterface extends JFrame {
         /* On parametre la nature */
 
             Moto.setPeakNumber(5);
-            nature = new Nature(20, 0.5, 0.05, new MotoFactory(), new GroundDesigner(2000, 200));
+            nature = new Nature(20, 2, 0.5, 0.05, 0.01, new MotoFactory(), new GroundDesigner(2000, 200));
         nature.getGroundDesigner().setOffset(new Vector2(-5, -5));
 
         /* On parametre la fenetre qui présente les options et les générations **/

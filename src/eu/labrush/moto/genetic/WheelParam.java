@@ -17,9 +17,6 @@ class WheelParam {
     }
 
     /**
-     * @param f
-     * @param start
-     * @param length
      * @return binary input as int
      */
     private int readIntFromDNA(AbstractFellow f, int start, int length) {

@@ -56,7 +56,7 @@ class Car {
 
         detectors = new Detector[nbDetectors] ;
         for (int i = 0 ; i < nbDetectors ; i ++){
-            detectors[i] = new Detector(angle * 2 * (double)i - maxAngle, 120);
+            detectors[i] = new Detector(angle * 2 * (double)i - maxAngle, 200);
         }
 
         /*-------------------------------
@@ -86,8 +86,25 @@ class Car {
         }
 
         double[] res = this.brain.compute(distances);
+        double S = 0 ;
+
+        for (int i = 0; i < 3; i++) {
+            res[i] = Math.exp(res[i]);
+            S += res[i] ;
+        }
+
+        for (int i = 0; i < 3; i++) {
+            res[i] /= S ;
+        }
+
+        if(res[0] > .33){
+            angle += 0.02 ;
+        } else if (res[2] > .33){
+            angle -= 0.02 ;
+        }
+
         //System.out.println(res[1] - res[0]);
-        if(res[1] - res[0] > turn_trigger){
+        /*if(res[1] - res[0] > turn_trigger){
             angle += 0.02 ;
         } else if(res[1] - res[0] < -turn_trigger){
             angle -= 0.02 ;
@@ -97,7 +114,7 @@ class Car {
             speed += 1 ;
         } else if(res[3] - res[2] < -speed_trigger && speed >= minSpeed){
             speed -= 1 ;
-        }
+        }*/
 
     }
 

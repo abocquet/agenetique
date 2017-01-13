@@ -39,7 +39,7 @@ public class Order1 implements CrossoverInterface {
             int[] completion_dna = parents[(offset + 1) %  2].cloneDNA() ;
 
             for(int j = s2 ; j < DNASIZE ; j++){
-                while(arrayContains(dna,  completion_dna[c], DNASIZE)){
+                while(arrayContains(dna,  completion_dna[c])){
                     c = (c+1) % DNASIZE ;
                 }
 
@@ -48,7 +48,7 @@ public class Order1 implements CrossoverInterface {
             }
 
             for(int j = 0 ; j < s1 ; j++){
-                while(arrayContains(dna,  completion_dna[c], DNASIZE)){
+                while(arrayContains(dna,  completion_dna[c])){
                     c = (c+1) % DNASIZE ;
                 }
 
@@ -66,8 +66,8 @@ public class Order1 implements CrossoverInterface {
 
     }
 
-    private boolean arrayContains(int[] u, int e, int size){
-        for(int i = 0 ; i < size ; i++){
+    private boolean arrayContains(int[] u, int e){
+        for(int i = 0 ; i < u.length ; i++){
             if(u[i] == e) return true ;
         }
 

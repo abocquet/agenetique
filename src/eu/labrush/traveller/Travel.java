@@ -8,7 +8,6 @@ import java.util.Arrays;
 public class Travel extends AbstractFellow {
 
     private Point[] places ;
-    private long distance ;
 
     public Travel(Point[] places){
         super(places.length, places.length);
@@ -81,7 +80,6 @@ public class Travel extends AbstractFellow {
         }
 
         distance += Point.distance(places[0], places[getDNA(getDNACARD()-1)]);
-        this.distance = distance ;
 
         return distance ;
     }

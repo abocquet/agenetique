@@ -147,7 +147,7 @@ public class MapGenerator {
             for (int y = 0; y < height; y++) {
                 Rectangle2D rect = new Rectangle2D.Double(minX + x * maille, minY + y * maille, maille, maille);
 
-                if (guides.stream().filter(l -> rect.intersectsLine(l)).count() > 0) {
+                if (guides.stream().filter(rect::intersectsLine).count() > 0) {
                     grid[x][y] = true;
                     road.add(rect);
                 }

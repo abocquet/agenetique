@@ -11,6 +11,7 @@ public abstract class AbstractWeightEncoder {
     protected int nodePerLayers ;
     protected int bitsPerWeight ;
 
+
     public abstract int requiredDNASize();
 
     abstract double readWeight(int pos, AbstractFellow f);
@@ -24,7 +25,6 @@ public abstract class AbstractWeightEncoder {
         for (int i = 0; i < detectors; i++) {
             for (int j = 0; j < nodePerLayers; j++) {
                 weights[0][i][j] = readWeight(pos, f);
-                System.out.println(pos);
                 pos += bitsPerWeight;
             }
         }

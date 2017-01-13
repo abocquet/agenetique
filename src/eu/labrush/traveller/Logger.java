@@ -20,12 +20,12 @@ public class Logger extends eu.labrush.agenetic.Logger {
         BigDecimal sum = new BigDecimal(min) ;
         max = min ;
 
-        for(int i = 0, c = population.length ; i < c ; i++){
-            long d = ((Travel) population[i]).getDistance();
-            sum = sum.add(new BigDecimal(d)) ;
+        for (AbstractFellow aPopulation : population) {
+            long d = ((Travel) aPopulation).getDistance();
+            sum = sum.add(new BigDecimal(d));
 
-            if(min > d) min = d ;
-            if(max < d) max = d ;
+            if (min > d) min = d;
+            if (max < d) max = d;
         }
 
         return System.currentTimeMillis() + ";" + max + ";" + min + ";" + sum.divide(BigDecimal.valueOf(population.length), 5).toString() + ";"  ;
