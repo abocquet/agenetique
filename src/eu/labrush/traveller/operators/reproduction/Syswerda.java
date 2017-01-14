@@ -8,10 +8,9 @@ import eu.labrush.traveller.TravelFactory;
 
 import java.util.Arrays;
 
-//TODO: TESTS
-
 /**
- * TODO: description
+ * Tire 4 points dans parent 2 les insères dans l'enfant puis
+ * fini de remplir avec les gènes de parent 1
  */
 public class Syswerda implements CrossoverInterface {
     @Override
@@ -43,7 +42,7 @@ public class Syswerda implements CrossoverInterface {
                 cursor += 1 % DNASIZE;
             }
 
-            children[i] = ((TravelFactory)factory).newInstance(dna, false); // TODO: set false to true once tested
+            children[i] = ((TravelFactory)factory).newInstance(dna, true);
 
         }
 

@@ -54,7 +54,7 @@ public class AssortiPartiel implements CrossoverInterface {
         return new Tuple<>(children[0], children[1]);
     }
 
-    private boolean arrayContains(int[] u, int e){
+    private static boolean arrayContains(int[] u, int e){
         for(int i = 0 ; i < u.length ; i++){
             if(u[i] == e) return true ;
         }

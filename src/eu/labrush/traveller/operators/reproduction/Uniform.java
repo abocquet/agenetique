@@ -11,7 +11,9 @@ import java.util.Arrays;
 //TODO: TESTS
 
 /**
- * Todo: description
+ * On tire une table de référence binaire et on rempli l'enfant suivant la règle
+ * ref = 0 -> parent 1
+ * ref = 1 -> parent 2
  */
 public class Uniform implements CrossoverInterface {
     @Override
@@ -29,10 +31,12 @@ public class Uniform implements CrossoverInterface {
             int[] dna = new int[DNASIZE] ;
             int[] c = new int[]{0, 0} ;
 
+            Arrays.fill(dna, -1);
+
             for (int j = 0; j < DNASIZE; j++) {
                 int r = reference[j];
 
-                while(Arrays.asList(dna).contains(parents[r].getDNA(c[r]))){
+                while(arrayContains(dna, parents[r].getDNA(c[r]))){
                     c[r] = (c[r] + 1) % DNASIZE ;
                 }
 
@@ -40,10 +44,17 @@ public class Uniform implements CrossoverInterface {
                 c[r] = (c[r] + 1) % DNASIZE ;
             }
 
-            children[i] = ((TravelFactory)factory).newInstance(dna, false); // TODO: set false to true once tested
-
+            children[i] = ((TravelFactory)factory).newInstance(dna, true);
         }
 
         return new Tuple<>(children[0], children[1]);
+    }
+
+    private static boolean arrayContains(int[] u, int e){
+        for(int i = 0 ; i < u.length ; i++){
+            if(u[i] == e) return true ;
+        }
+
+        return false ;
     }
 }

@@ -6,10 +6,15 @@ import eu.labrush.agenetic.Tuple;
 import eu.labrush.agenetic.operators.CrossoverInterface;
 import eu.labrush.traveller.TravelFactory;
 
-//TODO: TESTS
+import java.util.Arrays;
+import java.util.Comparator;
+
+//TODO: Test result: WTF ?
+// Seems to override elitism ?
 
 /**
- * TODO: description
+ * Rempli l'enfant à partir du parent 1,
+ * tire 4 points dans le parent 2 et les insère dans 1 en fonction de leur ordre d'apparition
  */
 public class Order2 implements CrossoverInterface {
     @Override
@@ -18,24 +23,44 @@ public class Order2 implements CrossoverInterface {
         AbstractFellow[] children = new AbstractFellow[2] ;
         int DNASIZE = f1.getDNASIZE();
 
-        int[] cutPoints = new int[4];
+        Tuple<Integer, Integer>[] cutPoints = new Tuple[4];
         for(int j = 0 ; j < cutPoints.length ; j++){
-            cutPoints[j] = (int) ((Math.random() * 2 * DNASIZE) % DNASIZE) ;
+            cutPoints[j] = new Tuple<>((int) ((Math.random() * 2 * DNASIZE) % DNASIZE), 0);
         }
 
+
         for(int i = 0 ; i < 2 ; i++) {
+            int ib = (1 + i) % 2 ;
+
             int[] dna = new int[DNASIZE] ;
+            Arrays.fill(dna, -1);
+
+            for (int j = 0; j < DNASIZE; j++) {
+                for (int k = 0; k < cutPoints.length ; k++) {
+                    if(cutPoints[k].fst == parents[ib].getDNA(j))
+                    {
+                        cutPoints[k].snd = j;
+                    }
+                }
+            }
+
+            Arrays.sort(cutPoints, Comparator.comparingInt(a -> a.snd)); // On trie les points par ordre d'appartion dans le second parent
 
             for(int j = 0 ; j < DNASIZE ; j++){
                 dna[j] = parents[i].getDNA(j);
+
+                for (int k = 0; k < cutPoints.length ; k++)
+                    if (cutPoints[k].fst == parents[i].getDNA(j))
+                        cutPoints[k].snd = j;
             }
 
             for (int j = 0; j < cutPoints.length; j++) {
-                dna[(cutPoints[j] + 1) % DNASIZE] = dna[cutPoints[j]];
+                dna[cutPoints[j].snd] = cutPoints[(j+1)%cutPoints.length].fst ;
             }
 
-            children[i] = ((TravelFactory)factory).newInstance(dna, false); // TODO: set false to true once tested
+            System.exit(-1);
 
+            children[i] = ((TravelFactory)factory).newInstance(dna, false); // TODO: set false to true once tested
         }
 
         return new Tuple<>(children[0], children[1]);

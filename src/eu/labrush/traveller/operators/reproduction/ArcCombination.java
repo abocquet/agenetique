@@ -10,6 +10,7 @@ import java.util.Arrays;
 
 
 //TODO: TESTS
+// TODO: same issue as order 2
 
 /**
  * Crée la matrice des villes adjacent pour chaque point puis
@@ -22,9 +23,6 @@ public class ArcCombination implements CrossoverInterface {
         int DNASIZE = f1.getDNASIZE();
         int[][] neighboors = new int[DNASIZE][4];
         int[] pos = new int[DNASIZE] ;
-        
-        cutDNA(f1, neighboors, pos);
-        cutDNA(f2, neighboors, pos);
 
         for(int i = 0 ; i < DNASIZE ; i++){
             for(int j = 0 ; j < 4 ; j++){
@@ -32,26 +30,38 @@ public class ArcCombination implements CrossoverInterface {
             }
         }
 
+        cutDNA(f1, neighboors, pos);
+        cutDNA(f2, neighboors, pos);
+
+
         AbstractFellow[] children = new AbstractFellow[2] ;
 
         for(int i = 0 ; i < 2 ; i++) {
             int[] dna = new int[DNASIZE];
+            Arrays.fill(dna, -1);
+
             boolean[] usedGenes = new boolean[DNASIZE];
 
             int current = (int) ((Math.random() * 2 * DNASIZE) % DNASIZE);
-            usedGenes[current] = true ;
 
             for(int j = 0 ; j < DNASIZE ; j++){
-                dna[j] = current ;
-
+                //fst: la valeur, snd: le nombre de voisins
                 Tuple<Integer, Integer> next = new Tuple<>(-1, -1);
                 for(int k = 0 ; k < 4 ; k++){
-                    if(!usedGenes[k] && (pos[k] <= next.snd)){
-                        next.fst = k ;
+                    if(neighboors[current][k] != -1 && !usedGenes[neighboors[current][k]] && (next.fst < 0 || (pseudoLenght(neighboors[neighboors[current][k]]) <= next.snd))){
+                        next.fst = neighboors[j][k] ;
+                        next.snd = pseudoLenght(neighboors[k]);
                     }
                 }
 
                 current = next.fst ;
+
+                while(current == -1 || usedGenes[current]){
+                    current = (current+1) % DNASIZE ;
+                }
+
+                dna[j] = current ;
+                usedGenes[current] = true ;
             }
 
             children[i] = ((TravelFactory)factory).newInstance(dna, false); // TODO: set false to true once tested
@@ -63,14 +73,32 @@ public class ArcCombination implements CrossoverInterface {
     private void cutDNA(AbstractFellow f, int[][] neighboors, int[] pos) {
         int DNASIZE = f.getDNASIZE() ;
         for(int i = 0 ; i < DNASIZE ; i++){
-            for(int j = i - 1 ; j <= i + 1 ; i += 2) {
+            for(int j = i - 1 ; j <= i + 1 ; j += 2) {
                 int k = (j + DNASIZE) % DNASIZE ;
 
-                if(!Arrays.asList(neighboors[k]).contains(f.getDNA(k))){
-                    neighboors[k][pos[k]] = f.getDNA(k);
-                    pos[k] += 1;
+                if(!arrayContains(neighboors[i], f.getDNA(k))){
+                    neighboors[i][pos[i]] = f.getDNA(k);
+                    pos[i] += 1;
                 }
             }
         }
+    }
+
+    private static boolean arrayContains(int[] u, int e){
+        for(int i = 0 ; i < u.length ; i++){
+            if(u[i] == e) return true ;
+        }
+
+        return false ;
+    }
+
+    private int pseudoLenght(int[] u ){
+        int c = 0 ;
+        for (int i: u){
+            if (i > 0){
+                c++ ;
+            }
+        }
+        return c ;
     }
 }

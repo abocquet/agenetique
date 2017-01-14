@@ -166,6 +166,7 @@ public abstract class AbstractNature {
 
             if (Math.random() <= PCROSSOVER) {
                 Tuple<AbstractFellow, AbstractFellow> children = this.reproduce(population[c], population[(int) (Math.random() * 10000) % POPSIZE]);
+
                 if (i < POPSIZE) {
                     newPop[i] = children.fst;
                     i++;
