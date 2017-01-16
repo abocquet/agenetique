@@ -48,11 +48,8 @@ public class Travel extends AbstractFellow {
         this.places = places ;
 
         if(!safe && !isPermutation()) {
-            try {
-                throw new Exception("DNA is not a permutation");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            System.err.println("DNA is not a permutation");
+            System.exit(-42);
         }
     }
 

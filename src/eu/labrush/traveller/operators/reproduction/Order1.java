@@ -19,6 +19,7 @@ public class Order1 implements CrossoverInterface {
         int offset = 0 ;
 
         for(int i = 0 ; i < 2 ; i++) {
+
             int s1 = (int) (Math.random() * 2 * DNASIZE) % DNASIZE;
             int s2 = (int) (Math.random() * 2 * DNASIZE) % DNASIZE;
 
@@ -56,7 +57,7 @@ public class Order1 implements CrossoverInterface {
                 c = (c+1) % DNASIZE ;
             }
 
-            children[i] = ((TravelFactory)factory).newInstance(dna, true);
+            children[i] = ((TravelFactory)factory).newInstance(dna, false); // TODO: set to true once mutation tests done
 
             /* We swap both parents so the second child has repaired DNA from the original father */
             offset++ ;

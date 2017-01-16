@@ -6,7 +6,6 @@ import eu.labrush.agenetic.operators.MutationInterface;
 
 import java.util.Arrays;
 
-//TODO: TESTS
 
 /**
  * Translate n points non consécutifs dans le gène
@@ -27,15 +26,16 @@ public class Thrors implements MutationInterface {
                 for (int i = 0; i < actOn; i++) {
                     points[i] = (int) (Math.random() * 2 * DNASIZE) % DNASIZE;
                 }
+
                 Arrays.sort(points);
 
-                int tmp = f.getDNA(points[DNASIZE - 1]);
+                int tmp = f.getDNA(points[0]);
 
                 for (int i = 0; i < actOn - 1; i++) {
                     f.setDNA(points[i], f.getDNA(points[i+1]));
                 }
 
-                f.setDNA(points[0], tmp);
+                f.setDNA(points[actOn - 1], tmp);
                 
             }
         }

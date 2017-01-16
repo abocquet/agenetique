@@ -160,6 +160,7 @@ public abstract class AbstractNature {
         AbstractFellow[] newPop = new AbstractFellow[this.POPSIZE];
         int i = 0 ;
 
+
         while(i < POPSIZE) {
 
             int c = biasedWheel(parts);
@@ -175,10 +176,12 @@ public abstract class AbstractNature {
                     newPop[i] = children.snd;
                     i++;
                 }
+
             } else {
                 newPop[i] = this.population[c % POPSIZE];
                 i++;
             }
+
         }
 
         this.population = newPop ;

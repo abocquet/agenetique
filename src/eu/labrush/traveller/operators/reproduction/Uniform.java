@@ -8,8 +8,6 @@ import eu.labrush.traveller.TravelFactory;
 
 import java.util.Arrays;
 
-//TODO: TESTS
-
 /**
  * On tire une table de référence binaire et on rempli l'enfant suivant la règle
  * ref = 0 -> parent 1

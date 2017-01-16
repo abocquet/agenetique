@@ -6,12 +6,11 @@ public class Fellow extends AbstractFellow {
 
     static private NumFunction fun ;
 
-    //TODO: test: peut-on supprimer le public pour renforcer le pattern factory ?
-    public Fellow(int DNASIZE, int DNACARD) {
+    protected Fellow(int DNASIZE, int DNACARD) {
         super(DNASIZE, DNACARD);
     }
 
-    public Fellow(int[] dna, int DNACARD){
+    protected Fellow(int[] dna, int DNACARD){
         super(dna, DNACARD);
     }
 

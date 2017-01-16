@@ -16,16 +16,17 @@ public class Throas implements MutationInterface {
         int DNASIZE = population[0].getDNASIZE() ;
 
         for(AbstractFellow f: population){
+
             if(Math.random() <= pmutation){
 
                 int start = (int) (Math.random() * 2 * DNASIZE) % DNASIZE ;
-                int tmp = f.getDNA(DNASIZE - 1);
+                int tmp = f.getDNA(start);
 
                 for (int i = 0; i < actOn - 1; i++) {
-                    f.setDNA(start + i, f.getDNA((start + i + 1) % DNASIZE));
+                    f.setDNA((start + i) % DNASIZE, f.getDNA((start + i + 1) % DNASIZE));
                 }
 
-                f.setDNA(0, tmp);
+                f.setDNA((start + actOn - 1) % DNASIZE, tmp);
 
             }
         }

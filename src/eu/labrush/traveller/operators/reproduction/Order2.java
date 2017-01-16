@@ -38,9 +38,7 @@ public class Order2 implements CrossoverInterface {
             for (int j = 0; j < DNASIZE; j++) {
                 for (int k = 0; k < cutPoints.length ; k++) {
                     if(cutPoints[k].fst == parents[ib].getDNA(j))
-                    {
                         cutPoints[k].snd = j;
-                    }
                 }
             }
 
@@ -55,12 +53,12 @@ public class Order2 implements CrossoverInterface {
             }
 
             for (int j = 0; j < cutPoints.length; j++) {
-                dna[cutPoints[j].snd] = cutPoints[(j+1)%cutPoints.length].fst ;
+                dna[cutPoints[j].snd] = cutPoints[(j+1)%cutPoints.length].fst ; // TODO: this lines seems critical, if I disable it, everythong goes weel...
             }
 
-            System.exit(-1);
-
             children[i] = ((TravelFactory)factory).newInstance(dna, false); // TODO: set false to true once tested
+
+
         }
 
         return new Tuple<>(children[0], children[1]);

@@ -18,15 +18,14 @@ public class Main {
 
         //runTestDuSwagPleinDeTestsYolo("berlin52");
 
-         // Cim Im Throas Thrors Twor
          // Order2 ArcCombination
 
 
         PointSetFactory factory = new PointSetFactory() ;
         PointSet problem = factory.getSet("berlin52");
-        Nature nature = new Nature(50, 3,0.5, 0.05, 0, problem, new ArcCombination(), new Im());
+        Nature nature = new Nature(50, 3,0.5, 0.05, 0, problem, new Order1(), new Im());
 
-        int i = 1, p = 10;
+        int i = 1, p = 1;
         while (nature.getShortest() * 100 > problem.getMinDist() * 105) {
             if (i % p == 0) {
                 System.out.println("Génération " + i + " " + nature.getShortest() + " / " + problem.getMinDist());
