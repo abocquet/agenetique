@@ -1,9 +1,9 @@
 package eu.labrush.agenetic;
 
-import eu.labrush.agenetic.operators.DefaultMutationOperator;
-import eu.labrush.agenetic.operators.OnePointCrossover;
-import eu.labrush.agenetic.operators.MutationInterface;
 import eu.labrush.agenetic.operators.CrossoverInterface;
+import eu.labrush.agenetic.operators.DefaultMutationOperator;
+import eu.labrush.agenetic.operators.MutationInterface;
+import eu.labrush.agenetic.operators.OnePointCrossover;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -77,6 +77,8 @@ public abstract class AbstractNature {
 
         int[][] elite = new int[ELITISM][] ;
 
+        Arrays.sort(population, (a, b) -> Long.compare(b.getFitness(), a.getFitness()));
+
         // We keep the best of each generation
         for(int i = 0 ; i < ELITISM ; i++){
             elite[i] = population[i].cloneDNA() ;
@@ -125,8 +127,6 @@ public abstract class AbstractNature {
     public int getGenerationNumber() { return this.genCounter ; }
 
     protected void crossover() {
-        Arrays.sort(population, (a, b) -> Long.compare(b.getFitness(), a.getFitness()));
-
         long minFitness = this.population[0].getFitness();
 
         BigDecimal totalFitness = BigDecimal.valueOf(0) ;

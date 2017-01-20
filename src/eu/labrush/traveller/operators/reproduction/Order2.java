@@ -9,9 +9,6 @@ import eu.labrush.traveller.TravelFactory;
 import java.util.Arrays;
 import java.util.Comparator;
 
-//TODO: Test result: WTF ?
-// Seems to override elitism ?
-
 /**
  * Rempli l'enfant à partir du parent 1,
  * tire 4 points dans le parent 2 et les insère dans 1 en fonction de leur ordre d'apparition
@@ -27,7 +24,6 @@ public class Order2 implements CrossoverInterface {
         for(int j = 0 ; j < cutPoints.length ; j++){
             cutPoints[j] = new Tuple<>((int) ((Math.random() * 2 * DNASIZE) % DNASIZE), 0);
         }
-
 
         for(int i = 0 ; i < 2 ; i++) {
             int ib = (1 + i) % 2 ;
@@ -53,10 +49,10 @@ public class Order2 implements CrossoverInterface {
             }
 
             for (int j = 0; j < cutPoints.length; j++) {
-                dna[cutPoints[j].snd] = cutPoints[(j+1)%cutPoints.length].fst ; // TODO: this lines seems critical, if I disable it, everythong goes weel...
+                dna[cutPoints[j].snd] = cutPoints[(j+1) % cutPoints.length].fst ;
             }
 
-            children[i] = ((TravelFactory)factory).newInstance(dna, false); // TODO: set false to true once tested
+            children[i] = ((TravelFactory)factory).newInstance(dna, true);
 
 
         }
