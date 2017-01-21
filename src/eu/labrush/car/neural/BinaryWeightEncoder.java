@@ -6,7 +6,7 @@ public class BinaryWeightEncoder extends AbstractWeightEncoder {
 
     public BinaryWeightEncoder() {
         hiddenLayers = 1;
-        nodePerLayers = 4;
+        nodePerLayers = 100;
         bitsPerWeight = 2 ;
     }
 

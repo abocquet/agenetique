@@ -36,6 +36,7 @@ public class World {
         //addBoudaries(map.getRandomizedGrid(15, 35));
         addBoudaries(map.getSquareGrid());
 
+
         AbstractFellow[] drivers = nature.getPopulation();
 
         int nbCars = drivers.length;
@@ -97,6 +98,14 @@ public class World {
                 }
             }
 
+
+            for (Line2D cB: carBorders){
+                if(cB.intersectsLine(map.getFinishLine()) && !c.isFinished()){
+                    c.setFinished(true);
+                    carsAlive-- ;
+                }
+            }
+
             if(c != this.user)
                 c.drive(boundaries);
         }
@@ -114,10 +123,6 @@ public class World {
 
     public Car[] getCars() {
         return cars;
-    }
-
-    public ArrayList<Line2D> getBoundaries() {
-        return boundaries;
     }
 
     public void addBoudaries(ArrayList<Line2D> lines){

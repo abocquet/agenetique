@@ -1,5 +1,7 @@
 package eu.labrush.car.simulation;
 
+import eu.labrush.agenetic.Tuple;
+
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -13,11 +15,47 @@ public class MapGenerator {
     private ArrayList<Rectangle2D> road = new ArrayList<>() ;
     private Point2D startPoint = null ;
 
+    int maille = 60 ;
+
+    private ArrayList<Tuple<Point2D.Double, ArrayList<Point2D>>> maps = new ArrayList<>() ;
+
     public MapGenerator(double minX, double minY, double maxX, double maxY) {
         this.minX = minX;
         this.minY = minY;
         this.maxX = maxX;
         this.maxY = maxY;
+
+        int width = (int) ((maxX - minX) / maille), height = (int) (maxY - minY) / maille ;
+        double a = Math.min(width -1, height-1) ;
+        a -= .1 ;
+
+        ArrayList<Point2D> points;
+
+        points = new ArrayList<>();
+        points.add(new Point2D.Double(0, 0));
+        points.add(new Point2D.Double(a, 0));
+        points.add(new Point2D.Double(a, a));
+        points.add(new Point2D.Double(a/2, a/2));
+        points.add(new Point2D.Double(0, a/2));
+
+        maps.add(new Tuple<>(
+                new Point2D.Double(minX + maille * 5, minY + maille / 2),
+                points
+        ));
+
+
+        points = new ArrayList<>();
+        points.add(new Point2D.Double(0, a));
+        points.add(new Point2D.Double(a, a));
+        points.add(new Point2D.Double(a, a/2));
+        points.add(new Point2D.Double(2*a/3, a/2));
+        points.add(new Point2D.Double(0, 0));
+
+        maps.add(new Tuple<>(
+                new Point2D.Double(minX + 5 * maille, minY + 9.5 * maille),
+                points
+        ));
+
     }
 
     private ArrayList<Point2D> getRandomGrid(int nbPoints, int width, int height){
@@ -99,23 +137,13 @@ public class MapGenerator {
     }
 
     public ArrayList<Line2D> getSquareGrid(){
-        int maille = 40 ;
-        int width = (int) ((maxX - minX) / maille), height = (int) (maxY - minY) / maille ;
-
-        ArrayList<Point2D> points = new ArrayList<>();
-
-        double a = Math.min(width -1, height-1) ;
-        a -= .1 ;
-        startPoint = new Point2D.Double(minX + maille * 13, minY + maille / 2);
-
-        points.add(new Point2D.Double(0, 0));
-        points.add(new Point2D.Double(a, 0));
-        points.add(new Point2D.Double(a, a));
-        points.add(new Point2D.Double(a/2, a/2));
-        points.add(new Point2D.Double(0, a));
 
         ArrayList<Line2D> guides = new ArrayList<>();
         ArrayList<Line2D> lines = new ArrayList<>();
+
+        int mapIndex = (int) (Math.random() * maps.size());
+        ArrayList<Point2D> points = maps.get(mapIndex).snd ;
+        this.startPoint = maps.get(mapIndex).fst ;
 
         for (int i = 0; i < points.size() ; i++) {
             double x1 = points.get(i).getX(), y1 = points.get(i).getY() ;
@@ -176,6 +204,13 @@ public class MapGenerator {
 
     public Point2D getStart(){
         return this.startPoint ;
+    }
+
+    public Line2D getFinishLine(){
+        double x = startPoint.getX() - maille ;
+        double y = startPoint.getY() ;
+
+        return new Line2D.Double(x, y + maille / 2, x, y - maille / 2);
     }
 
 }

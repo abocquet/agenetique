@@ -1,15 +1,15 @@
-package eu.labrush.agenetic.operators;
+package eu.labrush.agenetic.operators.crossover;
 
 import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.agenetic.AbstractFellowFactory;
 import eu.labrush.agenetic.Tuple;
+import eu.labrush.agenetic.operators.CrossoverInterface;
 
 public class OnePointCrossover implements CrossoverInterface {
 
     public Tuple<AbstractFellow, AbstractFellow> reproduce(AbstractFellow male, AbstractFellow female, AbstractFellowFactory factory)  {
 
         int DNASIZE = factory.getDNASize() ;
-
         AbstractFellow[] children = new AbstractFellow[2] ;
 
         for(int i = 0 ; i < 2 ; i++) {

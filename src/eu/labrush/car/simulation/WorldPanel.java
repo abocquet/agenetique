@@ -44,6 +44,9 @@ public class WorldPanel extends JPanel implements KeyListener {
             g.draw(l);
         }
 
+        g.setColor(Color.RED);
+        g.draw(world.getMap().getFinishLine());
+
         g.setColor(Color.BLACK);
         for(Car c: world.getCars()) {
 
@@ -59,7 +62,9 @@ public class WorldPanel extends JPanel implements KeyListener {
                 }
             }
 
-            if(c.isRunning()) {
+            if(c.isFinished()){
+                g.setColor(Color.GREEN);
+            } else if(c.isRunning()) {
                 g.setColor(Color.decode(carColor));
             } else {
                 g.setColor(Color.gray);

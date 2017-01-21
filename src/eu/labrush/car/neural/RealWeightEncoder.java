@@ -9,11 +9,11 @@ public class RealWeightEncoder extends AbstractWeightEncoder {
         outputs = 3;
 
         hiddenLayers = 1;
-        nodePerLayers = 4;
+        nodePerLayers = 100;
         bitsPerWeight = 8;
     }
 
-    private double amplitude = 1 ;
+    private double amplitude = 2 ;
 
     @Override
     public int requiredDNASize() {

@@ -17,13 +17,8 @@ class Car {
     private double speed = 50; // Linear speed
     private double minSpeed = 50 ;
 
-    private double turn_trigger = 0.1 ;
-    private double speed_trigger = 0.3 ;
-
     private double angle = 0;
     private Dimension dimension = new Dimension(10, 10);
-
-    public Vector2 lastKnownPos = new Vector2() ;
 
     public double getX() { return position.x; }
     public double getY() { return position.y; }
@@ -38,6 +33,7 @@ class Car {
     private NeuralNetwork brain ;
 
     private boolean running = true ;
+    private boolean finished = false ; // achieved a turn
     private Driver driver ;
 
     private double distance = .0;
@@ -97,10 +93,25 @@ class Car {
             res[i] /= S ;
         }
 
+        for (int i = 3; i < 6; i++) {
+            res[i] = Math.exp(res[i]);
+            S += res[i] ;
+        }
+
+        for (int i = 3 ; i < 6 ; i++) {
+            res[i] /= S ;
+        }
+
         if(res[0] > .33){
             angle += 0.02 ;
         } else if (res[2] > .33){
             angle -= 0.02 ;
+        }
+
+        if(res[3] > .33){
+            speed += 3 ;
+        } else if (res[5] > .33 && speed > minSpeed){
+            angle -= 4 ;
         }
 
         //System.out.println(res[1] - res[0]);
@@ -152,5 +163,13 @@ class Car {
 
     public void setAngle(double angle) {
         this.angle = angle;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
     }
 }

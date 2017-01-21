@@ -1,7 +1,8 @@
-package eu.labrush.agenetic.operators;
+package eu.labrush.agenetic.operators.mutation;
 
 import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.agenetic.AbstractFellowFactory;
+import eu.labrush.agenetic.operators.MutationInterface;
 
 public class DefaultMutationOperator implements MutationInterface {
 

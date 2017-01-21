@@ -5,7 +5,7 @@ import eu.labrush.agenetic.AbstractFellow;
 public abstract class AbstractWeightEncoder {
 
     protected int detectors = 8;
-    protected int outputs = 4; //Left or right / faster or slower
+    protected int outputs = 6; // Left center right / faster steady slower
 
     protected int hiddenLayers;
     protected int nodePerLayers ;
