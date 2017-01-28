@@ -19,9 +19,9 @@ public class Main {
 
         //System.out.println(factory.getProblems());
 
-        //runTests(new String[]{"st70"});
+        runTests(new String[]{"usa13509"});
         //runTests(new String[]{"berlin52", "kroA100", "kroA150", "kroA200", "lin318", "pr439", "rat575", "rat783", "rl1304", "rl1889"});
-        runTestDuSwagPleinDeTestsYolo("berlin52");
+        //runTestDuSwagPleinDeTestsYolo("berlin52");
 
         System.out.println("It's all done !");
 
@@ -37,7 +37,7 @@ public class Main {
             Nature nature = new Nature(50, 1, 0.5, 0.05, 0.00, problem, new Order1(), new Im(), new WheelAndRandomSelector());
             Logger logger = new Logger("logs/" + problem.getName() + "_" + System.currentTimeMillis() + ".csv", nature);
 
-            int i = 0, p = 100;
+            int i = 0, p = 1000;
             while (nature.getShortest() * 100 > problem.getMinDist() * 105) {
                 if (i % p == 0) {
                     logger.log();

@@ -6,28 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bb47076-9dc0-4963-b85a-4a1da449f6d9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/result_analysis.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/operators/ElitistSelector.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/operators/SelectorInterface.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/operators/crossover/AlternateCrossover.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/operators/selection/BiasedWheelSelector.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/operators/selection/WheelAndRandomSelector.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/agenetic/operators/DefaultMutationOperator.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/operators/mutation/DefaultMutationOperator.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/eu/labrush/agenetic/operators/OnePointCrossover.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/operators/crossover/OnePointCrossover.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agenetique.iml" afterPath="$PROJECT_DIR$/agenetique.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractNature.java" afterPath="$PROJECT_DIR$/src/eu/labrush/agenetic/AbstractNature.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/car/Main.java" afterPath="$PROJECT_DIR$/src/eu/labrush/car/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/car/genetic/Nature.java" afterPath="$PROJECT_DIR$/src/eu/labrush/car/genetic/Nature.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/car/neural/AbstractWeightEncoder.java" afterPath="$PROJECT_DIR$/src/eu/labrush/car/neural/AbstractWeightEncoder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/car/neural/BinaryWeightEncoder.java" afterPath="$PROJECT_DIR$/src/eu/labrush/car/neural/BinaryWeightEncoder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/car/neural/RealWeightEncoder.java" afterPath="$PROJECT_DIR$/src/eu/labrush/car/neural/RealWeightEncoder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/car/simulation/Car.java" afterPath="$PROJECT_DIR$/src/eu/labrush/car/simulation/Car.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/car/simulation/MapGenerator.java" afterPath="$PROJECT_DIR$/src/eu/labrush/car/simulation/MapGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/car/simulation/World.java" afterPath="$PROJECT_DIR$/src/eu/labrush/car/simulation/World.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/car/simulation/WorldPanel.java" afterPath="$PROJECT_DIR$/src/eu/labrush/car/simulation/WorldPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/traveller/Main.java" afterPath="$PROJECT_DIR$/src/eu/labrush/traveller/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/labrush/traveller/Nature.java" afterPath="$PROJECT_DIR$/src/eu/labrush/traveller/Nature.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -80,7 +59,7 @@
       <file leaf-file-name="Car.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eu/labrush/car/simulation/Car.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="613">
+            <state relative-caret-position="2070">
               <caret line="167" column="33" lean-forward="false" selection-start-line="167" selection-start-column="33" selection-end-line="167" selection-end-column="33" />
               <folding>
                 <element signature="e#4513#4514#0" expanded="true" />
@@ -91,7 +70,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MapGenerator.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MapGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eu/labrush/car/simulation/MapGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="219">
@@ -101,6 +80,18 @@
                 <element signature="method#arg#0;class#MapGenerator#0" expanded="false" />
                 <element signature="method#getRandomizedGrid#0;class#MapGenerator#0" expanded="false" />
                 <element signature="method#loadLines#0;class#MapGenerator#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/eu/labrush/traveller/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="41" column="33" lean-forward="true" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
+              <folding>
+                <element signature="method#runTestDuSwagPleinDeTestsYolo#0;class#Main#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -182,7 +173,6 @@
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/operators/BiasedWheelSelector.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/operators/WheelAndRandomSelector.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/operators/ElitistSelector.java" />
-        <option value="$PROJECT_DIR$/src/eu/labrush/traveller/Main.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/car/neural/BinaryWeightEncoder.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/car/neural/RealWeightEncoder.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/agenetic/operators/selection/BiasedWheelSelector.java" />
@@ -195,6 +185,7 @@
         <option value="$PROJECT_DIR$/src/eu/labrush/car/simulation/World.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/car/simulation/WorldPanel.java" />
         <option value="$PROJECT_DIR$/src/eu/labrush/car/simulation/MapGenerator.java" />
+        <option value="$PROJECT_DIR$/src/eu/labrush/traveller/Main.java" />
       </list>
     </option>
   </component>
@@ -432,139 +423,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="labrush" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agenetic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agenetique" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agenetique" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="labrush" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agenetic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="operators" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agenetique" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agenetique" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="labrush" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agenetic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="operators" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="selection" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agenetique" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agenetique" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="labrush" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agenetic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="operators" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mutation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agenetique" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agenetique" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="labrush" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agenetic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="operators" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="crossover" />
+              <option name="myItemId" value="problems" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -588,7 +455,7 @@
       <recent name="eu.labrush.agenetic.operators.selection" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main (1)">
+  <component name="RunManager" selected="Application.Main">
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="eu.labrush.traveller.Main" />
@@ -1009,8 +876,8 @@
     </list>
     <recent_temporary>
       <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Application.Main (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Main (1)" />
         <item index="2" class="java.lang.String" itemvalue="Python.result_analysis" />
         <item index="3" class="java.lang.String" itemvalue="Application.Main (2)" />
       </list>
@@ -1062,11 +929,12 @@
       <workItem from="1484937470090" duration="1835000" />
       <workItem from="1484999901338" duration="4981000" />
       <workItem from="1485017748453" duration="2756000" />
+      <workItem from="1485625836254" duration="242000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95144000" />
+    <option name="totallyTimeSpent" value="95386000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1088,10 +956,10 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21485148" sideWeight="0.07827476" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18904404" sideWeight="0.9217252" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18904404" sideWeight="0.9217252" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17948718" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18131869" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1367,7 +1235,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="36" lean-forward="false" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1382,7 +1249,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1452,16 +1318,6 @@
         <state relative-caret-position="105">
           <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/labrush/traveller/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="66" column="90" lean-forward="false" selection-start-line="66" selection-start-column="90" selection-end-line="66" selection-end-column="90" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1586,7 +1442,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/labrush/car/simulation/Car.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="613">
+        <state relative-caret-position="2070">
           <caret line="167" column="33" lean-forward="false" selection-start-line="167" selection-start-column="33" selection-end-line="167" selection-end-column="33" />
           <folding>
             <element signature="e#4513#4514#0" expanded="true" />
@@ -1621,6 +1477,16 @@
             <element signature="method#arg#0;class#MapGenerator#0" expanded="false" />
             <element signature="method#getRandomizedGrid#0;class#MapGenerator#0" expanded="false" />
             <element signature="method#loadLines#0;class#MapGenerator#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eu/labrush/traveller/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="41" column="33" lean-forward="true" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
+          <folding>
+            <element signature="method#runTestDuSwagPleinDeTestsYolo#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
