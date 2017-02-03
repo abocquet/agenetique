@@ -1,17 +1,17 @@
 package eu.labrush.traveller;
 
-import eu.labrush.agenetic.operators.*;
+import eu.labrush.agenetic.operators.CrossoverInterface;
+import eu.labrush.agenetic.operators.MutationInterface;
+import eu.labrush.agenetic.operators.SelectorInterface;
 import eu.labrush.agenetic.operators.selection.WheelAndRandomSelector;
 import eu.labrush.traveller.data.PointSet;
 import eu.labrush.traveller.data.PointSetFactory;
-import eu.labrush.traveller.operators.mutation.*;
-import eu.labrush.traveller.operators.reproduction.*;
+import eu.labrush.traveller.operators.mutation.Cim;
+import eu.labrush.traveller.operators.mutation.Im;
+import eu.labrush.traveller.operators.reproduction.Order1;
+import eu.labrush.traveller.operators.reproduction.Order2;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.*;
 
 public class Main {
 
@@ -19,11 +19,41 @@ public class Main {
 
         //System.out.println(factory.getProblems());
 
-        runTests(new String[]{"usa13509"});
+        //runTests(new String[]{"usa13509"});
         //runTests(new String[]{"berlin52", "kroA100", "kroA150", "kroA200", "lin318", "pr439", "rat575", "rat783", "rl1304", "rl1889"});
-        //runTestDuSwagPleinDeTestsYolo("berlin52");
+        //runTestDuSwagPleinDeTestsYolo("st70", 10);
+        runPythonAnalysis(runTestDuSwagPleinDeTestsYolo("st70", 40));
 
         System.out.println("It's all done !");
+
+    }
+
+    private static void runPythonAnalysis(String filename){
+
+        try {
+            String s = "";
+            Process p = Runtime.getRuntime().exec("python result_analysis.py " + filename);
+
+            BufferedReader stdInput = new BufferedReader(new
+                    InputStreamReader(p.getInputStream()));
+
+            BufferedReader stdError = new BufferedReader(new
+                    InputStreamReader(p.getErrorStream()));
+
+            // read the output from the command
+            System.out.println("Here is the standard output of the command:\n");
+            while ((s = stdInput.readLine()) != null) {
+                System.out.println(s);
+            }
+
+            // read any errors from the attempted command
+            System.out.println("\nHere is the standard error of the command (if any):\n");
+            while ((s = stdError.readLine()) != null) {
+                System.out.println(s);
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -37,7 +67,7 @@ public class Main {
             Nature nature = new Nature(50, 1, 0.5, 0.05, 0.00, problem, new Order1(), new Im(), new WheelAndRandomSelector());
             Logger logger = new Logger("logs/" + problem.getName() + "_" + System.currentTimeMillis() + ".csv", nature);
 
-            int i = 0, p = 1000;
+            int i = 0, p = 10;
             while (nature.getShortest() * 100 > problem.getMinDist() * 105) {
                 if (i % p == 0) {
                     logger.log();
@@ -53,12 +83,10 @@ public class Main {
         }
     }
 
-    private static void runTestDuSwagPleinDeTestsYolo(String name){
+    private static String runTestDuSwagPleinDeTestsYolo(String name, int number_of_tests){
 
         PointSetFactory factory = new PointSetFactory();
         PointSet set = factory.getSet(name);
-
-        int nbTests = 10 ; // Number of tests to process so as to do an average
 
         //MutationInterface[] mutations = new MutationInterface[]{new Cim(), new Im(), /*new Throas(),*/ new Thrors(), new Twor()};
         //CrossoverInterface[] crossover = new CrossoverInterface[]{new ArcCombination(), new AssortiPartiel(), new Cyclic(), new MaximalPreservation(), new Order1(), new Order2(), new Syswerda(), new Uniform() };
@@ -67,18 +95,22 @@ public class Main {
         CrossoverInterface[] crossover = new CrossoverInterface[]{new Order1(), new Order2()};
         SelectorInterface[] selection = new SelectorInterface[]{new WheelAndRandomSelector()} ;
 
-        try { // Todo: ajouter min, et max
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.SSS_yyyy-MM-dd");
-            PrintWriter logger = new PrintWriter("logs/FullTest # " + sdf.format(new Date()) + ".csv", "UTF-8");
+        String filename = "error";
 
-            int total = mutations.length  * crossover.length * selection.length * nbTests ;
+        try { // Todo: ajouter min, et max
+            //SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.SSS_yyyy-MM-dd");
+            //filename = "logs/" + sdf.format(new Date()) + ".csv" ;
+            filename = "logs/"  + System.currentTimeMillis() + ".csv" ;
+            PrintWriter logger = new PrintWriter(filename, "UTF-8");
+
+            int total = mutations.length  * crossover.length * selection.length * number_of_tests ;
             int counter = 1 ;
 
             for (MutationInterface mo: mutations){
                 for(CrossoverInterface co: crossover) {
                     for (SelectorInterface so : selection) {
 
-                        for (int i = 0; i < nbTests; i++) {
+                        for (int i = 0; i < number_of_tests; i++) {
                             int result = runTestForConf(set, co, mo, so);
 
                             String str = "";
@@ -108,6 +140,8 @@ public class Main {
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
+        return filename ;
 
     }
 

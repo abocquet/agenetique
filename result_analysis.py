@@ -1,27 +1,40 @@
-
+from scipy.special import erfinv
+from math import sqrt
 import csv
+import sys
+
 data = {}
 
-with open('logs/FullTest # 16:11:05.948_2017-01-20.csv', 'r') as csvfile:
+alpha = 0.95
+epsilon = erfinv(alpha)
+
+print sys.argv[1]
+file = sys.argv[1]
+
+with open(file, 'r') as csvfile:
     reader = csv.reader(csvfile, delimiter=';', quotechar='|')
     for row in reader:
-        if len(row) < 4:
+        if len(row) < 5:
             continue
 
-        key = (row[0], row[1], row[2])
+        key = (row[0], row[1], row[2], row[3])
 
-        # v: somme des resultats, n: nombre de tests
-        v, n = 0, 0
-        if key in data:
-            v, n = data[key]
+        if not key in data:
+            data[key] = []
 
-        data[key] = v + int(row[3]), n + 1
+        data[key].append(float(row[4]))
 
-for k in data:
-    v, n = data[k]
-    v = float(v) / n
-    data[k] = v, n
 
-    #Todo: calculer l'intervalle de fluctuation
+for k, v in data.items():
 
-print(data)
+    n = len(v)
+
+    m = reduce(lambda x,y: x+y, v) / n
+    ecarts = map(lambda x: x*x - m*m, v)
+    sigma = reduce(lambda x,y: x+y, ecarts) / n
+    sigma = sqrt(sigma)
+
+    intervalle_de_confiance = (int(m - epsilon * sigma / sqrt(n)), int(m + epsilon * sigma / sqrt(n)))
+
+    print(k, n, intervalle_de_confiance, sigma)
+
