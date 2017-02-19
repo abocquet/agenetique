@@ -36,5 +36,5 @@ for k, v in data.items():
 
     intervalle_de_confiance = (int(m - epsilon * sigma / sqrt(n)), int(m + epsilon * sigma / sqrt(n)))
 
-    print(k, n, intervalle_de_confiance, sigma)
+    print(k, n, intervalle_de_confiance)
 

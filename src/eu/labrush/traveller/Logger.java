@@ -6,8 +6,8 @@ import eu.labrush.agenetic.AbstractNature;
 import java.math.BigDecimal;
 
 public class Logger extends eu.labrush.agenetic.Logger {
-    public Logger(String filename, AbstractNature nature) {
-        super(filename, nature, "timestamp;generation;trajet le plus long;trajet le plus court;distance moyenne;");
+    public Logger(String folder, String filename, AbstractNature nature) {
+        super(folder, filename, nature, "timestamp;generation;trajet le plus long;trajet le plus court;distance moyenne;");
     }
 
     @Override

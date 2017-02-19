@@ -1,5 +1,7 @@
 package eu.labrush.agenetic;
 
+import java.util.Arrays;
+
 public abstract class AbstractFellow implements Comparable<AbstractFellow> {
 
     private int[] dna ;
@@ -47,6 +49,10 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
         return "Fellow{" +
                 "fitness= " + this.getFitness() +
                 '}';
+    }
+
+    public String showDNA(){
+        return Arrays.toString(this.dna).replaceAll("\\[|\\]", "");
     }
 
 
