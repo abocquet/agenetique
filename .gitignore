@@ -2,3 +2,6 @@ out/
 logs/*
 *.iml
 /.idea/
+logs/
+.idea/workspace.xml
+.idea/modules.xml
