@@ -1,7 +1,8 @@
-package eu.labrush.agenetic.operators;
+package eu.labrush.agenetic.operators.selection;
 
 import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.agenetic.Tuple;
+import eu.labrush.agenetic.operators.SelectorInterface;
 
 /**
  * Select the best element from a set of n fellows

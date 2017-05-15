@@ -9,24 +9,24 @@ import java.util.Arrays;
 
 public abstract class AbstractNature {
 
-    protected AbstractFellow[] population;
-    protected AbstractFellowFactory factory ;
+    private AbstractFellow[] population;
+    private AbstractFellowFactory factory ;
 
     private CrossoverInterface reproductionOperator ;
     private MutationInterface mutationOperator ;
     private SelectorInterface selectionOperator ;
 
-    protected double PMUTATION = 0.05;
-    protected double PCROSSOVER = 0.5;
+    private double PMUTATION = 0.05;
+    private double PCROSSOVER = 0.5;
     private int POPSIZE = 10;
-    protected int ELITISM = 1;
-    protected double PINSERTION = 0.5 ;
+    private int ELITISM = 1;
+    private double PINSERTION = 0.5 ;
 
     private int genCounter = 0;
 
     /**
      *
-     * @param POPSIZE the popumlation size
+     * @param POPSIZE the population size
      * @param ELITISM the number of the best fellows kept every generation
      * @param PCROSSOVER the probability a fellow reproduces vs is introduced in the next generation
      * @param PMUTATION the probability a fellow is mutated
@@ -35,7 +35,7 @@ public abstract class AbstractNature {
      * @param ro the reproduction operator
      * @param mo the mutation operator
      */
-    public AbstractNature(int POPSIZE, int ELITISM, double PCROSSOVER, double PMUTATION, double PINSERTION, AbstractFellowFactory factory, CrossoverInterface ro, MutationInterface mo, SelectorInterface so) {
+    protected AbstractNature(int POPSIZE, int ELITISM, double PCROSSOVER, double PMUTATION, double PINSERTION, AbstractFellowFactory factory, CrossoverInterface ro, MutationInterface mo, SelectorInterface so) {
 
         this.POPSIZE = POPSIZE ;
         this.PMUTATION = Math.min(PMUTATION, 1) ;
@@ -52,13 +52,13 @@ public abstract class AbstractNature {
         initPopulation();
     }
 
-    public AbstractNature(int POPSIZE, int ELITISM, double PCROSSOVER, double PMUTATION, double PINSERTION, AbstractFellowFactory factory) {
+    protected AbstractNature(int POPSIZE, int ELITISM, double PCROSSOVER, double PMUTATION, double PINSERTION, AbstractFellowFactory factory) {
         this(POPSIZE, ELITISM, PCROSSOVER, PMUTATION, PINSERTION, factory, new OnePointCrossover(), new DefaultMutationOperator(), new BiasedWheelSelector());
     }
 
     protected AbstractNature() {}
 
-    protected void initPopulation(){
+    private void initPopulation(){
         this.population = new AbstractFellow[POPSIZE];
 
         for (int i = 0; i < this.population.length; i++) {
@@ -87,12 +87,12 @@ public abstract class AbstractNature {
         crossover();
         mutate();
 
-        for (int j = 0; j < ELITISM ; j++) {
-            population[j] = factory.newInstance(elite[j]);
-        }
-
         if(Math.random() < PINSERTION) {
             population[POPSIZE - 1] = factory.newInstance();
+        }
+
+        for (int j = 0; j < ELITISM ; j++) {
+            population[(int) Math.random() * POPSIZE] = factory.newInstance(elite[j]);
         }
 
         genCounter++ ;
@@ -127,7 +127,7 @@ public abstract class AbstractNature {
 
     public int getGenerationNumber() { return this.genCounter ; }
 
-    protected void crossover() {
+    private void crossover() {
 
         AbstractFellow[] newPop = new AbstractFellow[this.POPSIZE];
         selectionOperator.processPop(population);
@@ -159,11 +159,11 @@ public abstract class AbstractNature {
         this.population = newPop ;
     }
 
-    protected void mutate() {
+    private void mutate() {
         mutationOperator.mutate(population, PMUTATION, factory);
     }
 
-    protected Tuple<AbstractFellow, AbstractFellow> reproduce(AbstractFellow male, AbstractFellow female) {
+    private Tuple<AbstractFellow, AbstractFellow> reproduce(AbstractFellow male, AbstractFellow female) {
         return reproductionOperator.reproduce(male, female, this.factory);
     }
 
@@ -180,6 +180,8 @@ public abstract class AbstractNature {
     }
 
     public AbstractFellow getBest(){
+
+        Arrays.sort(population, (a, b) -> Long.compare(b.getFitness(), a.getFitness()));
         AbstractFellow best = population[0];
         for(int i = 1, c  = getPOPSIZE() ; i < c ; i++)
         {

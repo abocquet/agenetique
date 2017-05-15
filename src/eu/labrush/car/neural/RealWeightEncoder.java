@@ -1,12 +1,13 @@
 package eu.labrush.car.neural;
 
 import eu.labrush.agenetic.AbstractFellow;
+import eu.labrush.neural.AbstractWeightEncoder;
 
 public class RealWeightEncoder extends AbstractWeightEncoder {
 
     public RealWeightEncoder() {
         detectors = 8;
-        outputs = 3;
+        outputs = 6;
 
         hiddenLayers = 1;
         nodePerLayers = 100;

@@ -89,5 +89,4 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
 
 
     public int[] cloneDNA(){ return  this.dna.clone(); }
-
 }

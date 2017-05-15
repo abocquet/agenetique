@@ -1,6 +1,7 @@
 package eu.labrush.car.simulation;
 
 import eu.labrush.agenetic.AbstractFellow;
+import eu.labrush.agenetic.Logger;
 import eu.labrush.car.genetic.Driver;
 import eu.labrush.car.genetic.Nature;
 import org.dyn4j.geometry.Vector2;
@@ -12,12 +13,13 @@ public class World {
 
     Car[] cars ;
     Car user;
-    private int carsAlive ;
+    Driver[] drivers ;
+    int carsAlive ;
 
     ArrayList<Line2D> boundaries = new ArrayList<>();
-    private Nature nature ;
 
-    Driver[] drivers ;
+    Nature nature ;
+    Logger logger ;
 
     private MapGenerator map = new MapGenerator(50, 50, 750, 750);
 
@@ -50,6 +52,10 @@ public class World {
         }
 
         carsAlive = nbCars;
+
+        if(nature.getGenerationNumber() % 10 == 0){
+            logger.log(true);
+        }
     }
 
 
@@ -142,6 +148,7 @@ public class World {
 
     public void setNature(Nature nature) {
         this.nature = nature;
+        this.logger = new Logger("logs/", "cars_" + System.currentTimeMillis(), nature);
         setup();
     }
 

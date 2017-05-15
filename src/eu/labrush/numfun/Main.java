@@ -1,10 +1,12 @@
-package eu.labrush.agenetic;
+package eu.labrush.numfun;
+
+import eu.labrush.numfun.functions.Rosenbrock;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        /*eu.labrush.agenetic.numfun.Nature nature = new eu.labrush.agenetic.numfun.Nature(21, 0.5, 0.05, new NumFunction() {
+        /*eu.labrush.numfun.Nature nature = new eu.labrush.numfun.Nature(21, 0.5, 0.05, new NumFunction() {
             @Override
             public int f(int x) {
                 return x*(256-x);
@@ -14,7 +16,9 @@ public class Main {
             public int getDNASIZE() {
                 return 8;
             }
-        });
+        });*/
+
+        Nature nature = new Nature(10, 0.5, 0.05, new Rosenbrock());
 
         System.out.println(nature);
 
@@ -23,7 +27,6 @@ public class Main {
             System.out.println(nature.getBest());
         }
         System.out.println(nature);
-        System.out.println(nature.introduceYourself());*/
 
     }
 }

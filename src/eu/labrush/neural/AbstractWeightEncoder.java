@@ -1,20 +1,19 @@
-package eu.labrush.car.neural;
+package eu.labrush.neural;
 
 import eu.labrush.agenetic.AbstractFellow;
 
 public abstract class AbstractWeightEncoder {
 
-    protected int detectors = 8;
-    protected int outputs = 6; // Left center right / faster steady slower
+    protected int detectors ;
+    protected int outputs ;
 
     protected int hiddenLayers;
     protected int nodePerLayers ;
     protected int bitsPerWeight ;
 
-
     public abstract int requiredDNASize();
 
-    abstract double readWeight(int pos, AbstractFellow f);
+    public abstract double readWeight(int pos, AbstractFellow f);
 
     public double[][][] getWeights(AbstractFellow f) {
         double weights[][][] = new double[hiddenLayers + 1][][];

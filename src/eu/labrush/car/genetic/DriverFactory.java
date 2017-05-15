@@ -2,7 +2,7 @@ package eu.labrush.car.genetic;
 
 import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.agenetic.AbstractFellowFactory;
-import eu.labrush.car.neural.AbstractWeightEncoder;
+import eu.labrush.neural.AbstractWeightEncoder;
 
 public class DriverFactory extends AbstractFellowFactory {
 

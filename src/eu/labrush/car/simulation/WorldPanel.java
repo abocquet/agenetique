@@ -15,10 +15,6 @@ public class WorldPanel extends JPanel implements KeyListener {
 
     private World world ;
 
-    private String backGroundColor = "#26A65B" ;
-    private String roadColor = "#87D37C";
-    private String carColor = "#e67e22" ;
-
     public WorldPanel(World world) {
 
         this.world = world ;
@@ -31,6 +27,11 @@ public class WorldPanel extends JPanel implements KeyListener {
 
     public void paintComponent(Graphics g1) {
         Graphics2D g = (Graphics2D) g1;
+
+        String backGroundColor = "#26A65B";
+        String roadColor = "#87D37C";
+        String carColor = "#e67e22";
+
         g.setColor(Color.decode(backGroundColor));
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 

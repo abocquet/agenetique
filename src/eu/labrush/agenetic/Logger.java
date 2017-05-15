@@ -12,15 +12,12 @@ public class Logger {
     private PrintWriter solutionWriter = null ;
     protected AbstractNature nature = null;
 
-    private String firstLine ;
-
     public Logger(String folder, String filename, AbstractNature nature){
         new Logger(folder, filename, nature, "generation;maximum fitness;minimum fitness;average fitness;");
     }
 
     protected Logger(String folder, String filename, AbstractNature nature, String firstLine) {
         try {
-            this.firstLine = firstLine ;
             this.nature = nature ;
 
             this.stateWriter = new PrintWriter(folder + filename, "UTF-8");

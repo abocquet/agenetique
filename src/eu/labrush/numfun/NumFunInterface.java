@@ -1,4 +1,4 @@
-package eu.labrush.agenetic.numfun;
+package eu.labrush.numfun;
 
 interface NumFunInterface {
 

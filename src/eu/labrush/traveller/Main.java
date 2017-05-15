@@ -21,11 +21,12 @@ public class Main {
 
 		//System.out.println(factory.getProblems());
 
-		runTests(new String[]{"d15112"});
+		//runTests(new String[]{"d15112"});
 		//runTests(new String[]{"berlin52", "kroA100", "kroA150", "kroA200", "lin318", "pr439", "rat575", "rat783", "rl1304", "rl1889"});
 		//runAWholeBunchOfTests("st70", 10);
 
-		//runPythonAnalysis(runAWholeBunchOfTests("st70", 5, loadCombinaisonsToAvoid("avoid.txt")));
+		runAWholeBunchOfTests("lin105", 50, loadCombinaisonsToAvoid(null));
+		//runPythonAnalysis(runAWholeBunchOfTests("lin105", 50, loadCombinaisonsToAvoid(null)));
 		System.out.println("It's all done !");
 
 	}
@@ -33,14 +34,16 @@ public class Main {
 	private static Triple<String,String, String>[] loadCombinaisonsToAvoid(String filename) {
 		ArrayList<Triple<String, String, String>> t = new ArrayList<>();
 
-		try (BufferedReader br = new BufferedReader(new FileReader(new File(filename)))) {
-			String line;
-			while ((line = br.readLine()) != null) {
-				String data[] = line.split("( |	)+");
-				t.add(new Triple<>(data[0], data[1], data[2]));
+		if(filename != null) {
+			try (BufferedReader br = new BufferedReader(new FileReader(new File(filename)))) {
+				String line;
+				while ((line = br.readLine()) != null) {
+					String data[] = line.split("( |	)+");
+					t.add(new Triple<>(data[0], data[1], data[2]));
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 
 		Triple<String,String,String>[] res = new Triple[t.size()];
@@ -57,7 +60,7 @@ public class Main {
 
 		try {
 			String s = "";
-			Process p = Runtime.getRuntime().exec("python result_analysis.py " + filename);
+			Process p = Runtime.getRuntime().exec("python python_analysis/statistic_check.py " + filename);
 
 			BufferedReader stdInput = new BufferedReader(new
 					InputStreamReader(p.getInputStream()));
@@ -93,7 +96,7 @@ public class Main {
 			PointSet problem = factory.getSet(name);
 			System.out.println(problem.getDesc());
 
-			Nature nature = new Nature(50, 1, 0.5, 0.05, 0.01, problem, new Order1(), new Im(), new WheelAndRandomSelector());
+			Nature nature = new Nature(50, 1, 0.5, 0.05, 0.01, problem, new ArcCombination(), new Im(), new WheelAndRandomSelector());
 			Logger logger = new Logger("logs/", problem.getName() + "_" + System.currentTimeMillis() + ".csv", nature);
 
 			int i = 0, p = 1000;
@@ -120,7 +123,7 @@ public class Main {
    * @return the name of the file where the results are
    */
 
-   	private static String runAWholeBunchOfTests(String name, int number_of_tests, Triple<String, String, String>[] avoid){
+	private static String runAWholeBunchOfTests(String name, int number_of_tests, Triple<String, String, String>[] avoid){
 
 		PointSetFactory factory = new PointSetFactory();
 		PointSet set = factory.getSet(name);
@@ -143,6 +146,7 @@ public class Main {
 
 			int total = mutations.length  * crossover.length * selection.length * number_of_tests ;
 			int counter = 1 ;
+			int limit = 100000 ;
 
 			for (MutationInterface mo: mutations){
 				for(CrossoverInterface co: crossover) {
@@ -162,7 +166,14 @@ public class Main {
 						}
 
 						for (int i = 0; i < number_of_tests; i++) {
-							int result = runTestForConf(set, co, mo, so);
+							int result = runTestForConf(set, co, mo, so, limit);
+
+							if (result > limit){
+								counter += number_of_tests - i ;
+								System.out.print(counter + " / " + total + " ");
+								System.out.println(conf + " too long");
+								break ;
+							}
 
 							String str = "";
 							str += set.getName() + ";";
@@ -196,10 +207,9 @@ public class Main {
 
 	}
 
-	private static int runTestForConf(PointSet problem, CrossoverInterface co, MutationInterface mo, SelectorInterface so) {
+	private static int runTestForConf(PointSet problem, CrossoverInterface co, MutationInterface mo, SelectorInterface so, int limit) {
 		Nature nature = new Nature(50, 3,0.5, 0.05, 0.01, problem, co, mo, so);
 
-		int limit = 100000 ;
 		int i = 0, p = 1000;
 		while (nature.getShortest() * 100 > problem.getMinDist() * 105) {
 			if(i > limit){

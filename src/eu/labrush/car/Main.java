@@ -1,6 +1,6 @@
 package eu.labrush.car;
 
-import eu.labrush.agenetic.operators.ElitistSelector;
+import eu.labrush.agenetic.operators.selection.ElitistSelector;
 import eu.labrush.agenetic.operators.crossover.AlternateCrossover;
 import eu.labrush.agenetic.operators.mutation.DefaultMutationOperator;
 import eu.labrush.car.genetic.DriverFactory;

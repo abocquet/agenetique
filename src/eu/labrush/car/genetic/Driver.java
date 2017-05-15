@@ -1,7 +1,7 @@
 package eu.labrush.car.genetic;
 
 import eu.labrush.agenetic.AbstractFellow;
-import eu.labrush.car.neural.AbstractWeightEncoder;
+import eu.labrush.neural.AbstractWeightEncoder;
 
 public class Driver extends AbstractFellow {
 
@@ -31,7 +31,6 @@ public class Driver extends AbstractFellow {
     public void setDistance(double distance) {
         this.distance = distance;
     }
-
 
     public double[][][] getWeights() {
         return this.we.getWeights(this);

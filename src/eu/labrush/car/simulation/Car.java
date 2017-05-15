@@ -93,6 +93,7 @@ class Car {
             res[i] /= S ;
         }
 
+        S = 0 ;
         for (int i = 3; i < 6; i++) {
             res[i] = Math.exp(res[i]);
             S += res[i] ;
@@ -109,9 +110,9 @@ class Car {
         }
 
         if(res[3] > .33){
-            speed += 3 ;
+            speed += 1 ;
         } else if (res[5] > .33 && speed > minSpeed){
-            angle -= 4 ;
+            speed -= 1 ;
         }
 
         //System.out.println(res[1] - res[0]);
