@@ -3,6 +3,7 @@ package eu.labrush.NEAT;
 import eu.labrush.agenetic.Tuple;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Nature {
 
@@ -46,6 +47,13 @@ public class Nature {
             s.loadElite();
         }
 
+        // TODO: si on prend l'élite de chaque espèce, une espece ne peut jamais disparaitre donc on fini
+        // par stagner si on a NPOP = NESPECES
+        /*for(Species s: species){
+            if(s.fellows.size() == 0){
+                species.remove(s);
+            }
+        }*/
     }
 
     public void mutate(){
@@ -103,11 +111,16 @@ public class Nature {
             int m = s.fellows.size() ;
             int j = m ;
 
+            if(m == 0){
+                continue;
+            }
+
             while(j < n[i]){
                 addFellow(Crossover.crossover(
                         s.get((int) (Math.random() * (m + 1)) % m),
                         s.get((int) (Math.random() * (m + 1)) % m)
                 ));
+                j++ ;
             }
         }
 
@@ -137,5 +150,15 @@ public class Nature {
 
         // Si on a affaire à une nouvelle espèce, on la crée
         species.add(new Species(f));
+    }
+
+    public HashSet<Fellow> getFellows() {
+        HashSet<Fellow> fellows = new HashSet<>();
+
+        for(Species s: species) {
+            fellows.addAll(s.getFellows());
+        }
+
+        return fellows ;
     }
 }

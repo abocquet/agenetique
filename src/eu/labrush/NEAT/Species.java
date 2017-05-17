@@ -27,11 +27,7 @@ public class Species {
     }
 
     boolean closeTo(Fellow f){
-        if(this.getAmbassador().distanceTo(f) < threshold){
-            return true ;
-        } else {
-            return false ;
-        }
+        return this.getAmbassador().distanceTo(f) < threshold;
     }
 
     Fellow getAmbassador(){
@@ -41,7 +37,7 @@ public class Species {
     void dumpDummies() // remove half of the pop, choosing the less performing fellows
     {
         sortFellows();
-        int n = (int) Math.floor(this.fellows.size());
+        int n = (int) Math.floor(this.fellows.size()) / 2;
 
         for (int i = 0; i < n; i++) {
             fellows.remove(0 );

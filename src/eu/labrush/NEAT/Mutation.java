@@ -1,5 +1,8 @@
 package eu.labrush.NEAT;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Mutation {
 
     static void connectionMutation(Fellow f){
@@ -7,30 +10,26 @@ public class Mutation {
         Connection c ;
         int n = f.getNodes().size() - 1;
 
-        do { c = new Connection(random(n), random(n), Fellow.getEvolutionNumber()); }
+        do { c = new Connection(random(n), random(n), Fellow.getInnovationNumber()); }
         while(!(c.from == c.to) && !f.hasConnection(c));
 
-        Fellow.increaseEvolutionNumber();
+        Fellow.increaseInnovationNumber();
         f.addConnection(c);
     }
 
     static void nodeMutation(Fellow f){
 
-        int n = random(f.getConnections().size() - 1); //The index of the connection on which we are going to add the node
-        while(!f.getConnections().get(n).enabled){
-            n = random(f.getConnections().size() - 1);
-        }
+        List<Integer> keys = new ArrayList<>(f.getConnections().keySet());
 
+        int n = keys.get(random(f.getConnections().size() - 1)); //The index of the connection on which we are going to add the node
         Connection c = f.getConnections().get(n);
-        int from = c.from ;
-        int to = c.to ;
 
         c.enabled = false ;
 
-        n = Fellow.nextEvolutionnaryNumber(); // The number of the node we are inserting
+        n = Fellow.nextInnovationNumber(); // The number of the node we are inserting
         f.addNode(NodeType.HIDDEN, n);
-        f.addConnection(new Connection(from,  n, Fellow.nextEvolutionnaryNumber()));
-        f.addConnection(new Connection(n, to, Fellow.nextEvolutionnaryNumber()));
+        f.addConnection(new Connection(c.from,  n, Fellow.nextInnovationNumber()));
+        f.addConnection(new Connection(n, c.to, Fellow.nextInnovationNumber()));
     }
 
     static int random(int max){ // return random number between 0 and max

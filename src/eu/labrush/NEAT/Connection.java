@@ -5,8 +5,8 @@ public class Connection implements Cloneable {
     private static double MAX_CONNECTION_VALUE =  5.0 ;
     private static double MIN_CONNECTION_VALUE = -5.0 ;
 
-    public int from = 0 ;
-    public int to = 0 ;
+    public int from = -1 ;
+    public int to = -1 ;
 
     public int evolutionNumber = 0 ;
 
@@ -32,5 +32,16 @@ public class Connection implements Cloneable {
 
     public int getEvolutionNumber() {
         return evolutionNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Connection{" +
+                "from=" + from +
+                ", to=" + to +
+                ", #=" + evolutionNumber +
+                ", weight=" + weight +
+                ", enabled=" + enabled +
+                '}';
     }
 }

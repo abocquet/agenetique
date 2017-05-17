@@ -1,9 +1,7 @@
 package eu.labrush.NEAT;
 
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class Fellow {
 
@@ -11,21 +9,27 @@ public class Fellow {
     private HashMap<Integer, Connection> connections = new HashMap<>();
 
     private double fitness = 0 ;
+    private int output_number = 0 ;
 
-    static private int globalEvolutionNumber = 0 ;
+    static private int globalInnovationNumber = 0 ;
 
     public Fellow() {}
     public Fellow(int sensors, int outputs){
+
+        int[] sensors_id = new int[sensors];
+
         for (int i = 0; i < sensors; i++) {
-            this.getNodes().put(Fellow.nextEvolutionnaryNumber(), NodeType.SENSOR);
+            addNode(NodeType.SENSOR);
+            sensors_id[i] = getInnovationNumber();
         }
 
         for (int i = 0; i < outputs; i++) {
-            this.getNodes().put(Fellow.nextEvolutionnaryNumber(), NodeType.OUTPUT);
+            int m = nextInnovationNumber();
+            addNode(NodeType.OUTPUT, m);
 
             for (int j = 0; j < sensors; j++) {
-                int n = Fellow.nextEvolutionnaryNumber();
-                this.connections.put(n, new Connection(j, i, n));
+                int n = nextInnovationNumber();
+                this.connections.put(n, new Connection(sensors_id[j], m, n));
             }
         }
     }
@@ -34,7 +38,12 @@ public class Fellow {
     /*************************
         Topology management
      *************************/
+    void addNode(NodeType t){
+        addNode(t, nextInnovationNumber());
+    }
+
     void addNode(NodeType t, int number){
+        if(t == NodeType.OUTPUT) output_number++;
         nodes.put(number, t);
     }
 
@@ -66,17 +75,17 @@ public class Fellow {
     /*************************
         Evolution monitoring
      *************************/
-    public static int getEvolutionNumber() {
-        return globalEvolutionNumber;
+    public static int getInnovationNumber() {
+        return globalInnovationNumber;
     }
 
-    public static void increaseEvolutionNumber(){
-        globalEvolutionNumber++ ;
+    public static void increaseInnovationNumber(){
+        globalInnovationNumber++ ;
     }
 
-    public static int nextEvolutionnaryNumber() {
-        increaseEvolutionNumber();
-        return getEvolutionNumber();
+    public static int nextInnovationNumber() {
+        increaseInnovationNumber();
+        return getInnovationNumber();
     }
 
     /*************************
@@ -126,6 +135,10 @@ public class Fellow {
         Neural network
      *************************/
 
+    double sigmoid(double x){
+        return 1 / (1 + Math.exp(-x));
+    }
+
     // On procède récursivement sur les noeuds en utilisant la programmation dynamique
     // ex:
     //         7        8
@@ -146,8 +159,49 @@ public class Fellow {
     //  8
     //  => 5 OK (mémoisé)
     //
+    private double thinkAboutAux(int n, double[] values){
+        if(Double.isNaN(values[n])){
+
+            double s = 0.0 ;
+            for(Connection c: connections.values()){
+                if(c.to == n && c.enabled){
+                    s += c.weight * thinkAboutAux(c.from, values);
+                }
+            }
+
+            values[n] = sigmoid(s) ;
+        }
+
+        return values[n] ;
+
+    }
+
     public double[] thinkAbout(double[] input){ // Activates neural network
 
+        double[] values = new double[Fellow.getInnovationNumber() + 1]; // We guarantee the parameters are always given in the same order to the network
+        Arrays.fill(values, 0, Fellow.getInnovationNumber(), Double.NaN);
+
+        int c = 0 ;
+        for (Integer key: asSortedList(nodes.keySet()))
+        {
+            if(nodes.get(key) == NodeType.SENSOR){
+                values[key] = input[c] ;
+                c++ ;
+            }
+        }
+
+        double[] output = new double[output_number] ;
+
+        c = 0 ;
+        for (Integer key: asSortedList(nodes.keySet()))
+        {
+            if(nodes.get(key) == NodeType.OUTPUT){
+                output[c] = thinkAboutAux(key, values);
+                c++ ;
+            }
+        }
+
+        return output ;
     }
 
     /*************************
@@ -160,8 +214,16 @@ public class Fellow {
 
         f.nodes = (HashMap<Integer, NodeType>) this.nodes.clone();
         f.connections = (HashMap<Integer, Connection>) this.connections.clone();
+        f.output_number = this.output_number ;
+        f.fitness = this.fitness ;
 
         return f;
+    }
+
+    public static <T extends Comparable<? super T>> List<T> asSortedList(Collection<T> c) {
+        List<T> list = new ArrayList<T>(c);
+        Collections.sort(list);
+        return list;
     }
 
 }
