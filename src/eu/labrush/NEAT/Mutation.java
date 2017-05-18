@@ -7,29 +7,46 @@ public class Mutation {
 
     static void connectionMutation(Fellow f){
 
-        Connection c ;
-        int n = f.getNodes().size() - 1;
+        Node from = null, to = null ;
+        List<Node> nodes = new ArrayList<>(f.getNodes().values());
 
-        do { c = new Connection(random(n), random(n), Fellow.getInnovationNumber()); }
-        while(!(c.from == c.to) && !f.hasConnection(c));
+        int trials = 0 ; // We don't try for too long, especially at the begginng, new connections cannot be added
+        int trial_limit = 10 ;
 
-        Fellow.increaseInnovationNumber();
-        f.addConnection(c);
+        do {
+            from = nodes.get(random(f.getNodes().size() - 1));
+            to = nodes.get(random(f.getNodes().size() - 1));
+            trials++ ;
+        } while(
+            from.frontOf(to) && trials < trial_limit
+        );
+
+        if(from.frontOf(to)){
+            return ;
+        }
+
+        if(from.above(to) ){ // Pour éviter les cycles, (Démonstration par l'absurde: a -> b -> c -> a => a < b < c < a => a < a => absurde)
+            Node tmp = from ;
+            from = to ;
+            to = tmp ;
+        }
+
+        f.addConnection(new Connection(from, to, Fellow.nextInnovationNumber()));
     }
 
     static void nodeMutation(Fellow f){
 
         List<Integer> keys = new ArrayList<>(f.getConnections().keySet());
 
-        int n = keys.get(random(f.getConnections().size() - 1)); //The index of the connection on which we are going to add the node
+        int n = keys.get(random(f.getConnections().size() - 1)); //The index of the connection on which we are going to addFellow the node
         Connection c = f.getConnections().get(n);
 
         c.enabled = false ;
 
-        n = Fellow.nextInnovationNumber(); // The number of the node we are inserting
-        f.addNode(NodeType.HIDDEN, n);
-        f.addConnection(new Connection(c.from,  n, Fellow.nextInnovationNumber()));
-        f.addConnection(new Connection(n, c.to, Fellow.nextInnovationNumber()));
+        Node newNode = Node.avg(c.from, c.to, Fellow.nextInnovationNumber());
+        f.addNode(newNode);
+        f.addConnection(new Connection(c.from,  newNode, Fellow.nextInnovationNumber()));
+        f.addConnection(new Connection(newNode, c.to, Fellow.nextInnovationNumber()));
     }
 
     static int random(int max){ // return random number between 0 and max

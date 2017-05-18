@@ -2,8 +2,6 @@ package eu.labrush.NEAT;
 
 class Crossover {
 
-    private static final double PDISABLE = 0.7 ; //Probabilty that a connection is disbaled on the child if it is on one and only one of the two parents
-
     /**
      * We assume that f1 and f2 have the same sensors and outputs
      */
@@ -12,9 +10,9 @@ class Crossover {
         Fellow child = new Fellow();
         for (int i = 0; i < Fellow.getInnovationNumber(); i++) {
             if(f1.getNodes().keySet().contains(i)){
-                child.addNode(f1.getNodes().get(i), i);
+                child.addNode(f1.getNodes().get(i));
             } else if(f2.getNodes().keySet().contains(i)){
-                child.addNode(f2.getNodes().get(i), i);
+                child.addNode(f2.getNodes().get(i));
             }
         }
 
@@ -33,7 +31,7 @@ class Crossover {
                      0  1    1   1
                      1  1    1   1
                  */
-                if(!f2.getConnections().get(i).enabled && Math.random() <= PDISABLE){
+                if(!f2.getConnections().get(i).enabled && Math.random() <= Config.P_NODE_DISABLE){
                     c.enabled = false ;
                 }
 

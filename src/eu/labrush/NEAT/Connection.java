@@ -2,24 +2,26 @@ package eu.labrush.NEAT;
 
 public class Connection implements Cloneable {
 
-    private static double MAX_CONNECTION_VALUE =  5.0 ;
-    private static double MIN_CONNECTION_VALUE = -5.0 ;
-
-    public int from = -1 ;
-    public int to = -1 ;
+    public Node from  ;
+    public Node to ;
 
     public int evolutionNumber = 0 ;
 
-    public double weight = 1 ;
+    public double weight ;
     public boolean enabled = true ;
 
-    public Connection(int from, int to, int evolutionNumber) {
-        this.from = from;
-        this.to = to;
+    public Connection(Node from, Node to, int evolutionNumber) {
+        if(from.above(to)){
+            this.to = from;
+            this.from = to;
+        } else {
+            this.from = from;
+            this.to = to;
+        }
 
         this.evolutionNumber = evolutionNumber ;
 
-        this.weight = Math.random() * (MAX_CONNECTION_VALUE - MIN_CONNECTION_VALUE) + MIN_CONNECTION_VALUE ;
+        this.weight = Math.random() * (Config.MAX_CONNECTION_VALUE - Config.MIN_CONNECTION_VALUE) + Config.MIN_CONNECTION_VALUE ;
     }
 
     @Override
@@ -30,11 +32,7 @@ public class Connection implements Cloneable {
         return c;
     }
 
-    public int getEvolutionNumber() {
-        return evolutionNumber;
-    }
-
-    @Override
+    /*@Override
     public String toString() {
         return "Connection{" +
                 "from=" + from +
@@ -43,5 +41,10 @@ public class Connection implements Cloneable {
                 ", weight=" + weight +
                 ", enabled=" + enabled +
                 '}';
+    }*/
+
+    @Override
+    public String toString() {
+        return "{ " + from.id + " -> " + to.id + "}\n" ;
     }
 }

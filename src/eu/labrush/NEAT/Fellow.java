@@ -5,10 +5,11 @@ import java.util.*;
 
 public class Fellow {
 
-    private HashMap<Integer, NodeType> nodes = new HashMap<>() ;
+    private HashMap<Integer, Node> nodes = new HashMap<>() ;
     private HashMap<Integer, Connection> connections = new HashMap<>();
 
     private double fitness = 0 ;
+    double shared_fitness = 0 ;
     private int output_number = 0 ;
 
     static private int globalInnovationNumber = 0 ;
@@ -16,20 +17,20 @@ public class Fellow {
     public Fellow() {}
     public Fellow(int sensors, int outputs){
 
-        int[] sensors_id = new int[sensors];
+        Node[] sensors_id = new Node[sensors];
 
         for (int i = 0; i < sensors; i++) {
-            addNode(NodeType.SENSOR);
-            sensors_id[i] = getInnovationNumber();
+            Node newNode = new Node(nextInnovationNumber(), NodeType.SENSOR);
+            addNode(newNode);
+            sensors_id[i] = newNode ;
         }
 
         for (int i = 0; i < outputs; i++) {
-            int m = nextInnovationNumber();
-            addNode(NodeType.OUTPUT, m);
+            Node newNode = new Node(nextInnovationNumber(), NodeType.OUTPUT) ;
+            addNode(newNode);
 
             for (int j = 0; j < sensors; j++) {
-                int n = nextInnovationNumber();
-                this.connections.put(n, new Connection(sensors_id[j], m, n));
+                this.addConnection(new Connection(sensors_id[j], newNode, nextInnovationNumber()));
             }
         }
     }
@@ -38,16 +39,12 @@ public class Fellow {
     /*************************
         Topology management
      *************************/
-    void addNode(NodeType t){
-        addNode(t, nextInnovationNumber());
+    void addNode(Node n){
+        if(n.type == NodeType.OUTPUT) output_number++;
+        nodes.put(n.id, n);
     }
 
-    void addNode(NodeType t, int number){
-        if(t == NodeType.OUTPUT) output_number++;
-        nodes.put(number, t);
-    }
-
-    public HashMap<Integer, NodeType> getNodes() {
+    public HashMap<Integer, Node> getNodes() {
         return nodes;
     }
 
@@ -127,7 +124,7 @@ public class Fellow {
             }
         }
 
-        return D + E + 0.3 * W ;
+        return D * Config.DISJOINT_COEFF + E * Config.EXCESS_COEFF + W / c * Config.DIFF_COEFF;
 
     }
 
@@ -164,8 +161,8 @@ public class Fellow {
 
             double s = 0.0 ;
             for(Connection c: connections.values()){
-                if(c.to == n && c.enabled){
-                    s += c.weight * thinkAboutAux(c.from, values);
+                if(c.to.id == n && c.enabled){
+                    s += c.weight * thinkAboutAux(c.from.id, values);
                 }
             }
 
@@ -184,7 +181,7 @@ public class Fellow {
         int c = 0 ;
         for (Integer key: asSortedList(nodes.keySet()))
         {
-            if(nodes.get(key) == NodeType.SENSOR){
+            if(nodes.get(key).type == NodeType.SENSOR){
                 values[key] = input[c] ;
                 c++ ;
             }
@@ -192,13 +189,20 @@ public class Fellow {
 
         double[] output = new double[output_number] ;
 
-        c = 0 ;
-        for (Integer key: asSortedList(nodes.keySet()))
-        {
-            if(nodes.get(key) == NodeType.OUTPUT){
-                output[c] = thinkAboutAux(key, values);
-                c++ ;
+        try {
+            c = 0;
+            for (Integer key : asSortedList(nodes.keySet())) {
+                if (nodes.get(key).type == NodeType.OUTPUT) {
+                    output[c] = thinkAboutAux(key, values);
+                    c++;
+                }
             }
+        } catch(StackOverflowError e){
+            e.printStackTrace();
+            System.out.println(nodes);
+            System.out.println(connections);
+
+            System.exit(-1);
         }
 
         return output ;
@@ -212,7 +216,7 @@ public class Fellow {
     protected Fellow clone()  {
         Fellow f = new Fellow();
 
-        f.nodes = (HashMap<Integer, NodeType>) this.nodes.clone();
+        f.nodes = (HashMap<Integer, Node>) this.nodes.clone();
         f.connections = (HashMap<Integer, Connection>) this.connections.clone();
         f.output_number = this.output_number ;
         f.fitness = this.fitness ;
@@ -226,4 +230,10 @@ public class Fellow {
         return list;
     }
 
+    @Override
+    public String toString() {
+        return "Fellow{" +
+                "fitness=" + fitness +
+                '}';
+    }
 }

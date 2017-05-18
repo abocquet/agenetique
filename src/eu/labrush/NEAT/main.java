@@ -10,32 +10,38 @@ package eu.labrush.NEAT;
 
 public class main {
 
-    public static double eval(Fellow f){
-        double score = 0 ;
-
-        if(f.thinkAbout(new double[]{0, 0})[0] < 0.5){ score++ ; }
-        if(f.thinkAbout(new double[]{1, 0})[0] > 0.5){ score++ ; }
-        if(f.thinkAbout(new double[]{0, 1})[0] > 0.5){ score++ ; }
-        if(f.thinkAbout(new double[]{1, 1})[0] < 0.5){ score++ ; }
-
-        return score ;
-    }
 
     public static void main(String[] args){
+        Nature nature = new Nature(150, 1, 2, 1, f -> {
+            double score = 0 ;
 
-        Nature nature = new Nature(20, 1, 2, 1);
+            score += 1.0 - f.thinkAbout(new double[]{-1, -1})[0];
+            score += f.thinkAbout(new double[]{1, -1})[0];
+            score += f.thinkAbout(new double[]{-1, 1})[0];
+            score += 1.0 - f.thinkAbout(new double[]{1, 1})[0];
 
-        int NGEN = 20 ;
+            return score * score ;
+        });
+        int NGEN = 70 ;
         for (int i = 0; i < NGEN; i++) {
-            System.out.println(i);
-            for(Fellow f: nature.getFellows()){
-                f.setFitness(eval(f));
-            }
-
+            System.out.print(".");
             nature.evolve();
         }
 
-        eval(nature.getBest());
+        Fellow f = nature.getBest();
+
+        System.out.println("");
+        System.out.println(f.getNodes());
+        System.out.println(f.getConnections());
+
+        System.out.println("");
+        System.out.println(f.thinkAbout(new double[]{-1, -1})[0]);
+        System.out.println(f.thinkAbout(new double[]{1, 1})[0]);
+        System.out.println(f.thinkAbout(new double[]{-1, 1})[0]);
+        System.out.println(f.thinkAbout(new double[]{1, -1})[0]);
+        System.out.println("");
+
+        System.out.println(f.getFitness());
     }
 
 }
