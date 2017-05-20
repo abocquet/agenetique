@@ -9,7 +9,6 @@ public class Fellow {
     private HashMap<Integer, Connection> connections = new HashMap<>();
 
     private double fitness = 0 ;
-    double shared_fitness = 0 ;
     private int output_number = 0 ;
 
     static private int globalInnovationNumber = 0 ;
@@ -35,7 +34,6 @@ public class Fellow {
         }
     }
 
-
     /*************************
         Topology management
      *************************/
@@ -48,6 +46,16 @@ public class Fellow {
         return nodes;
     }
 
+    public void removeNode(Node node){
+        for(Connection c: connections.values()){
+            if(c.from.id == node.id || c.to.id == node.id){
+                removeConnection(c);
+            }
+        }
+
+        nodes.remove(connections);
+    }
+
     public HashMap<Integer, Connection> getConnections() {
         return connections;
     }
@@ -56,17 +64,17 @@ public class Fellow {
         this.connections.put(c.evolutionNumber, c);
     }
 
-    boolean hasConnection(Connection c0){
+    public void removeConnection(Connection c) {
+        connections.remove(c);
+    }
 
-        Iterator it = connections.entrySet().iterator();
-        while (it.hasNext()) {
-            Connection c = (Connection) ((Map.Entry)it.next()).getValue();
-            if( (c.from == c0.from && c.to == c0.to) || (c.from == c0.to && c.to == c0.from)){
-                return true ;
-            }
+    public Fellow changeConnectionWeights() {
+
+        for(Connection c: this.connections.values()){
+            c.randomWeight();
         }
 
-        return false ;
+        return this;
     }
 
     /*************************
@@ -124,8 +132,13 @@ public class Fellow {
             }
         }
 
-        return D * Config.DISJOINT_COEFF + E * Config.EXCESS_COEFF + W / c * Config.DIFF_COEFF;
+        double dist = D * Config.DISJOINT_COEFF + E * Config.EXCESS_COEFF ;
 
+        if(c != 0){
+            dist += W / c * Config.DIFF_COEFF ;
+        }
+
+        return dist;
     }
 
     /*************************

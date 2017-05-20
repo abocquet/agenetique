@@ -1,0 +1,929 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ch",
+				"chartname"
+			],
+			[
+				"lo",
+				"loadFile"
+			],
+			[
+				"is-a",
+				"is-active\t(home.vue)"
+			],
+			[
+				"margin",
+				"margin-top"
+			],
+			[
+				"nav-",
+				"nav-fixed"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"from",
+				"from"
+			],
+			[
+				"find",
+				"findOne"
+			],
+			[
+				"re",
+				"revision"
+			],
+			[
+				"for",
+				"for\tfor (…) {…}"
+			],
+			[
+				"rev",
+				"revisions"
+			],
+			[
+				"get",
+				"getAll"
+			],
+			[
+				"to",
+				"toVersion"
+			],
+			[
+				"pass",
+				"password"
+			],
+			[
+				"pro",
+				"progress"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"del",
+				"deleting"
+			],
+			[
+				"end",
+				"endDelete"
+			],
+			[
+				"start",
+				"startDelete"
+			],
+			[
+				"ov",
+				"overflow-x"
+			],
+			[
+				"code",
+				"code_id"
+			],
+			[
+				"new",
+				"newName"
+			],
+			[
+				"card",
+				"card-footer-item"
+			],
+			[
+				"sub",
+				"subtitle"
+			],
+			[
+				"inli",
+				"inline-block\t(style.css)"
+			],
+			[
+				"ab",
+				"absolute"
+			],
+			[
+				"child",
+				"childNode"
+			],
+			[
+				"compo",
+				"component"
+			],
+			[
+				"show",
+				"showModal"
+			],
+			[
+				"should",
+				"shouldClose\t(article-search.vue)"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"artic",
+				"article-search\t(edit.vue)"
+			],
+			[
+				"article",
+				"articles-search"
+			],
+			[
+				"margin-",
+				"margin-bottom"
+			],
+			[
+				"col",
+				"columns"
+			],
+			[
+				"content",
+				"content"
+			],
+			[
+				"ref",
+				"refHTML"
+			],
+			[
+				"bt",
+				"button"
+			],
+			[
+				"ad",
+				"adjustCommentsCoords"
+			],
+			[
+				"wod",
+				"word-wrap"
+			],
+			[
+				"overflow",
+				"overflow"
+			],
+			[
+				"clas",
+				"class=\"control"
+			],
+			[
+				"of",
+				"offset"
+			],
+			[
+				"comment",
+				"comments"
+			],
+			[
+				"_",
+				"_wezfkiozf0293"
+			],
+			[
+				"conten",
+				"contentDOM"
+			],
+			[
+				"place",
+				"placeholder"
+			],
+			[
+				"conte",
+				"contentDOM"
+			],
+			[
+				"int",
+				"input"
+			],
+			[
+				"ar",
+				"article"
+			],
+			[
+				"he",
+				"height"
+			],
+			[
+				"rout",
+				"router"
+			],
+			[
+				"car",
+				"card-footer-item"
+			],
+			[
+				"over",
+				"overflow-y"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"inline",
+				"inline-form\t(style.css)"
+			],
+			[
+				"dat",
+				"date-form\t(home.vue)"
+			],
+			[
+				"ti",
+				"title\t<title>"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "\"\"\"\n\nTrace des graphes comparaifs des données issues d'un runAWholeBunchOfTest\n\n\"\"\"\n\nimport pandas\nimport operator\nimport numpy as np\nfrom plotly.offline import plot\nfrom plotly.graph_objs import Scatter, Figure, Layout, Bar\n\ndef loadFile(filename, chartname):\n\n\tcolnames = [\"problem\", \"mutation\", \"crossover\", \"selection\", \"generations\"] #generations: le nombre de générations pour approcher le résultat à 5%\n\n\tdata = pandas.read_csv(filename, 'rb', engine='python', delimiter=\";\", names=colnames)\n\tgathered = {}\n\n\tfor index, row in data.iterrows():\n\n\t\tkey = row.mutation + \" -  \" + row.crossover + \" - \" + row.selection\n\n\t\tif not key in gathered:\n\t\t\tgathered[key] = []\n\n\t\tgathered[key].append(row.generations)\n\n\tnb_test = max([len(l) for l in gathered]) # Le nombre de tests effectués\n\tfor l in gathered: # si o∏∏n a moins d'entrées que le nombre de test, c'est qu'il prenait trop de temps\n\t\tif len(gathered[l]) < nb_test:\n\t\t\tgathered[l] = [-1]\n\n\n\tgathered = {k: np.mean(v) for k, v in gathered.items()}\n\tgathered = sorted(gathered.items(), key=operator.itemgetter(1))\n\n\treturn Bar(\n\t\tx= [row[0] for row in gathered],\n\t\ty= [row[1] for row in gathered],\n\t\tname = chartname\n\t)\n\nchart = [loadFile(\"../logs/lin105.csv\", \"lin105\"), loadFile(\"../logs/kro200.csv\", \"kro200\")]\n\n\nplot(chart, filename='bar.html')\n",
+			"file": "compare_parameters.py",
+			"file_size": 1311,
+			"file_write_time": 131397595900000000,
+			"settings":
+			{
+				"buffer_size": 1306,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "statistic_check.py",
+			"settings":
+			{
+				"buffer_size": 819,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/adrienbocquet/Dropbox/TIPE/codes/agenetique/logs/kro200.csv",
+			"settings":
+			{
+				"buffer_size": 37753,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 357.0,
+		"last_filter": "side",
+		"selected_items":
+		[
+			[
+				"side",
+				"View: Toggle Side Bar"
+			],
+			[
+				"move",
+				"File: Move"
+			],
+			[
+				"so",
+				"Sort Lines"
+			],
+			[
+				"sort",
+				"Sort Lines"
+			],
+			[
+				"pyton",
+				"Set Syntax: Python"
+			],
+			[
+				"swif",
+				"Set Syntax: Swift"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"iden",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"inde",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"del",
+				"File: Delete"
+			],
+			[
+				"dele",
+				"File: Delete"
+			],
+			[
+				"rena",
+				"File: Rename"
+			],
+			[
+				"ind",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"inden",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"index",
+				"Indexing Status"
+			],
+			[
+				"comm",
+				"Git: Commit"
+			],
+			[
+				"mini",
+				"View: Toggle Minimap"
+			],
+			[
+				"vue",
+				"Set Syntax: Vue Component"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"indent",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"h",
+				"Set Syntax: HTML"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"boxy",
+				"Boxy Theme: Activation"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"sotr",
+				"Sort Lines"
+			],
+			[
+				"Snippet: ",
+				"Snippet: #!/usr/bin/env"
+			],
+			[
+				"create",
+				"Javatar: Create new..."
+			],
+			[
+				"java",
+				"Javatar: Create new..."
+			],
+			[
+				"sidebar",
+				"View: Toggle Open Files in Side Bar"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 575.0
+	},
+	"console":
+	{
+		"height": 734.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"import urllib.request,os,hashlib; h = '2deb499853c4371624f5a07e27c334aa' + 'bf8c4e67d14fb0525ba4f89698a6d7e1'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/adrienbocquet/Dropbox/TIPE/codes/agenetique/python_analysis",
+		"/Users/adrienbocquet/Dropbox/TIPE/codes/agenetique/logs"
+	],
+	"file_history":
+	[
+		"/Users/adrienbocquet/Dropbox/TIPE/codes/agenetique/python_analysis/compare_parameters.py",
+		"/Users/adrienbocquet/Library/Application Support/Sublime Text 3/Packages/User/SideBarEnhancements/Open With/Side Bar.sublime-menu",
+		"/Users/adrienbocquet/Desktop/neat-python-master/neat/genome.py",
+		"/Users/adrienbocquet/Desktop/neat-python-master/neat/stagnation.py",
+		"/Users/adrienbocquet/Desktop/neat-python-master/labrush.py",
+		"/Users/adrienbocquet/Desktop/neat-python-master/neat/population.py",
+		"/Users/adrienbocquet/Desktop/neat-python-master/neat/reproduction.py",
+		"/Users/adrienbocquet/Desktop/a.py",
+		"/Users/adrienbocquet/Desktop/neat-python-master/neat/__init__.py",
+		"/Users/adrienbocquet/Desktop/neat-python-master/neat/six_util.py",
+		"/Users/adrienbocquet/Desktop/maths.py",
+		"/Users/adrienbocquet/Dropbox/TIPE/codes/agenetique/python_analysis/statistic_check.py",
+		"/Users/adrienbocquet/Dropbox/TIPE/codes/agenetique/logs/1489870449259.csv",
+		"/Users/adrienbocquet/Dropbox/TIPE/codes/agenetique/logs/1488136289916.csv",
+		"/Users/adrienbocquet/Dropbox/TIPE/codes/agenetique swift/agenetique/Fellows.swift",
+		"/Users/adrienbocquet/Dropbox/TIPE/brd14051/exploitation.py",
+		"/Users/adrienbocquet/Library/Application Support/Sublime Text 3/Packages/User/Pyhton-3.5.sublime-build",
+		"/Users/adrienbocquet/Dropbox/TIPE/brd14051/interrompu/d15112_1487590344848.csv",
+		"/Users/adrienbocquet/Dropbox/TIPE/brd14051/Résultats de l'AG qui a tourné 3 mois/d15112_1488017025984.csv",
+		"/Users/adrienbocquet/Sites/MAMP/maw/src/CodeBundle/Resources/views/Comparison/update.html.twig",
+		"/Users/adrienbocquet/Sites/MAMP/maw/src/CodeBundle/Resources/public/js/update.js",
+		"/Users/adrienbocquet/Sites/MAMP/Pleg3/README.md",
+		"/Users/adrienbocquet/Sites/MAMP/PlegApp/components/home.vue",
+		"/Users/adrienbocquet/Sites/MAMP/maw/src/CodeBundle/Resources/views/Default/index.html.twig",
+		"/Users/adrienbocquet/Sites/MAMP/maw/composer.json",
+		"/Users/adrienbocquet/Sites/MAMP/maw/app/AppKernel.php",
+		"/Users/adrienbocquet/Sites/MAMP/maw/app/config/config.yml",
+		"/Users/adrienbocquet/Sites/MAMP/PlegApp/components/date-form.vue",
+		"/Users/adrienbocquet/Sites/MAMP/maw/src/CodeBundle/Resources/config/routing.yml",
+		"/Users/adrienbocquet/Sites/MAMP/maw/src/CodeBundle/Resources/config/routing/comparison.yml",
+		"/Users/adrienbocquet/Sites/MAMP/maw/src/AdminBundle/Resources/config/routing.yml",
+		"/Users/adrienbocquet/Sites/MAMP/maw/app/Resources/views/base.html.twig",
+		"/Users/adrienbocquet/Sites/MAMP/maw/app/Resources/views/notice.part.html.twig",
+		"/Users/adrienbocquet/Sites/MAMP/PlegApp/package.json",
+		"/Users/adrienbocquet/Sites/MAMP/maw/src/CodeBundle/Resources/config/services.yml",
+		"/Users/adrienbocquet/Sites/MAMP/PlegApp/main.js",
+		"/Users/adrienbocquet/Sites/MAMP/PlegApp/components/index.js",
+		"/Users/adrienbocquet/Sites/MAMP/PlegApp/index.html",
+		"/Users/adrienbocquet/Sites/MAMP/PlegApp/resources/style.css",
+		"/Users/adrienbocquet/Sites/MAMP/maw/app/config/parameters.yml",
+		"/Users/adrienbocquet/Sites/MAMP/PlegApp/model/code.js",
+		"/Users/adrienbocquet/Sites/MAMP/PlegApp/model/revisions.js",
+		"/Users/adrienbocquet/Sites/MAMP/PlegApp/components/edit.vue",
+		"/Users/adrienbocquet/Sites/MAMP/PlegApp/components/article-search.vue",
+		"/Users/adrienbocquet/Sites/MAMP/PlegApp/resources/fuse.js",
+		"/Users/adrienbocquet/Programmation/electron/PlegApp/components/index.js",
+		"/Users/adrienbocquet/Programmation/electron/PlegApp/index.html",
+		"/Users/adrienbocquet/Programmation/electron/PlegApp/components/home.vue",
+		"/Users/adrienbocquet/Programmation/electron/PlegApp/resources/style.css",
+		"/Users/adrienbocquet/Programmation/electron/PlegApp/plegapp.sublime-project",
+		"/Users/adrienbocquet/Programmation/electron/PlegApp/templates/card.html",
+		"/Users/adrienbocquet/Programmation/electron/PlegApp/main.js",
+		"/Users/adrienbocquet/Programmation/electron/PlegApp/package.json",
+		"/Users/adrienbocquet/Programmation/electron/PlegApp/server/sample.js",
+		"/Users/adrienbocquet/Sites/MAMP/maw/web/css/added.css",
+		"/Users/adrienbocquet/Sites/MAMP/maw/web/css/app.css",
+		"/Users/adrienbocquet/Sites/MAMP/Pleg Photon/photon/template-app/js/menu.js",
+		"/Users/adrienbocquet/Sites/MAMP/Pleg Photon/photon/template-app/app.js",
+		"/Users/adrienbocquet/Sites/MAMP/Pleg Photon/photon/template-app/package.json",
+		"/Users/adrienbocquet/Programmation/electron/electron-quick-start/renderer.js",
+		"/Users/adrienbocquet/Library/Caches/Cleanup At Startup/Transmit/844AE050-8288-4698-89FB-FB3CC5221E2E/legi_20170414-211157.tar.gz"
+	],
+	"find":
+	{
+		"height": 48.0
+	},
+	"find_in_files":
+	{
+		"height": 132.0,
+		"where_history":
+		[
+			"/Users/adrienbocquet/Desktop/neat-python-master/neat",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"loadFile",
+			"int",
+			"a",
+			"items",
+			"my_dictionary",
+			"d.",
+			"bias_max_value",
+			"bias_mutate_rate",
+			"1",
+			"55",
+			"2",
+			"1",
+			"471",
+			"366",
+			"2598",
+			"772",
+			"254",
+			"1691",
+			"26",
+			"2457",
+			"1945",
+			"395",
+			"1513",
+			"2184",
+			"2213",
+			"258",
+			"1",
+			"769",
+			"636",
+			"HIDDEN",
+			"=",
+			", ",
+			"79",
+			"}",
+			"#",
+			"94",
+			"#",
+			"{ ",
+			"94",
+			"2",
+			"-> ",
+			"63",
+			"=",
+			", ",
+			"tolist",
+			"None",
+			";",
+			"timestamp",
+			"gedmo",
+			"255",
+			"180",
+			"230",
+			"background",
+			"button",
+			"outlined",
+			"button",
+			"<p class=\"control\">",
+			"info",
+			"button",
+			"class",
+			"=\"",
+			"Supprimé",
+			"<p class=\"control\">",
+			"offset-top",
+			"medium",
+			"a",
+			"delete",
+			"comment",
+			"sendImmediately",
+			"'",
+			"token",
+			";",
+			"'",
+			"email",
+			"create",
+			"getAll",
+			"from",
+			"new",
+			"bottom",
+			"A5",
+			"over",
+			"200",
+			"221",
+			"ts[part.",
+			".id",
+			"></",
+			"v-show=\"",
+			"v-show=",
+			"200",
+			"newRevisionNameEmpty",
+			"newName",
+			"newRevisionName",
+			"renaming",
+			"revisions",
+			"<a class=\"card-footer-item\" @click=\"endRename()\"   v-if=\"renaming.rev == rev.id && renaming.code == code.id\">Terminer</a>",
+			"codes[code_id][rev_id]",
+			"\"A",
+			"A",
+			"ons: [ ",
+			"null",
+			"code = code",
+			"id",
+			"renaming.revision",
+			"name: 'Code ",
+			"renaming == rev.id",
+			"newRevisionEmpty",
+			"loading",
+			"button",
+			"Date",
+			"from: new Date()",
+			",",
+			"\"},",
+			"},",
+			"name",
+			"id",
+			"revisions",
+			"name",
+			"revisions",
+			", ",
+			"'\n",
+			"honneur",
+			"a",
+			"div",
+			"inline-",
+			"centered",
+			"a",
+			"comments",
+			"shou"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "compare_parameters.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1306,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								815,
+								815
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 70.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "statistic_check.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 819,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/adrienbocquet/Dropbox/TIPE/codes/agenetique/logs/kro200.csv",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 37753,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								49,
+								49
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 293.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 100.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 100.0
+	},
+	"pinned_build_system": "Packages/User/Pyhton-3.5.sublime-build",
+	"project": "ag_python_analysis.sublime-project",
+	"replace":
+	{
+		"height": 40.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"mode",
+				"models.js"
+			],
+			[
+				"main",
+				"main.js"
+			],
+			[
+				"inde",
+				"components/index.js"
+			],
+			[
+				"hom",
+				"components/home.vue"
+			],
+			[
+				"in",
+				"index.html"
+			],
+			[
+				"cs",
+				"resources/style.css"
+			],
+			[
+				"css",
+				"resources/style.css"
+			],
+			[
+				"json",
+				"package.json"
+			],
+			[
+				"mains",
+				"main.js"
+			],
+			[
+				"articl",
+				"components/article-search.vue"
+			],
+			[
+				"edit",
+				"components/edit.vue"
+			],
+			[
+				"fuse",
+				"resources/fuse.js"
+			],
+			[
+				"pa",
+				"package.json"
+			],
+			[
+				"index",
+				"index.html"
+			],
+			[
+				"ind",
+				"components/index.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/Desktop/neat-python-master/neat_python.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 202.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

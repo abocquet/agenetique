@@ -1,11 +1,12 @@
 package eu.labrush.NEAT;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Mutation {
 
-    static void connectionMutation(Fellow f){
+    static void addConnectionMutation(Fellow f){
 
         Node from = null, to = null ;
         List<Node> nodes = new ArrayList<>(f.getNodes().values());
@@ -14,8 +15,8 @@ public class Mutation {
         int trial_limit = 10 ;
 
         do {
-            from = nodes.get(random(f.getNodes().size() - 1));
-            to = nodes.get(random(f.getNodes().size() - 1));
+            from = (Node) random(nodes);
+            to   = (Node) random(nodes);
             trials++ ;
         } while(
             from.frontOf(to) && trials < trial_limit
@@ -34,7 +35,7 @@ public class Mutation {
         f.addConnection(new Connection(from, to, Fellow.nextInnovationNumber()));
     }
 
-    static void nodeMutation(Fellow f){
+    static void addNodeMutation(Fellow f){
 
         List<Integer> keys = new ArrayList<>(f.getConnections().keySet());
 
@@ -49,8 +50,33 @@ public class Mutation {
         f.addConnection(new Connection(newNode, c.to, Fellow.nextInnovationNumber()));
     }
 
-    static int random(int max){ // return random number between 0 and max
+    public static void delConnectionMutation(Fellow f) {
+        f.removeConnection((Connection) random(f.getConnections().values()));
+    }
+
+
+    public static void delNodeMutation(Fellow f) {
+        f.removeNode((Node) random(f.getNodes().values()));
+    }
+
+    /**
+     * @param max
+     * @return a number in [0, max - 1]
+     */
+    static int random(int max){
+        if(max == 0){
+            return 0 ;
+        }
+
         return ((int) (Math.random() * (double) (max + 1))) % max ;
+    }
+
+    static Object random(List u){
+        return u.get(random(u.size()));
+    }
+
+    static Object random(Collection u){
+        return random(new ArrayList(u));
     }
 
 }

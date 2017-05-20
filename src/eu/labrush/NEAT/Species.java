@@ -13,6 +13,7 @@ public class Species {
 
     int age = 0 ;
     int last_improved = 0 ;
+    double last_fitness = 0.0 ;
 
     Species(Fellow fellow) {
         this.fellows.add(fellow) ;
@@ -80,7 +81,7 @@ public class Species {
      **************************/
 
     boolean closeTo(Fellow f){
-        return this.getAmbassador().distanceTo(f) < Config.SPECIES_THRESHOLD;
+        return this.getAmbassador().distanceTo(f) < Config.SAME_SPECIES_THRESHOLD;
     }
 
 
@@ -109,7 +110,7 @@ public class Species {
         return avg ;
     }
 
-    void adjustFitness(){
+    double adjustedFitness(){
 
         double shared_fitness = averageFitness() ;
 
@@ -119,9 +120,7 @@ public class Species {
             shared_fitness *= Config.STAGNATION_MULTIPLIER ;
         }
 
-        for (Fellow f: fellows){
-            f.shared_fitness = shared_fitness ;
-        }
+        return shared_fitness ;
     }
 
     /**************************

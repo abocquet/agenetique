@@ -1,19 +1,14 @@
 package eu.labrush.NEAT;
 
-import eu.labrush.agenetic.Tuple;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import static java.lang.Math.*;
+import static java.lang.Math.random;
 
 public class Nature {
 
     int POPSIZE = 20 ;
     private int ELITISM = 1;
-
-    double P_NODE_MUTATION = Config.P_NODE_MUTATION ;
-    double P_CONNECTION_MUTATION = Config.P_CONNECTION_MUTATION ;
 
     ArrayList<Species> species = new ArrayList<>(); // Representative, others
 
@@ -21,13 +16,14 @@ public class Nature {
 
     public Nature(int POPSIZE, int ELITISM, int sensors, int output, FitnessEvaluator evaluator) {
 
-        Fellow initial = new Fellow(sensors, output);
         this.POPSIZE = POPSIZE ;
         this.ELITISM = ELITISM ;
         this.evaluator = evaluator ;
 
+        Fellow original = new Fellow(sensors, output);
+
         for (int i = 0; i < POPSIZE; i++) {
-            addFellow(initial.clone());
+            addFellow(original.clone().changeConnectionWeights());
         }
     }
 
@@ -37,20 +33,11 @@ public class Nature {
             f.setFitness(evaluator.eval(f));
         }
 
-        for(Species s: species){
-            s.adjustFitness();
-        }
-
     }
 
     public void evolve(){
 
-        ArrayList<Tuple<String, Fellow>> elite = new ArrayList<>(species.size());
-        Fellow[] newPop = new Fellow[POPSIZE] ;
-        int c = 0 ;
-
         // We save best elements
-        int k = 0 ;
         for(Species s: species) {
             s.saveElite(ELITISM);
         }
@@ -78,11 +65,20 @@ public class Nature {
 
         for(Species s: species){
             for(Fellow f: s.fellows){
-                //TODO: connection mutation is favored, set it unbiased
-                if (random() <= P_CONNECTION_MUTATION){
-                    Mutation.connectionMutation(f);
-                } else if(random() <= P_NODE_MUTATION){
-                    Mutation.nodeMutation(f);
+                if (random() <= Config.P_CONNECTION_ADD_MUTATION) {
+                    Mutation.addConnectionMutation(f);
+                }
+
+                if (random() <= Config.P_CONNECTION_DEL_MUTATION) {
+                    Mutation.delConnectionMutation(f);
+                }
+
+                if (random() <= Config.P_NODE_ADD_MUTATION) {
+                    Mutation.addNodeMutation(f);
+                }
+
+                if (random() <= Config.P_NODE_DEL_MUTATION) {
+                    Mutation.delNodeMutation(f);
                 }
             }
         }
@@ -90,6 +86,12 @@ public class Nature {
     }
 
     public void crossover(){
+
+        for(Species s: species){
+            if(s.adjustedFitness() <= Config.SURVIVAL_SPECIES_THRESHOLD){
+                species.remove(s);
+            }
+        }
 
         double[] avgFitness = new double[species.size()]; // the avg fitness of every species
         int[] n = new int[species.size()] ; //the number of fellows every species gets in the next generation
@@ -124,10 +126,18 @@ public class Nature {
 
         for(Species s: species){
             s.age++ ;
+
+            double af = s.adjustedFitness() ;
+            if(af <= s.last_fitness + 0.01){
+                s.last_improved++ ;
+            }
+            s.last_fitness = af ;
         }
 
         for (int i = 0, c = species.size() ; i < c ; i++) {
             Species s = species.get(i);
+            s.dumpDummies();
+
             int m = s.fellows.size() ;
             int j = m ;
 
@@ -153,11 +163,6 @@ public class Nature {
                 }
                 j++ ;
             }
-        }
-
-        int c = 0 ;
-        for(Species s: species){
-            c += s.fellows.size();
         }
 
     }

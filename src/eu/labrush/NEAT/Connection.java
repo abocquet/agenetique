@@ -21,7 +21,7 @@ public class Connection implements Cloneable {
 
         this.evolutionNumber = evolutionNumber ;
 
-        this.weight = Math.random() * (Config.MAX_CONNECTION_VALUE - Config.MIN_CONNECTION_VALUE) + Config.MIN_CONNECTION_VALUE ;
+       randomWeight();
     }
 
     @Override
@@ -46,5 +46,9 @@ public class Connection implements Cloneable {
     @Override
     public String toString() {
         return "{ " + from.id + " -> " + to.id + "}\n" ;
+    }
+
+    public void randomWeight() {
+        this.weight = Math.random() * (Config.MAX_CONNECTION_VALUE - Config.MIN_CONNECTION_VALUE) + Config.MIN_CONNECTION_VALUE ;
     }
 }
