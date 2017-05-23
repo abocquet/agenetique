@@ -8,7 +8,7 @@ class Crossover {
     static Fellow crossover(Fellow f1, Fellow f2){
 
         Fellow child = new Fellow();
-        for (int i = 0; i < Fellow.getInnovationNumber(); i++) {
+        for (int i = 0; i <= Node.getInnovationNumber(); i++) {
             if(f1.getNodes().keySet().contains(i)){
                 child.addNode(f1.getNodes().get(i));
             } else if(f2.getNodes().keySet().contains(i)){
@@ -16,7 +16,7 @@ class Crossover {
             }
         }
 
-        for (int i = 0; i < Fellow.getInnovationNumber(); i++) {
+        for (int i = 0; i < Connection.getCurrentId(); i++) {
 
             if(f1.getConnections().keySet().contains(i) && f2.getConnections().keySet().contains(i)) {
 

@@ -6,22 +6,28 @@ package eu.labrush.NEAT;
  * Une connection ne peut aller de x vers y ssi x < y ou y.above(x) en java
  */
 public class Node {
-    int id = 0 ;
+    private int id ;
     int numerator ;
     int denominator ;
 
+    double bias ;
+
+    static private int globalInnovationNumber = 0 ;
+
+
     NodeType type = NodeType.HIDDEN;
 
-    public Node(int id, int numerator, int denominator) {
-        this.id = id;
+    public Node(int numerator, int denominator) {
+        this.id = nextInnovationNumber();
 
         int pgcd = pgcd(numerator, denominator);
 
         this.numerator = numerator / pgcd;
         this.denominator = denominator / pgcd;
+        this.bias = Random.gauss(Config.STDEV_NODE_BIAS, Config.MIN_NODE_BIAS, Config.MAX_NODE_BIAS) ;
     }
 
-    public Node(int id,  NodeType type) {
+    public Node(NodeType type) {
         if(type == NodeType.OUTPUT) {
             this.numerator = 1 ;
             this.denominator = 1 ;
@@ -36,8 +42,8 @@ public class Node {
             }
         }
 
-        this.id = id ;
         this.type = type;
+        this.id = nextInnovationNumber();
     }
 
     static int pgcd(int a, int b){
@@ -63,8 +69,23 @@ public class Node {
         return numerator * n.denominator == n.numerator * denominator ;
     }
 
-    static Node avg(Node n1, Node n2, int id){
-        return new Node(id, n1.numerator * n2.denominator + n2.numerator * n1.denominator, n1.denominator * n2.denominator * 2);
+    static Node avg(Node n1, Node n2){
+        return new Node(n1.numerator * n2.denominator + n2.numerator * n1.denominator, n1.denominator * n2.denominator * 2);
     }
 
+    /*************************
+     Evolution monitoring
+     *************************/
+    public static int getInnovationNumber() {
+        return globalInnovationNumber;
+    }
+
+    public static int nextInnovationNumber() {
+        globalInnovationNumber++ ;
+        return getInnovationNumber();
+    }
+
+    public int getId() {
+        return id;
+    }
 }

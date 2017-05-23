@@ -1,14 +1,15 @@
 package eu.labrush.NEAT;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+
+import static eu.labrush.NEAT.Random.random;
 
 public class Mutation {
 
     static void addConnectionMutation(Fellow f){
 
-        Node from = null, to = null ;
+        Node from, to;
         List<Node> nodes = new ArrayList<>(f.getNodes().values());
 
         int trials = 0 ; // We don't try for too long, especially at the begginng, new connections cannot be added
@@ -32,51 +33,51 @@ public class Mutation {
             to = tmp ;
         }
 
-        f.addConnection(new Connection(from, to, Fellow.nextInnovationNumber()));
+        f.addConnection(new Connection(from, to));
     }
 
     static void addNodeMutation(Fellow f){
 
         List<Integer> keys = new ArrayList<>(f.getConnections().keySet());
 
+        if(keys.size() == 0){
+            addConnectionMutation(f);
+            return;
+        }
+
         int n = keys.get(random(f.getConnections().size() - 1)); //The index of the connection on which we are going to addFellow the node
         Connection c = f.getConnections().get(n);
 
         c.enabled = false ;
 
-        Node newNode = Node.avg(c.from, c.to, Fellow.nextInnovationNumber());
+        Node newNode = Node.avg(c.getFrom(), c.getTo());
         f.addNode(newNode);
-        f.addConnection(new Connection(c.from,  newNode, Fellow.nextInnovationNumber()));
-        f.addConnection(new Connection(newNode, c.to, Fellow.nextInnovationNumber()));
+        f.addConnection(new Connection(c.getFrom(),  newNode));
+        f.addConnection(new Connection(newNode, c.getTo()));
     }
 
     public static void delConnectionMutation(Fellow f) {
+        if(f.getConnections().size() == 0){
+            return;
+        }
+
         f.removeConnection((Connection) random(f.getConnections().values()));
     }
 
 
     public static void delNodeMutation(Fellow f) {
-        f.removeNode((Node) random(f.getNodes().values()));
-    }
+        Node n = (Node) random(f.getNodes().values());
 
-    /**
-     * @param max
-     * @return a number in [0, max - 1]
-     */
-    static int random(int max){
-        if(max == 0){
-            return 0 ;
+        if((n.numerator == 1 && n.denominator == 1) || (n.numerator == 0 && n.denominator == 1)){
+            return ;
         }
 
-        return ((int) (Math.random() * (double) (max + 1))) % max ;
+        f.removeNode(n);
     }
 
-    static Object random(List u){
-        return u.get(random(u.size()));
-    }
-
-    static Object random(Collection u){
-        return random(new ArrayList(u));
+    public static void changeNodeBias(Fellow f){
+        Node n = (Node) Random.random(f.getNodes().values());
+        n.bias = Math.random() * (Config.MAX_NODE_BIAS - Config.MIN_NODE_BIAS) + Config.MIN_NODE_BIAS ;
     }
 
 }
