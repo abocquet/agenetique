@@ -1,13 +1,19 @@
-package eu.labrush.NEAT;
+package eu.labrush.NEAT.operators;
+
+import eu.labrush.NEAT.Config;
+import eu.labrush.NEAT.fellow.Connection;
+import eu.labrush.NEAT.fellow.Fellow;
+import eu.labrush.NEAT.fellow.Node;
+import eu.labrush.NEAT.utils.Random;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static eu.labrush.NEAT.Random.random;
+import static eu.labrush.NEAT.utils.Random.random;
 
 public class Mutation {
 
-    static void addConnectionMutation(Fellow f){
+    public static void addConnectionMutation(Fellow f){
 
         Node from, to;
         List<Node> nodes = new ArrayList<>(f.getNodes().values());
@@ -36,7 +42,7 @@ public class Mutation {
         f.addConnection(new Connection(from, to));
     }
 
-    static void addNodeMutation(Fellow f){
+    public static void addNodeMutation(Fellow f){
 
         List<Integer> keys = new ArrayList<>(f.getConnections().keySet());
 
@@ -50,7 +56,7 @@ public class Mutation {
 
         c.enabled = false ;
 
-        Node newNode = Node.avg(c.getFrom(), c.getTo());
+        Node newNode = new Node(c.getFrom(), c.getTo());
         f.addNode(newNode);
         f.addConnection(new Connection(c.getFrom(),  newNode));
         f.addConnection(new Connection(newNode, c.getTo()));

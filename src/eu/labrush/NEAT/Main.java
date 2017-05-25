@@ -1,5 +1,7 @@
 package eu.labrush.NEAT;
 
+import eu.labrush.NEAT.fellow.Fellow;
+
 import java.util.Arrays;
 
 /**
@@ -20,6 +22,8 @@ public class Main {
 
             return score ;
         });
+
+        long t1 = System.currentTimeMillis() ;
 
         int NGEN = 150 ;
         for (int i = 0; i < NGEN; i++) {
@@ -42,8 +46,11 @@ public class Main {
         System.out.println("");  // Affiche 1 si juste, 0 si faux
 
         for (int i = 0; i < tests.length; i++) {
-            System.out.println(Arrays.toString(tests[i]) + " -> " + (Math.round(f.thinkAbout(tests[i])[0]) == tests[i][2] ? "CORRECT" : "ERREUR"));
+            System.out.println(Arrays.toString(tests[i]) + " -> " + f.thinkAbout(tests[i])[0] + " " + (Math.round(f.thinkAbout(tests[i])[0]) == tests[i][2] ? "CORRECT" : "ERREUR"));
         }
+
+        long t2 = System.currentTimeMillis();
+        System.out.println("Finished in " + ((double)(t2 - t1) / 1000));
 
     }
 

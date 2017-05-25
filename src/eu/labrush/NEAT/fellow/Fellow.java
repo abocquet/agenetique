@@ -1,5 +1,7 @@
-package eu.labrush.NEAT;
+package eu.labrush.NEAT.fellow;
 
+
+import eu.labrush.NEAT.Config;
 
 import java.util.*;
 
@@ -8,17 +10,18 @@ public class Fellow {
     private HashMap<Integer, Node> nodes = new HashMap<>() ;
     private HashMap<Integer, Connection> connections = new HashMap<>();
 
-    private double fitness = 0 ;
-    private int output_number = 0 ;
+    protected double fitness = 0 ;
+    protected int output_number = 0 ;
+    protected int inputs_number = 0 ;
 
 
     public Fellow() {}
-    public Fellow(int sensors, int outputs){
+    public Fellow(int inputs, int outputs){
 
-        Node[] sensors_id = new Node[sensors];
+        Node[] sensors_id = new Node[inputs];
 
-        for (int i = 0; i < sensors; i++) {
-            Node newNode = new Node(NodeType.SENSOR);
+        for (int i = 0; i < inputs; i++) {
+            Node newNode = new Node(NodeType.INPUT);
             addNode(newNode);
             sensors_id[i] = newNode ;
         }
@@ -27,7 +30,7 @@ public class Fellow {
             Node newNode = new Node(NodeType.OUTPUT) ;
             addNode(newNode);
 
-            for (int j = 0; j < sensors; j++) {
+            for (int j = 0; j < inputs; j++) {
                 this.addConnection(new Connection(sensors_id[j], newNode));
             }
         }
@@ -36,8 +39,9 @@ public class Fellow {
     /*************************
         Topology management
      *************************/
-    void addNode(Node n){
+    public void addNode(Node n){
         if(n.type == NodeType.OUTPUT) output_number++;
+        else if(n.type == NodeType.INPUT) inputs_number++;
         nodes.put(n.getId(), n);
     }
 
@@ -139,7 +143,8 @@ public class Fellow {
      *************************/
 
     double sigmoid(double x){
-        return 1 / (1 + Math.exp(-x));
+        x = Math.max(-60.0, Math.min(60.0, 5.0 * x));
+        return 1.0 / (1.0 + Math.exp(-x / 10));
     }
 
     // On procède récursivement sur les noeuds en utilisant la programmation dynamique
@@ -182,13 +187,13 @@ public class Fellow {
 
     public double[] thinkAbout(double[] input){ // Activates neural network
 
-        double[] values = new double[Node.getInnovationNumber() + 1]; // We guarantee the parameters are always given in the same order to the network
-        Arrays.fill(values, 0, Node.getInnovationNumber(), Double.NaN);
+        double[] values = new double[Node.indexer.current() + 1]; // We guarantee the parameters are always given in the same order to the network
+        Arrays.fill(values, 0, Node.indexer.current(), Double.NaN);
 
         int c = 0 ;
         for (Integer key: asSortedList(nodes.keySet()))
         {
-            if(nodes.get(key).type == NodeType.SENSOR){
+            if(nodes.get(key).type == NodeType.INPUT){
                 values[key] = input[c] ;
                 c++ ;
             }
@@ -220,12 +225,13 @@ public class Fellow {
      *************************/
 
     @Override
-    protected Fellow clone()  {
+    public Fellow clone()  {
         Fellow f = new Fellow();
 
         f.nodes = (HashMap<Integer, Node>) this.nodes.clone();
         f.connections = (HashMap<Integer, Connection>) this.connections.clone();
         f.output_number = this.output_number ;
+        f.inputs_number = this.inputs_number ;
         f.fitness = this.fitness ;
 
         return f;
@@ -239,8 +245,16 @@ public class Fellow {
 
     @Override
     public String toString() {
-        return "Fellow{" +
+        return "fellow{" +
                 "fitness=" + fitness +
                 '}';
+    }
+
+    public int getOutputNumber() {
+        return output_number;
+    }
+
+    public int getInputsNumber() {
+        return inputs_number;
     }
 }

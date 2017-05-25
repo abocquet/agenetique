@@ -1,14 +1,19 @@
-package eu.labrush.NEAT;
+package eu.labrush.NEAT.operators;
 
-class Crossover {
+import eu.labrush.NEAT.Config;
+import eu.labrush.NEAT.fellow.Connection;
+import eu.labrush.NEAT.fellow.Fellow;
+import eu.labrush.NEAT.fellow.Node;
+
+public class Crossover {
 
     /**
      * We assume that f1 and f2 have the same sensors and outputs
      */
-    static Fellow crossover(Fellow f1, Fellow f2){
+    public static Fellow crossover(Fellow f1, Fellow f2){
 
         Fellow child = new Fellow();
-        for (int i = 0; i <= Node.getInnovationNumber(); i++) {
+        for (int i = 0; i <= Node.indexer.current(); i++) {
             if(f1.getNodes().keySet().contains(i)){
                 child.addNode(f1.getNodes().get(i));
             } else if(f2.getNodes().keySet().contains(i)){
@@ -16,7 +21,7 @@ class Crossover {
             }
         }
 
-        for (int i = 0; i < Connection.getCurrentId(); i++) {
+        for (int i = 0; i < Connection.indexer.current(); i++) {
 
             if(f1.getConnections().keySet().contains(i) && f2.getConnections().keySet().contains(i)) {
 

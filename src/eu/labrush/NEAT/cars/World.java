@@ -1,62 +1,65 @@
-package eu.labrush.car.simulation;
+package eu.labrush.NEAT.cars;
 
-import eu.labrush.agenetic.AbstractFellow;
-import eu.labrush.agenetic.Logger;
-import eu.labrush.car.genetic.Driver;
-import eu.labrush.car.genetic.Nature;
+import eu.labrush.NEAT.Nature;
+import eu.labrush.NEAT.fellow.Fellow;
+import eu.labrush.NEAT.operators.FitnessEvaluator;
+import eu.labrush.car.simulation.MapGenerator;
 import org.dyn4j.geometry.Vector2;
 
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
-public class World {
+public class World implements FitnessEvaluator{
 
-    Car[] cars ;
-    Car user;
-    Driver[] drivers ;
-    int carsAlive ;
+    private Car[] cars ;
+    private int carsAlive ;
 
     ArrayList<Line2D> boundaries = new ArrayList<>();
 
-    Nature nature ;
-    Logger logger ;
+    private Nature nature ;
 
     private MapGenerator map = new MapGenerator(50, 50, 750, 750);
+    private HashMap<Fellow, Double> distances = new HashMap<>();
 
     public World() {
-        drivers = new Driver[0];
+        this.nature = new Nature(150, 8, 6, this);
+        setup();
+    }
 
-        for (int i = 0 ; i < drivers.length ;i++){
-            drivers[i] = (Driver)nature.getFactory().newInstance();
+    public double eval(Fellow f){
+        if(distances.containsKey(f)){
+            return distances.get(f);
+        } else {
+            return 0 ;
         }
     }
 
     private void setup() {
         if (this.nature == null) return;
+        distances.clear();
 
         boundaries.clear();
-        //addBoudaries(map.getRandomizedGrid(15, 35));
         addBoudaries(map.getSquareGrid());
 
 
-        AbstractFellow[] drivers = nature.getPopulation();
+        HashSet<Fellow> fellows = nature.getFellows();
+        Fellow[] drivers = new Fellow[fellows.size()] ;
+        drivers = fellows.toArray(drivers);
 
         int nbCars = drivers.length;
         cars = new Car[nbCars];
 
         for (int i = 0; i < nbCars; i++) {
-            Driver d = (Driver) drivers[i];
+            Fellow d = drivers[i];
             cars[i] = new Car(d);
             cars[i].setPosition(map.getStart());
-            cars[i].getPosition().add(i, 0);
+            cars[i].getPosition().add(i,0);
             //cars[i].setAngle(Math.PI / 2);
         }
 
         carsAlive = nbCars;
-
-        if(nature.getGenerationNumber() % 10 == 0){
-            logger.log(true);
-        }
     }
 
 
@@ -113,13 +116,12 @@ public class World {
                 }
             }
 
-            if(c != this.user)
-                c.drive(boundaries);
+            c.drive(boundaries);
         }
 
         if(this.carsAlive == 0){
             for(Car c: cars){
-                c.getDriver().setDistance(c.getDistance());
+                distances.put(c.getDriver(), c.getDistance());
             }
 
             nature.evolve();
@@ -145,12 +147,6 @@ public class World {
         addBoundary(x+w, y, x+w, y+h);
         addBoundary(x, y+h, x+w, y+h);
         addBoundary(x, y+h, x, y);
-    }
-
-    public void setNature(Nature nature) {
-        this.nature = nature;
-        this.logger = new Logger("logs/", "cars_" + System.currentTimeMillis(), nature);
-        setup();
     }
 
     public MapGenerator getMap() {

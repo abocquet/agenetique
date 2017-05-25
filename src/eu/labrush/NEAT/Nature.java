@@ -1,11 +1,17 @@
 package eu.labrush.NEAT;
 
+import eu.labrush.NEAT.fellow.Fellow;
+import eu.labrush.NEAT.operators.Crossover;
+import eu.labrush.NEAT.operators.FitnessEvaluator;
+import eu.labrush.NEAT.operators.Mutation;
+
 import java.util.*;
-import static eu.labrush.NEAT.Random.random;
+import static eu.labrush.NEAT.utils.Random.random;
 
 public class Nature {
 
-    private int POPSIZE = 20 ;
+    private int POPSIZE  ;
+    protected int generationNumber = 0 ;
 
     private ArrayList<Species> species = new ArrayList<>(); // Representative, others
     private final FitnessEvaluator evaluator;
@@ -16,17 +22,9 @@ public class Nature {
         this.evaluator = evaluator ;
 
         Fellow original = new Fellow(sensors, output);
-
         for (int i = 0; i < POPSIZE; i++) {
             addFellow(original.clone());
-        }
-
-    }
-
-    private void evaluate(){
-
-        for(Fellow f: getFellows()){
-            f.setFitness(evaluator.eval(f));
+            //addFellow(new Fellow(sensors, output));
         }
 
     }
@@ -38,9 +36,11 @@ public class Nature {
         evaluate();
         crossover();
 
+        generationNumber++ ;
+
     }
 
-    private void mutate(){
+    protected void mutate(){
 
         for(Fellow f: getFellows()){
             if (Math.random() <= Config.P_CONNECTION_ADD_MUTATION) {
@@ -66,8 +66,16 @@ public class Nature {
 
     }
 
+    protected void evaluate(){
+
+        for(Fellow f: getFellows()){
+            f.setFitness(evaluator.eval(f));
+        }
+
+    }
+
     @SuppressWarnings("ConstantConditions")
-    private void crossover(){
+    protected void crossover(){
         //Find minimum/maximum fitness across the entire population, for use in
         //species adjusted fitness computation.
         double[] all_fitnesses = new double[POPSIZE];
@@ -117,6 +125,11 @@ public class Nature {
                 //Compute adjusted fitness.
                 double msf = s.averageFitness();
                 double af = (msf - min_fitness) / fitness_range;
+
+                if(s.age < Config.MINORITY){
+                    af *= Config.MINORITY_HELP_MULTIPLIER ;
+                }
+
                 adjusted_fitness[i] = af;
                 remaining_species[i] = s;
             }
@@ -130,7 +143,7 @@ public class Nature {
             }
         }
 
-		//Compute the number of new memebers for each species in the new generation.
+		//Compute the number of new memebers for each species in the new generationNumber.
         Integer[] previous_sizes = new Integer[species_t.length];
         for (int i = 0; i < species_t.length; i++) {
             previous_sizes[i] = species_t[i].fellows.size();
@@ -194,7 +207,7 @@ public class Nature {
                 }
             }
 
-			//The species has at least one member for the next generation, so retain it.
+			//The species has at least one member for the next generationNumber, so retain it.
             ArrayList<Fellow> old_members = new ArrayList<>(s.getFellows());
             s.fellows.clear();
 
@@ -202,7 +215,7 @@ public class Nature {
             old_members.sort(Comparator.comparingDouble(Fellow::getFitness).reversed());
 
             int j = 0 ;
-			//Transfer elites to new generation.
+			//Transfer elites to new generationNumber.
             if(Config.ELITISM > 0) {
                 for (; j < Config.ELITISM && j < old_members.size() ; j++) {
                     new_population[j] = old_members.get(j) ;
@@ -276,7 +289,7 @@ public class Nature {
         species.add(new Species(f));
     }
 
-    private HashSet<Fellow> getFellows() {
+    public HashSet<Fellow> getFellows() {
         HashSet<Fellow> fellows = new HashSet<>();
 
         for(Species s: species) {
@@ -284,5 +297,9 @@ public class Nature {
         }
 
         return fellows ;
+    }
+
+    public int getGenerationNumber() {
+        return generationNumber;
     }
 }
