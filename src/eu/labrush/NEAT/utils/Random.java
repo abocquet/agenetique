@@ -1,4 +1,4 @@
-package eu.labrush.NEAT;
+package eu.labrush.NEAT.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,7 +13,7 @@ public class Random {
      * @param max
      * @return a number in [0, max - 1]
      */
-    static int random(int max){
+    public static int random(int max){
         if(max == 0){
             return 0 ;
         }
@@ -21,15 +21,15 @@ public class Random {
         return ((int) (Math.random() * (double) (max + 1))) % max ;
     }
 
-    static Object random(List u){
+    public static Object random(List u){
         return u.get(random(u.size()));
     }
 
-    static Object random(Collection u){
+    public static Object random(Collection u){
         return random(new ArrayList(u));
     }
 
-    static double gauss(double stdev, double max, double min){
+    public static double gauss(double stdev, double max, double min){
         double v = r.nextGaussian() * stdev ;
         if(v < min){
             return min ;

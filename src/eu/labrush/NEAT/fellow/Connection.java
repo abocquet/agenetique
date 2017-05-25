@@ -1,8 +1,8 @@
-package eu.labrush.NEAT;
+package eu.labrush.NEAT.fellow;
 
-import eu.labrush.agenetic.Tuple;
-
-import java.util.HashMap;
+import eu.labrush.NEAT.Config;
+import eu.labrush.NEAT.utils.Indexer;
+import eu.labrush.NEAT.utils.Random;
 
 public class Connection implements Cloneable {
 
@@ -14,11 +14,10 @@ public class Connection implements Cloneable {
     public double weight ;
     public boolean enabled = true ;
 
-    private static HashMap<Tuple<Integer, Integer>, Integer> connections = new HashMap<>();
-    private static int current_id = 0 ;
+    public static Indexer indexer = new Indexer(0);
 
     public Connection(Node from, Node to) {
-        this(from, to, nextId());
+        this(from, to, indexer.next());
     }
 
     private Connection(Node from, Node to, int id){
@@ -32,19 +31,6 @@ public class Connection implements Cloneable {
 
         this.id = id ;
         randomWeight();
-    }
-
-    /**
-     * ID Management
-     */
-
-    private static int nextId(){
-        current_id++ ;
-        return current_id ;
-    }
-
-    public static int getCurrentId(){
-        return current_id ;
     }
 
     /**
@@ -68,7 +54,7 @@ public class Connection implements Cloneable {
      */
 
     @Override
-    protected Connection clone() {
+    public Connection clone() {
         Connection c = new Connection(from, to, id);
         c.weight = weight ;
         c.enabled = enabled ;

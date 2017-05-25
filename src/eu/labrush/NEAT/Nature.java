@@ -1,7 +1,12 @@
 package eu.labrush.NEAT;
 
+import eu.labrush.NEAT.fellow.Fellow;
+import eu.labrush.NEAT.operators.Crossover;
+import eu.labrush.NEAT.operators.FitnessEvaluator;
+import eu.labrush.NEAT.operators.Mutation;
+
 import java.util.*;
-import static eu.labrush.NEAT.Random.random;
+import static eu.labrush.NEAT.utils.Random.random;
 
 public class Nature {
 

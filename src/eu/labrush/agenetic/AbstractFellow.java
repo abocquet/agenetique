@@ -2,7 +2,7 @@ package eu.labrush.agenetic;
 
 import java.util.Arrays;
 
-public abstract class AbstractFellow implements Comparable<AbstractFellow> {
+public abstract class AbstractFellow implements Comparable<AbstractFellow>, FellowInterface {
 
     private int[] dna ;
 
@@ -11,7 +11,7 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
 
     /**
         If you want to adapt DNASIZE and DNACARD, change the static class
-        value inside the Nature class before creating any new Fellow
+        value inside the Nature class before creating any new fellow
      */
     private int DNASIZE = -1;
     private int DNACARD = 2; //the number of symbols that can be used in the DNA from 0 to n - 1
@@ -46,7 +46,7 @@ public abstract class AbstractFellow implements Comparable<AbstractFellow> {
 
     @Override
     public String toString() {
-        return "Fellow{" +
+        return "fellow{" +
                 "fitness= " + this.getFitness() +
                 '}';
     }

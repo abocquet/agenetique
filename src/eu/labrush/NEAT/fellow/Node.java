@@ -1,5 +1,9 @@
-package eu.labrush.NEAT;
+package eu.labrush.NEAT.fellow;
 
+
+import eu.labrush.NEAT.Config;
+import eu.labrush.NEAT.utils.Indexer;
+import eu.labrush.NEAT.utils.Random;
 
 /**
  * On représente les couches du réseau par des rationnels entre 0 et 1 pour éviter les cycles
@@ -7,18 +11,15 @@ package eu.labrush.NEAT;
  */
 public class Node {
     private int id ;
-    int numerator ;
-    int denominator ;
+    public int numerator ;
+    public int denominator ;
 
-    double bias ;
+    public double bias ;
 
-    static private int globalInnovationNumber = 0 ;
-
-
-    NodeType type = NodeType.HIDDEN;
+    public NodeType type = NodeType.HIDDEN;
 
     public Node(int numerator, int denominator) {
-        this.id = nextInnovationNumber();
+        this.id = indexer.next();
 
         int pgcd = pgcd(numerator, denominator);
 
@@ -27,11 +28,16 @@ public class Node {
         this.bias = Random.gauss(Config.STDEV_NODE_BIAS, Config.MIN_NODE_BIAS, Config.MAX_NODE_BIAS) ;
     }
 
+    public Node(Node n1, Node n2){
+        this(n1.numerator * n2.denominator + n2.numerator * n1.denominator, n1.denominator * n2.denominator * 2);
+        this.bias = Math.random() >= .5 ? n1.bias : n2.bias ;
+    }
+
     public Node(NodeType type) {
         if(type == NodeType.OUTPUT) {
             this.numerator = 1 ;
             this.denominator = 1 ;
-        } else if(type == NodeType.SENSOR){
+        } else if(type == NodeType.INPUT){
             this.numerator = 0 ;
             this.denominator = 1 ;
         } else {
@@ -43,7 +49,7 @@ public class Node {
         }
 
         this.type = type;
-        this.id = nextInnovationNumber();
+        this.id = indexer.next();
     }
 
     static int pgcd(int a, int b){
@@ -69,21 +75,11 @@ public class Node {
         return numerator * n.denominator == n.numerator * denominator ;
     }
 
-    static Node avg(Node n1, Node n2){
-        return new Node(n1.numerator * n2.denominator + n2.numerator * n1.denominator, n1.denominator * n2.denominator * 2);
-    }
-
     /*************************
      Evolution monitoring
      *************************/
-    public static int getInnovationNumber() {
-        return globalInnovationNumber;
-    }
 
-    public static int nextInnovationNumber() {
-        globalInnovationNumber++ ;
-        return getInnovationNumber();
-    }
+    public static Indexer indexer = new Indexer(0);
 
     public int getId() {
         return id;

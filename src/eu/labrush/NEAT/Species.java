@@ -1,5 +1,7 @@
 package eu.labrush.NEAT;
 
+import eu.labrush.NEAT.fellow.Fellow;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -72,6 +74,5 @@ public class Species {
     public boolean isStagnant() {
         return age - last_improved > Config.STAGNATION_AGE;
     }
-
 
 }

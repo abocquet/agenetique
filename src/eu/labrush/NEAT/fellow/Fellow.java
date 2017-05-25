@@ -1,5 +1,7 @@
-package eu.labrush.NEAT;
+package eu.labrush.NEAT.fellow;
 
+
+import eu.labrush.NEAT.Config;
 
 import java.util.*;
 
@@ -18,7 +20,7 @@ public class Fellow {
         Node[] sensors_id = new Node[sensors];
 
         for (int i = 0; i < sensors; i++) {
-            Node newNode = new Node(NodeType.SENSOR);
+            Node newNode = new Node(NodeType.INPUT);
             addNode(newNode);
             sensors_id[i] = newNode ;
         }
@@ -36,7 +38,7 @@ public class Fellow {
     /*************************
         Topology management
      *************************/
-    void addNode(Node n){
+    public void addNode(Node n){
         if(n.type == NodeType.OUTPUT) output_number++;
         nodes.put(n.getId(), n);
     }
@@ -139,7 +141,8 @@ public class Fellow {
      *************************/
 
     double sigmoid(double x){
-        return 1 / (1 + Math.exp(-x));
+        x = Math.max(-60.0, Math.min(60.0, 5.0 * x));
+        return 1.0 / (1.0 + Math.exp(-x));
     }
 
     // On procède récursivement sur les noeuds en utilisant la programmation dynamique
@@ -182,13 +185,13 @@ public class Fellow {
 
     public double[] thinkAbout(double[] input){ // Activates neural network
 
-        double[] values = new double[Node.getInnovationNumber() + 1]; // We guarantee the parameters are always given in the same order to the network
-        Arrays.fill(values, 0, Node.getInnovationNumber(), Double.NaN);
+        double[] values = new double[Node.indexer.current() + 1]; // We guarantee the parameters are always given in the same order to the network
+        Arrays.fill(values, 0, Node.indexer.current(), Double.NaN);
 
         int c = 0 ;
         for (Integer key: asSortedList(nodes.keySet()))
         {
-            if(nodes.get(key).type == NodeType.SENSOR){
+            if(nodes.get(key).type == NodeType.INPUT){
                 values[key] = input[c] ;
                 c++ ;
             }
@@ -220,7 +223,7 @@ public class Fellow {
      *************************/
 
     @Override
-    protected Fellow clone()  {
+    public Fellow clone()  {
         Fellow f = new Fellow();
 
         f.nodes = (HashMap<Integer, Node>) this.nodes.clone();
@@ -239,7 +242,7 @@ public class Fellow {
 
     @Override
     public String toString() {
-        return "Fellow{" +
+        return "fellow{" +
                 "fitness=" + fitness +
                 '}';
     }

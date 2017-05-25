@@ -10,15 +10,15 @@ public class Logger {
 
     private PrintWriter stateWriter = null ;
     private PrintWriter solutionWriter = null ;
-    protected AbstractNature nature = null;
+    protected FellowManagerInterface manager = null;
 
-    public Logger(String folder, String filename, AbstractNature nature){
-        new Logger(folder, filename, nature, "generation;maximum fitness;minimum fitness;average fitness;");
+    public Logger(String folder, String filename, FellowManagerInterface manager){
+        new Logger(folder, filename, manager, "generation;maximum fitness;minimum fitness;average fitness;");
     }
 
-    protected Logger(String folder, String filename, AbstractNature nature, String firstLine) {
+    protected Logger(String folder, String filename, FellowManagerInterface manager, String firstLine) {
         try {
-            this.nature = nature ;
+            this.manager = manager ;
 
             this.stateWriter = new PrintWriter(folder + filename, "UTF-8");
             this.solutionWriter = new PrintWriter(folder + "solutions-" + filename, "UTF-8");
@@ -34,14 +34,14 @@ public class Logger {
     public void log(){ log(false); }
 
     public void log(boolean logSolutions){
-        if(stateWriter != null && solutionWriter != null && nature != null){
-            stateWriter.print(nature.getGenerationNumber());
+        if(stateWriter != null && solutionWriter != null && manager != null){
+            stateWriter.print(manager.getGenerationNumber());
             stateWriter.print(";");
             stateWriter.println(getCSVStats());
             stateWriter.flush();
 
-            if(logSolutions) {
-                solutionWriter.println(nature.getBest().showDNA());
+            if(logSolutions && manager instanceof AbstractNature) {
+                solutionWriter.println(((AbstractNature)manager).getBest().showDNA());
                 solutionWriter.flush();
             }
         }
@@ -49,14 +49,14 @@ public class Logger {
 
     protected String getCSVStats(){
 
-        AbstractFellow[]  population = nature.getPopulation() ;
+        FellowInterface[]  population = manager.getPopulation() ;
         long min = population[0].getFitness() ;
         long max ;
 
         BigDecimal sum = new BigDecimal(min) ;
         max = min ;
 
-        for (AbstractFellow aPopulation : population) {
+        for (FellowInterface aPopulation : population) {
             long f = aPopulation.getFitness();
             sum = sum.add(new BigDecimal(f));
 

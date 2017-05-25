@@ -1,18 +1,18 @@
 package eu.labrush.traveller;
 
-import eu.labrush.agenetic.AbstractFellow;
-import eu.labrush.agenetic.AbstractNature;
+import eu.labrush.agenetic.FellowInterface;
+import eu.labrush.agenetic.FellowManagerInterface;
 
 import java.math.BigDecimal;
 
 public class Logger extends eu.labrush.agenetic.Logger {
-    public Logger(String folder, String filename, AbstractNature nature) {
+    public Logger(String folder, String filename, FellowManagerInterface nature) {
         super(folder, filename, nature, "timestamp;generation;trajet le plus long;trajet le plus court;distance moyenne;");
     }
 
     @Override
     protected String getCSVStats(){
-        AbstractFellow[] population = nature.getPopulation();
+        FellowInterface[] population = manager.getPopulation();
 
         long min = ((Travel) population[0]).getDistance() ;
         long max ;
@@ -20,7 +20,7 @@ public class Logger extends eu.labrush.agenetic.Logger {
         BigDecimal sum = new BigDecimal(min) ;
         max = min ;
 
-        for (AbstractFellow aPopulation : population) {
+        for (FellowInterface aPopulation : population) {
             long d = ((Travel) aPopulation).getDistance();
             sum = sum.add(new BigDecimal(d));
 
