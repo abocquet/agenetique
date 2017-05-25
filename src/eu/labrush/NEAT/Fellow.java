@@ -1,7 +1,5 @@
-package eu.labrush.NEAT.fellow;
+package eu.labrush.NEAT;
 
-
-import eu.labrush.NEAT.Config;
 
 import java.util.*;
 
@@ -13,7 +11,6 @@ public class Fellow {
     private double fitness = 0 ;
     private int output_number = 0 ;
 
-    static private int globalInnovationNumber = 0 ;
 
     public Fellow() {}
     public Fellow(int sensors, int outputs){
@@ -21,21 +18,17 @@ public class Fellow {
         Node[] sensors_id = new Node[sensors];
 
         for (int i = 0; i < sensors; i++) {
-<<<<<<< HEAD:src/eu/labrush/NEAT/fellow/Fellow.java
-            Node newNode = new Node(NodeType.INPUT);
-=======
-            Node newNode = new Node(nextInnovationNumber(), NodeType.SENSOR);
->>>>>>> parent of f4a8b74... amélioration de NEAT:src/eu/labrush/NEAT/Fellow.java
+            Node newNode = new Node(NodeType.SENSOR);
             addNode(newNode);
             sensors_id[i] = newNode ;
         }
 
         for (int i = 0; i < outputs; i++) {
-            Node newNode = new Node(nextInnovationNumber(), NodeType.OUTPUT) ;
+            Node newNode = new Node(NodeType.OUTPUT) ;
             addNode(newNode);
 
             for (int j = 0; j < sensors; j++) {
-                this.addConnection(new Connection(sensors_id[j], newNode, nextInnovationNumber()));
+                this.addConnection(new Connection(sensors_id[j], newNode));
             }
         }
     }
@@ -43,9 +36,9 @@ public class Fellow {
     /*************************
         Topology management
      *************************/
-    public void addNode(Node n){
+    void addNode(Node n){
         if(n.type == NodeType.OUTPUT) output_number++;
-        nodes.put(n.id, n);
+        nodes.put(n.getId(), n);
     }
 
     public HashMap<Integer, Node> getNodes() {
@@ -53,13 +46,16 @@ public class Fellow {
     }
 
     public void removeNode(Node node){
-        for(Connection c: connections.values()){
-            if(c.from.id == node.id || c.to.id == node.id){
-                removeConnection(c);
+        Iterator<Map.Entry<Integer,Connection>> iter = connections.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry<Integer,Connection> entry = iter.next();
+            Connection c0 = entry.getValue();
+            if((c0.getFrom().getId() == node.getId()) || (c0.getTo().getId() == node.getId())){
+                iter.remove();
             }
         }
 
-        nodes.remove(connections);
+        nodes.remove(node.getId());
     }
 
     public HashMap<Integer, Connection> getConnections() {
@@ -67,36 +63,20 @@ public class Fellow {
     }
 
     public void addConnection(Connection c) {
-        this.connections.put(c.evolutionNumber, c);
+        Iterator<Map.Entry<Integer,Connection>> iter = connections.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry<Integer,Connection> entry = iter.next();
+            Connection c0 = entry.getValue();
+            if((c0.getFrom().getId() == c.getFrom().getId() && c.getTo().getId() == c0.getTo().getId()) || (c0.getFrom().getId() == c.getTo().getId() && c.getFrom().getId() == c0.getTo().getId())){
+                iter.remove();
+            }
+        }
+
+        this.connections.put(c.id, c);
     }
 
     public void removeConnection(Connection c) {
-        connections.remove(c);
-    }
-
-    public Fellow changeConnectionWeights() {
-
-        for(Connection c: this.connections.values()){
-            c.randomWeight();
-        }
-
-        return this;
-    }
-
-    /*************************
-        Evolution monitoring
-     *************************/
-    public static int getInnovationNumber() {
-        return globalInnovationNumber;
-    }
-
-    public static void increaseInnovationNumber(){
-        globalInnovationNumber++ ;
-    }
-
-    public static int nextInnovationNumber() {
-        increaseInnovationNumber();
-        return getInnovationNumber();
+        connections.remove(c.id);
     }
 
     /*************************
@@ -116,7 +96,14 @@ public class Fellow {
 
         double D = 0, E = 0, W = 0 ;
 
-        int max = this.getConnections().keySet().stream().reduce(0, Integer::max);
+        int max = 0 ;
+
+        for(int i: getConnections().keySet()){
+            if(i > max){
+                max = i ;
+            }
+        }
+
         int c = 0 ;
 
         for (Integer key: f.connections.keySet()) {
@@ -152,8 +139,7 @@ public class Fellow {
      *************************/
 
     double sigmoid(double x){
-        x = Math.max(-60.0, Math.min(60.0, 5.0 * x));
-        return 1.0 / (1.0 + Math.exp(-x));
+        return 1 / (1 + Math.exp(-x));
     }
 
     // On procède récursivement sur les noeuds en utilisant la programmation dynamique
@@ -181,11 +167,12 @@ public class Fellow {
 
             double s = 0.0 ;
             for(Connection c: connections.values()){
-                if(c.to.id == n && c.enabled){
-                    s += c.weight * thinkAboutAux(c.from.id, values);
+                if(c.getTo().getId() == n && c.enabled){
+                    s += c.weight * thinkAboutAux(c.getFrom().getId(), values);
                 }
             }
 
+            s += this.nodes.get(n).bias ;
             values[n] = sigmoid(s) ;
         }
 
@@ -195,18 +182,13 @@ public class Fellow {
 
     public double[] thinkAbout(double[] input){ // Activates neural network
 
-<<<<<<< HEAD:src/eu/labrush/NEAT/fellow/Fellow.java
-        double[] values = new double[Node.indexer.current() + 1]; // We guarantee the parameters are always given in the same order to the network
-        Arrays.fill(values, 0, Node.indexer.current(), Double.NaN);
-=======
-        double[] values = new double[Fellow.getInnovationNumber() + 1]; // We guarantee the parameters are always given in the same order to the network
-        Arrays.fill(values, 0, Fellow.getInnovationNumber(), Double.NaN);
->>>>>>> parent of f4a8b74... amélioration de NEAT:src/eu/labrush/NEAT/Fellow.java
+        double[] values = new double[Node.getInnovationNumber() + 1]; // We guarantee the parameters are always given in the same order to the network
+        Arrays.fill(values, 0, Node.getInnovationNumber(), Double.NaN);
 
         int c = 0 ;
         for (Integer key: asSortedList(nodes.keySet()))
         {
-            if(nodes.get(key).type == NodeType.INPUT){
+            if(nodes.get(key).type == NodeType.SENSOR){
                 values[key] = input[c] ;
                 c++ ;
             }
@@ -238,7 +220,7 @@ public class Fellow {
      *************************/
 
     @Override
-    public Fellow clone()  {
+    protected Fellow clone()  {
         Fellow f = new Fellow();
 
         f.nodes = (HashMap<Integer, Node>) this.nodes.clone();
@@ -257,7 +239,7 @@ public class Fellow {
 
     @Override
     public String toString() {
-        return "fellow{" +
+        return "Fellow{" +
                 "fitness=" + fitness +
                 '}';
     }

@@ -172,7 +172,7 @@ class GraphicInterface extends JFrame {
 
         for(int i = 0, c = nature.getPOPSIZE() ; i < c ; i++){
             currentPop[i] = nature.getPopulation()[i].cloneDNA() ;
-            DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode("fellow #" + i + "(fitness: " + nature.getPopulation()[i].getFitness() + ")");
+            DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode("Fellow #" + i + "(fitness: " + nature.getPopulation()[i].getFitness() + ")");
             rep.add(rep2);
         }
 

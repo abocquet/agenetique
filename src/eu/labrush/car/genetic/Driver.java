@@ -1,17 +1,12 @@
 package eu.labrush.car.genetic;
 
 import eu.labrush.agenetic.AbstractFellow;
-import eu.labrush.race_simulation.DriverInterface;
 import eu.labrush.neural.AbstractWeightEncoder;
-import eu.labrush.neural.NeuralNetwork;
 
-public class Driver extends AbstractFellow implements DriverInterface {
+public class Driver extends AbstractFellow {
 
     private double distance = -1 ;
     private AbstractWeightEncoder we ;
-
-    private NeuralNetwork brain ;
-
 
     public Driver(int DNASIZE, int DNACARD, AbstractWeightEncoder we) {
         super(DNASIZE, DNACARD);
@@ -23,10 +18,6 @@ public class Driver extends AbstractFellow implements DriverInterface {
         this.we = we ;
     }
 
-    /**
-     * AG
-     */
-
     public long getFitness(){
         return this.calcFitness();
     }
@@ -37,35 +28,11 @@ public class Driver extends AbstractFellow implements DriverInterface {
 
     }
 
-
-    /**
-     * Neural Network / Driver Interface
-     */
-
-    public void initBrain(){
-        double weights[][][] = getWeights() ;
-
-        this.brain = new NeuralNetwork(weights[0].length);
-        for(int i = 0 ; i < weights.length ; i++){
-            this.brain.addLayer(weights[i]);
-        }
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
-
-    public double[] thinkAbout(double[] inputs){
-        return brain.compute(inputs);
-    }
-
-    @Override
-    public int nbInputs() {
-        return we.getInputs();
-    }
-
 
     public double[][][] getWeights() {
         return this.we.getWeights(this);
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
     }
 }

@@ -1,23 +1,14 @@
-package eu.labrush.NEAT.operators;
+package eu.labrush.NEAT;
 
-import eu.labrush.NEAT.Config;
-import eu.labrush.NEAT.fellow.Connection;
-import eu.labrush.NEAT.fellow.Fellow;
-import eu.labrush.NEAT.fellow.Node;
-
-public class Crossover {
+class Crossover {
 
     /**
      * We assume that f1 and f2 have the same sensors and outputs
      */
-    public static Fellow crossover(Fellow f1, Fellow f2){
+    static Fellow crossover(Fellow f1, Fellow f2){
 
         Fellow child = new Fellow();
-<<<<<<< HEAD:src/eu/labrush/NEAT/operators/Crossover.java
-        for (int i = 0; i <= Node.indexer.current(); i++) {
-=======
-        for (int i = 0; i < Fellow.getInnovationNumber(); i++) {
->>>>>>> parent of f4a8b74... amélioration de NEAT:src/eu/labrush/NEAT/Crossover.java
+        for (int i = 0; i <= Node.getInnovationNumber(); i++) {
             if(f1.getNodes().keySet().contains(i)){
                 child.addNode(f1.getNodes().get(i));
             } else if(f2.getNodes().keySet().contains(i)){
@@ -25,11 +16,7 @@ public class Crossover {
             }
         }
 
-<<<<<<< HEAD:src/eu/labrush/NEAT/operators/Crossover.java
-        for (int i = 0; i < Connection.indexer.current(); i++) {
-=======
-        for (int i = 0; i < Fellow.getInnovationNumber(); i++) {
->>>>>>> parent of f4a8b74... amélioration de NEAT:src/eu/labrush/NEAT/Crossover.java
+        for (int i = 0; i < Connection.getCurrentId(); i++) {
 
             if(f1.getConnections().keySet().contains(i) && f2.getConnections().keySet().contains(i)) {
 

@@ -18,12 +18,12 @@ public class PlayerWeightEncoder extends AbstractWeightEncoder {
         nodePerLayers = 100 ;
         bitsPerWeight = 2 ;
         outputs = 2 ;
-        inputs =  getInputs();
+        detectors =  getInputs();
     }
 
     @Override
     public int requiredDNASize() {
-        return nodePerLayers * (inputs + nodePerLayers * hiddenLayers * outputs) * bitsPerWeight ;
+        return nodePerLayers * (detectors + nodePerLayers * hiddenLayers * outputs) * bitsPerWeight ;
     }
 
     @Override

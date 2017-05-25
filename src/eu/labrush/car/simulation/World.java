@@ -1,7 +1,9 @@
-package eu.labrush.race_simulation;
+package eu.labrush.car.simulation;
 
-import eu.labrush.agenetic.FellowInterface;
+import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.agenetic.Logger;
+import eu.labrush.car.genetic.Driver;
+import eu.labrush.car.genetic.Nature;
 import org.dyn4j.geometry.Vector2;
 
 import java.awt.geom.Line2D;
@@ -9,41 +11,41 @@ import java.util.ArrayList;
 
 public class World {
 
-    private FellowInterface[] drivers ;
-    private int carsAlive ;
-    private Car[] cars ;
+    Car[] cars ;
     Car user;
+    Driver[] drivers ;
+    int carsAlive ;
 
     ArrayList<Line2D> boundaries = new ArrayList<>();
 
-    private DriverManagerInterface manager ;
-    private Logger logger ;
+    Nature nature ;
+    Logger logger ;
 
     private MapGenerator map = new MapGenerator(50, 50, 750, 750);
 
     public World() {
-        drivers = new FellowInterface[0];
+        drivers = new Driver[0];
 
         for (int i = 0 ; i < drivers.length ;i++){
-            drivers[i] = manager.newDriver();
+            drivers[i] = (Driver)nature.getFactory().newInstance();
         }
     }
 
     private void setup() {
-        if (this.manager == null) return;
+        if (this.nature == null) return;
 
         boundaries.clear();
         //addBoudaries(map.getRandomizedGrid(15, 35));
         addBoudaries(map.getSquareGrid());
 
 
-        DriverInterface[] drivers = manager.getDrivers();
+        AbstractFellow[] drivers = nature.getPopulation();
 
         int nbCars = drivers.length;
         cars = new Car[nbCars];
 
         for (int i = 0; i < nbCars; i++) {
-            DriverInterface d = drivers[i];
+            Driver d = (Driver) drivers[i];
             cars[i] = new Car(d);
             cars[i].setPosition(map.getStart());
             //cars[i].setAngle(Math.PI / 2);
@@ -51,7 +53,7 @@ public class World {
 
         carsAlive = nbCars;
 
-        if(manager.getGenerationNumber() % 10 == 0){
+        if(nature.getGenerationNumber() % 10 == 0){
             logger.log(true);
         }
     }
@@ -119,7 +121,7 @@ public class World {
                 c.getDriver().setDistance(c.getDistance());
             }
 
-            manager.evolve();
+            nature.evolve();
             setup();
         }
 
@@ -144,9 +146,9 @@ public class World {
         addBoundary(x, y+h, x, y);
     }
 
-    public void setNature(DriverManagerInterface manager) {
-        this.manager = manager;
-        this.logger = new Logger("logs/", "cars_" + System.currentTimeMillis(), manager);
+    public void setNature(Nature nature) {
+        this.nature = nature;
+        this.logger = new Logger("logs/", "cars_" + System.currentTimeMillis(), nature);
         setup();
     }
 

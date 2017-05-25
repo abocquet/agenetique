@@ -11,12 +11,12 @@ public class BinaryWeightEncoder extends AbstractWeightEncoder {
         bitsPerWeight = 2 ;
 
         outputs = 6 ; // Left center right / faster steady slower
-        inputs = 8 ;
+        detectors = 8 ;
     }
 
     @Override
     public int requiredDNASize() {
-        return nodePerLayers * (inputs + nodePerLayers * hiddenLayers + outputs) * bitsPerWeight ;
+        return nodePerLayers * (detectors + nodePerLayers * hiddenLayers + outputs) * bitsPerWeight ;
     }
 
     @Override

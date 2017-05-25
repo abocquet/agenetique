@@ -1,4 +1,4 @@
-package eu.labrush.race_simulation;
+package eu.labrush.car.simulation;
 
 import javax.swing.*;
 

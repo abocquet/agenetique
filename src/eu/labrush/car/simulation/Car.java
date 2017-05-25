@@ -1,5 +1,9 @@
-package eu.labrush.race_simulation;
+package eu.labrush.car.simulation;
 
+import eu.labrush.car.genetic.Driver;
+import eu.labrush.car.genetic.DriverFactory;
+import eu.labrush.car.neural.RealWeightEncoder;
+import eu.labrush.neural.NeuralNetwork;
 import org.dyn4j.geometry.Vector2;
 
 import java.awt.*;
@@ -25,23 +29,25 @@ class Car {
     public double getSpeed() { return speed; }
     public double getAngle() { return angle; }
 
+    private Detector[] detectors ;
+    private NeuralNetwork brain ;
+
     private boolean running = true ;
     private boolean finished = false ; // achieved a turn
+    private Driver driver ;
+
     private double distance = .0;
 
-    private DriverInterface driver ;
-    private Detector[] detectors ;
-
-    Car(DriverInterface driver){
+    Car(Driver driver){
         this.driver = driver ;
-        driver.initBrain();
+
+        double weights[][][] = driver.getWeights() ;
+        double maxAngle = Math.PI / 3 ;
 
         /*-------------------------------
           On initialise les detecteurs
         --------------------------------*/
-        double maxAngle = Math.PI / 3 ;
-
-        int nbDetectors = driver.nbInputs();
+        int nbDetectors = weights[0].length ;
         double angle = maxAngle / (nbDetectors - 1) ;
 
         detectors = new Detector[nbDetectors] ;
@@ -49,7 +55,18 @@ class Car {
             detectors[i] = new Detector(angle * 2 * (double)i - maxAngle, 200);
         }
 
+        /*-------------------------------
+          Puis le réseau neural
+        --------------------------------*/
 
+        this.brain = new NeuralNetwork(detectors.length);
+        for(int i = 0 ; i < weights.length ; i++){
+            this.brain.addLayer(weights[i]);
+        }
+    }
+
+    Car(){
+        this((Driver) (new DriverFactory(new RealWeightEncoder())).newInstance());
     }
 
     /**
@@ -64,7 +81,7 @@ class Car {
             distances[i] = detectors[i].getDistance();
         }
 
-        double[] res = this.driver.thinkAbout(distances);
+        double[] res = this.brain.compute(distances);
         double S = 0 ;
 
         for (int i = 0; i < 3; i++) {
@@ -137,7 +154,7 @@ class Car {
         this.running = running;
     }
 
-    public DriverInterface getDriver() {
+    public Driver getDriver() {
         return driver;
     }
 

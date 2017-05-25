@@ -1,6 +1,4 @@
-package eu.labrush.NEAT.operators;
-
-import eu.labrush.NEAT.fellow.Fellow;
+package eu.labrush.NEAT;
 
 public interface FitnessEvaluator {
 

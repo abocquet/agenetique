@@ -1,4 +1,4 @@
-package eu.labrush.race_simulation;
+package eu.labrush.car.simulation;
 
 import org.dyn4j.Epsilon;
 import org.dyn4j.geometry.Vector2;

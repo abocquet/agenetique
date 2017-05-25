@@ -1,6 +1,5 @@
 package eu.labrush.traveller;
 
-import eu.labrush.agenetic.FellowManagerInterface;
 import eu.labrush.agenetic.Triple;
 import eu.labrush.agenetic.operators.CrossoverInterface;
 import eu.labrush.agenetic.operators.MutationInterface;
@@ -98,7 +97,7 @@ public class Main {
 			System.out.println(problem.getDesc());
 
 			Nature nature = new Nature(50, 1, 0.5, 0.05, 0.01, problem, new ArcCombination(), new Im(), new WheelAndRandomSelector());
-			Logger logger = new Logger("logs/", problem.getName() + "_" + System.currentTimeMillis() + ".csv", (FellowManagerInterface) nature);
+			Logger logger = new Logger("logs/", problem.getName() + "_" + System.currentTimeMillis() + ".csv", nature);
 
 			int i = 0, p = 1000;
 			while (nature.getShortest() * 100 > problem.getMinDist() * 103) {

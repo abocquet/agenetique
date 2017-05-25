@@ -4,7 +4,7 @@ import eu.labrush.agenetic.AbstractFellow;
 
 public abstract class AbstractWeightEncoder {
 
-    protected int inputs;
+    protected int detectors ;
     protected int outputs ;
 
     protected int hiddenLayers;
@@ -20,8 +20,8 @@ public abstract class AbstractWeightEncoder {
 
         int pos = 0;
 
-        weights[0] = new double[inputs][nodePerLayers];
-        for (int i = 0; i < inputs; i++) {
+        weights[0] = new double[detectors][nodePerLayers];
+        for (int i = 0; i < detectors; i++) {
             for (int j = 0; j < nodePerLayers; j++) {
                 weights[0][i][j] = readWeight(pos, f);
                 pos += bitsPerWeight;
@@ -49,13 +49,5 @@ public abstract class AbstractWeightEncoder {
         }
 
         return weights;
-    }
-
-    public int getInputs() {
-        return inputs;
-    }
-
-    public int getOutputs() {
-        return outputs;
     }
 }

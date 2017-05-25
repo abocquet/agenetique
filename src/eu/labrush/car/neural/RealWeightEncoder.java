@@ -6,7 +6,7 @@ import eu.labrush.neural.AbstractWeightEncoder;
 public class RealWeightEncoder extends AbstractWeightEncoder {
 
     public RealWeightEncoder() {
-        inputs = 8;
+        detectors = 8;
         outputs = 6;
 
         hiddenLayers = 1;
@@ -18,7 +18,7 @@ public class RealWeightEncoder extends AbstractWeightEncoder {
 
     @Override
     public int requiredDNASize() {
-        return (int)Math.ceil(((double) nodePerLayers * (inputs + nodePerLayers * (hiddenLayers - 1) + outputs) * bitsPerWeight));
+        return (int)Math.ceil(((double) nodePerLayers * (detectors + nodePerLayers * (hiddenLayers - 1) + outputs) * bitsPerWeight));
     }
 
     @Override
@@ -38,6 +38,4 @@ public class RealWeightEncoder extends AbstractWeightEncoder {
 
         return x;
     }
-
-
 }

@@ -1,14 +1,8 @@
 package eu.labrush.NEAT;
 
-import eu.labrush.NEAT.fellow.Fellow;
-
 import java.util.Arrays;
 
 /**
- * Attention !
- * Le numéro d'évolution est utilisé à la fois pour les numeros de noeud ET de connection entre eux,
- * puisque l'article de Stanley ne décrit pas comment gérer la numération des noeuds
- *
  * http://nn.cs.utexas.edu/downloads/papers/stanley.phd04.pdf
  */
 
@@ -16,7 +10,7 @@ public class Main {
 
 
     public static void main(String[] args){
-        Nature nature = new Nature(150, 2, 2, 1, f -> {
+        Nature nature = new Nature(150, 2, 1, f -> {
             double score = 0 ;
 
             score += Math.pow(1.0 - f.thinkAbout(new double[]{-1, -1})[0], 2);
@@ -27,15 +21,8 @@ public class Main {
             return score ;
         });
 
-<<<<<<< HEAD
-        long t1 = System.currentTimeMillis() ;
-
         int NGEN = 150 ;
-=======
-        int NGEN = 50 ;
->>>>>>> parent of f4a8b74... amélioration de NEAT
         for (int i = 0; i < NGEN; i++) {
-            System.out.println(nature.species.size());
             nature.evolve();
         }
 
@@ -55,11 +42,8 @@ public class Main {
         System.out.println("");  // Affiche 1 si juste, 0 si faux
 
         for (int i = 0; i < tests.length; i++) {
-            System.out.println(Arrays.toString(tests[i]) + " -> " + f.thinkAbout(tests[i])[0] + " " + (Math.round(f.thinkAbout(tests[i])[0]) == tests[i][2] ? "CORRECT" : "ERREUR"));
+            System.out.println(Arrays.toString(tests[i]) + " -> " + (Math.round(f.thinkAbout(tests[i])[0]) == tests[i][2] ? "CORRECT" : "ERREUR"));
         }
-
-        long t2 = System.currentTimeMillis();
-        System.out.println("Finished in " + ((double)(t2 - t1) / 1000));
 
     }
 
