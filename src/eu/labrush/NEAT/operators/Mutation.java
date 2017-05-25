@@ -7,15 +7,19 @@ import eu.labrush.NEAT.fellow.Node;
 import eu.labrush.NEAT.utils.Random;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+<<<<<<< HEAD:src/eu/labrush/NEAT/operators/Mutation.java
 import static eu.labrush.NEAT.utils.Random.random;
 
+=======
+>>>>>>> parent of f4a8b74... amélioration de NEAT:src/eu/labrush/NEAT/Mutation.java
 public class Mutation {
 
     public static void addConnectionMutation(Fellow f){
 
-        Node from, to;
+        Node from = null, to = null ;
         List<Node> nodes = new ArrayList<>(f.getNodes().values());
 
         int trials = 0 ; // We don't try for too long, especially at the begginng, new connections cannot be added
@@ -39,51 +43,55 @@ public class Mutation {
             to = tmp ;
         }
 
-        f.addConnection(new Connection(from, to));
+        f.addConnection(new Connection(from, to, Fellow.nextInnovationNumber()));
     }
 
     public static void addNodeMutation(Fellow f){
 
         List<Integer> keys = new ArrayList<>(f.getConnections().keySet());
 
-        if(keys.size() == 0){
-            addConnectionMutation(f);
-            return;
-        }
-
         int n = keys.get(random(f.getConnections().size() - 1)); //The index of the connection on which we are going to addFellow the node
         Connection c = f.getConnections().get(n);
 
         c.enabled = false ;
 
+<<<<<<< HEAD:src/eu/labrush/NEAT/operators/Mutation.java
         Node newNode = new Node(c.getFrom(), c.getTo());
+=======
+        Node newNode = Node.avg(c.from, c.to, Fellow.nextInnovationNumber());
+>>>>>>> parent of f4a8b74... amélioration de NEAT:src/eu/labrush/NEAT/Mutation.java
         f.addNode(newNode);
-        f.addConnection(new Connection(c.getFrom(),  newNode));
-        f.addConnection(new Connection(newNode, c.getTo()));
+        f.addConnection(new Connection(c.from,  newNode, Fellow.nextInnovationNumber()));
+        f.addConnection(new Connection(newNode, c.to, Fellow.nextInnovationNumber()));
     }
 
     public static void delConnectionMutation(Fellow f) {
-        if(f.getConnections().size() == 0){
-            return;
-        }
-
         f.removeConnection((Connection) random(f.getConnections().values()));
     }
 
 
     public static void delNodeMutation(Fellow f) {
-        Node n = (Node) random(f.getNodes().values());
-
-        if((n.numerator == 1 && n.denominator == 1) || (n.numerator == 0 && n.denominator == 1)){
-            return ;
-        }
-
-        f.removeNode(n);
+        f.removeNode((Node) random(f.getNodes().values()));
     }
 
-    public static void changeNodeBias(Fellow f){
-        Node n = (Node) Random.random(f.getNodes().values());
-        n.bias = Math.random() * (Config.MAX_NODE_BIAS - Config.MIN_NODE_BIAS) + Config.MIN_NODE_BIAS ;
+    /**
+     * @param max
+     * @return a number in [0, max - 1]
+     */
+    static int random(int max){
+        if(max == 0){
+            return 0 ;
+        }
+
+        return ((int) (Math.random() * (double) (max + 1))) % max ;
+    }
+
+    static Object random(List u){
+        return u.get(random(u.size()));
+    }
+
+    static Object random(Collection u){
+        return random(new ArrayList(u));
     }
 
 }

@@ -13,7 +13,11 @@ public class Crossover {
     public static Fellow crossover(Fellow f1, Fellow f2){
 
         Fellow child = new Fellow();
+<<<<<<< HEAD:src/eu/labrush/NEAT/operators/Crossover.java
         for (int i = 0; i <= Node.indexer.current(); i++) {
+=======
+        for (int i = 0; i < Fellow.getInnovationNumber(); i++) {
+>>>>>>> parent of f4a8b74... amélioration de NEAT:src/eu/labrush/NEAT/Crossover.java
             if(f1.getNodes().keySet().contains(i)){
                 child.addNode(f1.getNodes().get(i));
             } else if(f2.getNodes().keySet().contains(i)){
@@ -21,7 +25,11 @@ public class Crossover {
             }
         }
 
+<<<<<<< HEAD:src/eu/labrush/NEAT/operators/Crossover.java
         for (int i = 0; i < Connection.indexer.current(); i++) {
+=======
+        for (int i = 0; i < Fellow.getInnovationNumber(); i++) {
+>>>>>>> parent of f4a8b74... amélioration de NEAT:src/eu/labrush/NEAT/Crossover.java
 
             if(f1.getConnections().keySet().contains(i) && f2.getConnections().keySet().contains(i)) {
 

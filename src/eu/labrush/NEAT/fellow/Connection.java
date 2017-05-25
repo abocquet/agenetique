@@ -1,19 +1,23 @@
 package eu.labrush.NEAT.fellow;
 
+<<<<<<< HEAD:src/eu/labrush/NEAT/fellow/Connection.java
 import eu.labrush.NEAT.Config;
 import eu.labrush.NEAT.utils.Indexer;
 import eu.labrush.NEAT.utils.Random;
 
+=======
+>>>>>>> parent of f4a8b74... amélioration de NEAT:src/eu/labrush/NEAT/Connection.java
 public class Connection implements Cloneable {
 
-    private Node from  ;
-    private Node to ;
+    public Node from  ;
+    public Node to ;
 
-    public int id = 0 ;
+    public int evolutionNumber = 0 ;
 
     public double weight ;
     public boolean enabled = true ;
 
+<<<<<<< HEAD:src/eu/labrush/NEAT/fellow/Connection.java
     public static Indexer indexer = new Indexer(0);
 
     public Connection(Node from, Node to) {
@@ -21,6 +25,9 @@ public class Connection implements Cloneable {
     }
 
     private Connection(Node from, Node to, int id){
+=======
+    public Connection(Node from, Node to, int evolutionNumber) {
+>>>>>>> parent of f4a8b74... amélioration de NEAT:src/eu/labrush/NEAT/Connection.java
         if(from.above(to)){
             this.to = from;
             this.from = to;
@@ -29,10 +36,9 @@ public class Connection implements Cloneable {
             this.to = to;
         }
 
-        this.id = id ;
-        randomWeight();
-    }
+        this.evolutionNumber = evolutionNumber ;
 
+<<<<<<< HEAD:src/eu/labrush/NEAT/fellow/Connection.java
     /**
      * NEAT
      */
@@ -56,6 +62,14 @@ public class Connection implements Cloneable {
     @Override
     public Connection clone() {
         Connection c = new Connection(from, to, id);
+=======
+       randomWeight();
+    }
+
+    @Override
+    protected Connection clone() {
+        Connection c = new Connection(from, to, evolutionNumber);
+>>>>>>> parent of f4a8b74... amélioration de NEAT:src/eu/labrush/NEAT/Connection.java
         c.weight = weight ;
         c.enabled = enabled ;
         return c;
@@ -74,6 +88,10 @@ public class Connection implements Cloneable {
 
     @Override
     public String toString() {
-        return "{ " + from.getId() + " -> " + to.getId() + "}\n" ;
+        return "{ " + from.id + " -> " + to.id + "}\n" ;
+    }
+
+    public void randomWeight() {
+        this.weight = Math.random() * (Config.MAX_CONNECTION_VALUE - Config.MIN_CONNECTION_VALUE) + Config.MIN_CONNECTION_VALUE ;
     }
 }

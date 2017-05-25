@@ -10,6 +10,7 @@ import eu.labrush.NEAT.utils.Random;
  * Une connection ne peut aller de x vers y ssi x < y ou y.above(x) en java
  */
 public class Node {
+<<<<<<< HEAD:src/eu/labrush/NEAT/fellow/Node.java
     private int id ;
     public int numerator ;
     public int denominator ;
@@ -20,20 +21,33 @@ public class Node {
 
     public Node(int numerator, int denominator) {
         this.id = indexer.next();
+=======
+    int id = 0 ;
+    int numerator ;
+    int denominator ;
+
+    NodeType type = NodeType.HIDDEN;
+
+    public Node(int id, int numerator, int denominator) {
+        this.id = id;
+>>>>>>> parent of f4a8b74... amélioration de NEAT:src/eu/labrush/NEAT/Node.java
 
         int pgcd = pgcd(numerator, denominator);
 
         this.numerator = numerator / pgcd;
         this.denominator = denominator / pgcd;
-        this.bias = Random.gauss(Config.STDEV_NODE_BIAS, Config.MIN_NODE_BIAS, Config.MAX_NODE_BIAS) ;
     }
 
+<<<<<<< HEAD:src/eu/labrush/NEAT/fellow/Node.java
     public Node(Node n1, Node n2){
         this(n1.numerator * n2.denominator + n2.numerator * n1.denominator, n1.denominator * n2.denominator * 2);
         this.bias = Math.random() >= .5 ? n1.bias : n2.bias ;
     }
 
     public Node(NodeType type) {
+=======
+    public Node(int id,  NodeType type) {
+>>>>>>> parent of f4a8b74... amélioration de NEAT:src/eu/labrush/NEAT/Node.java
         if(type == NodeType.OUTPUT) {
             this.numerator = 1 ;
             this.denominator = 1 ;
@@ -48,8 +62,12 @@ public class Node {
             }
         }
 
+        this.id = id ;
         this.type = type;
+<<<<<<< HEAD:src/eu/labrush/NEAT/fellow/Node.java
         this.id = indexer.next();
+=======
+>>>>>>> parent of f4a8b74... amélioration de NEAT:src/eu/labrush/NEAT/Node.java
     }
 
     static int pgcd(int a, int b){
@@ -75,13 +93,16 @@ public class Node {
         return numerator * n.denominator == n.numerator * denominator ;
     }
 
+<<<<<<< HEAD:src/eu/labrush/NEAT/fellow/Node.java
     /*************************
      Evolution monitoring
      *************************/
 
     public static Indexer indexer = new Indexer(0);
-
-    public int getId() {
-        return id;
+=======
+    static Node avg(Node n1, Node n2, int id){
+        return new Node(id, n1.numerator * n2.denominator + n2.numerator * n1.denominator, n1.denominator * n2.denominator * 2);
     }
+>>>>>>> parent of f4a8b74... amélioration de NEAT:src/eu/labrush/NEAT/Node.java
+
 }
