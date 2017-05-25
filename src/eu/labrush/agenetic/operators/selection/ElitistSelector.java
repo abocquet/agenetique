@@ -13,7 +13,7 @@ public class ElitistSelector implements SelectorInterface {
     private int n = 5 ;
 
     @Override
-    public void processPop(AbstractFellow[] pop) {
+    public void processPop(AbstractFellow[] pop, int generation) {
         this.population = pop ;
     }
 

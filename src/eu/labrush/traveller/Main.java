@@ -25,8 +25,9 @@ public class Main {
 		//runTests(new String[]{"berlin52", "kroA100", "kroA150", "kroA200", "lin318", "pr439", "rat575", "rat783", "rl1304", "rl1889"});
 		//runAWholeBunchOfTests("st70", 10);
 
-		runAWholeBunchOfTests("lin105", 50, loadCombinaisonsToAvoid(null));
+		//runAWholeBunchOfTests("lin105", 50, loadCombinaisonsToAvoid(null));
 		//runPythonAnalysis(runAWholeBunchOfTests("lin105", 50, loadCombinaisonsToAvoid(null)));
+		runTests(new String[]{"lin105"});
 		System.out.println("It's all done !");
 
 	}

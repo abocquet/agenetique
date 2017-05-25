@@ -1,6 +1,7 @@
 package eu.labrush.neural;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class NeuralNetwork {
 
@@ -26,8 +27,10 @@ public class NeuralNetwork {
      *   [from(n) -> to1, ..., from(n) -> to(n)]
      *
      */
-    public void addLayer(double[][] weights){
+    public void addLayer(double[][] weights, double bias[]){
+
         Layer layer = new Layer(weights[0].length);
+        layer.setBias(bias);
 
         out.setWeights(weights);
         out.setNext(layer);

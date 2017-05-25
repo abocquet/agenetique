@@ -5,7 +5,7 @@ import eu.labrush.agenetic.Tuple;
 
 public interface SelectorInterface {
 
-    void processPop(AbstractFellow[] pop);
+    void processPop(AbstractFellow[] pop, int generation);
     Tuple<AbstractFellow, AbstractFellow> next();
 
 }

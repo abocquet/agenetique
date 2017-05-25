@@ -13,7 +13,6 @@ public class World {
 
     Car[] cars ;
     Car user;
-    Driver[] drivers ;
     int carsAlive ;
 
     ArrayList<Line2D> boundaries = new ArrayList<>();
@@ -23,13 +22,7 @@ public class World {
 
     private MapGenerator map = new MapGenerator(50, 50, 750, 750);
 
-    public World() {
-        drivers = new Driver[0];
-
-        for (int i = 0 ; i < drivers.length ;i++){
-            drivers[i] = (Driver)nature.getFactory().newInstance();
-        }
-    }
+    public World() {}
 
     private void setup() {
         if (this.nature == null) return;
@@ -40,23 +33,22 @@ public class World {
 
 
         AbstractFellow[] drivers = nature.getPopulation();
+        cars = new Car[drivers.length];
 
-        int nbCars = drivers.length;
-        cars = new Car[nbCars];
-
-        for (int i = 0; i < nbCars; i++) {
+        for (int i = 0; i < drivers.length; i++) {
             Driver d = (Driver) drivers[i];
             cars[i] = new Car(d);
             cars[i].setPosition(map.getStart());
-            cars[i].getPosition().add(i, 0);
+            //cars[i].getPosition().add(i, 0);
             //cars[i].setAngle(Math.PI / 2);
         }
 
-        carsAlive = nbCars;
+        carsAlive = drivers.length;
 
         if(nature.getGenerationNumber() % 10 == 0){
             logger.log(true);
         }
+
     }
 
 
@@ -75,7 +67,7 @@ public class World {
             c.getPosition().add(dpos);
 
             if(c.getDriver() != null) {
-                c.increaseDistance(dpos.getMagnitude());
+                c.increaseDistance(dpos.getMagnitude() + c.getSpeed() * .01); // getting somewere fast is better
             }
 
             double x = c.getX(), y = c.getY(), w =  c.getWidth()/2, h =  c.getHeight()/2 ;

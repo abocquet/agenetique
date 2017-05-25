@@ -1,6 +1,8 @@
 package eu.labrush.agenetic;
 
-import eu.labrush.agenetic.operators.*;
+import eu.labrush.agenetic.operators.CrossoverInterface;
+import eu.labrush.agenetic.operators.MutationInterface;
+import eu.labrush.agenetic.operators.SelectorInterface;
 import eu.labrush.agenetic.operators.crossover.OnePointCrossover;
 import eu.labrush.agenetic.operators.mutation.DefaultMutationOperator;
 import eu.labrush.agenetic.operators.selection.BiasedWheelSelector;
@@ -19,7 +21,7 @@ public abstract class AbstractNature {
     private double PMUTATION = 0.05;
     private double PCROSSOVER = 0.5;
     private int POPSIZE = 10;
-    private int ELITISM = 1;
+    private int ELITISM = 2;
     private double PINSERTION = 0.5 ;
 
     private int genCounter = 0;
@@ -56,7 +58,6 @@ public abstract class AbstractNature {
         this(POPSIZE, ELITISM, PCROSSOVER, PMUTATION, PINSERTION, factory, new OnePointCrossover(), new DefaultMutationOperator(), new BiasedWheelSelector());
     }
 
-    protected AbstractNature() {}
 
     private void initPopulation(){
         this.population = new AbstractFellow[POPSIZE];
@@ -92,7 +93,8 @@ public abstract class AbstractNature {
         }
 
         for (int j = 0; j < ELITISM ; j++) {
-            population[(int) Math.random() * POPSIZE] = factory.newInstance(elite[j]);
+            int n = (int) (Math.random() * POPSIZE);
+            population[n] = factory.newInstance(elite[j]);
         }
 
         genCounter++ ;
@@ -130,7 +132,7 @@ public abstract class AbstractNature {
     private void crossover() {
 
         AbstractFellow[] newPop = new AbstractFellow[this.POPSIZE];
-        selectionOperator.processPop(population);
+        selectionOperator.processPop(population, genCounter);
         int i = 0 ;
 
         while(i < POPSIZE) {

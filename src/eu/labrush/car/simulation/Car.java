@@ -42,6 +42,7 @@ class Car {
         this.driver = driver ;
 
         double weights[][][] = driver.getWeights() ;
+        double bias[][] = driver.getBias();
         double maxAngle = Math.PI / 3 ;
 
         /*-------------------------------
@@ -61,7 +62,7 @@ class Car {
 
         this.brain = new NeuralNetwork(detectors.length);
         for(int i = 0 ; i < weights.length ; i++){
-            this.brain.addLayer(weights[i]);
+            this.brain.addLayer(weights[i], bias[i]);
         }
     }
 

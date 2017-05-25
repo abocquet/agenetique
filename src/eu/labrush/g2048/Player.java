@@ -44,9 +44,10 @@ public class Player extends AbstractFellow {
 
         NeuralNetwork brain = new NeuralNetwork(inputs);
         double[][][] weights = we.getWeights(this);
+        double[][] bias = we.getBias(this) ;
 
         for(int i = 0 ; i < weights.length ; i++){
-            brain.addLayer(weights[i]);
+            brain.addLayer(weights[i], bias[i]);
         }
 
         int[] tiles = game.getTiles() ;

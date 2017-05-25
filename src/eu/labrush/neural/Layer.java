@@ -1,6 +1,8 @@
 package eu.labrush.neural;
 
 
+import java.util.Arrays;
+
 public class Layer {
 
     private int neurons  ;
@@ -8,10 +10,14 @@ public class Layer {
     private Layer next ;
 
     private double[][] weights ;
+    private double[] bias;
 
     public Layer(int neurons) {
         this.neurons = neurons;
-        values = new double[neurons] ;
+        this.values = new double[neurons] ;
+        this.bias = new double[neurons];
+
+        Arrays.fill(bias, 0);
     }
 
     public void setNext(Layer next){
@@ -22,12 +28,21 @@ public class Layer {
         return next;
     }
 
-    public double[][] getWeights() {
-        return weights;
-    }
-
     public void setWeights(double[][] weights) {
         this.weights = weights;
+    }
+
+
+    public void setBias(double[] bias) {
+        if(bias.length != neurons){
+            try {
+                throw new Exception("Wrong size for bias : expected " + neurons + " got " + bias.length);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        this.bias = bias;
     }
 
     private void compute(double[][] weights, double values[]){
@@ -41,7 +56,7 @@ public class Layer {
                 this.values[i] += values[j] * weights[j][i] ;
             }
 
-            this.values[i] = sigma(this.values[i]);
+            this.values[i] = sigma(this.values[i] + this.bias[i]);
         }
 
         if(next != null){
@@ -67,4 +82,5 @@ public class Layer {
     private double sigma(double x){
         return 1 / (1 + Math.exp(-x));
     }
+
 }

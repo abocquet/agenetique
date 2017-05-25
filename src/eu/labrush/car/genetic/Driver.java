@@ -35,4 +35,8 @@ public class Driver extends AbstractFellow {
     public double[][][] getWeights() {
         return this.we.getWeights(this);
     }
+
+    public double[][] getBias() {
+        return this.we.getBias(this);
+    }
 }

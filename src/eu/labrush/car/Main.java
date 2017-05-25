@@ -1,8 +1,8 @@
 package eu.labrush.car;
 
-import eu.labrush.agenetic.operators.selection.ElitistSelector;
 import eu.labrush.agenetic.operators.crossover.AlternateCrossover;
 import eu.labrush.agenetic.operators.mutation.DefaultMutationOperator;
+import eu.labrush.agenetic.operators.selection.BiasedWheelAddPressureSelector;
 import eu.labrush.car.genetic.DriverFactory;
 import eu.labrush.car.genetic.Nature;
 import eu.labrush.car.neural.BinaryWeightEncoder;
@@ -28,8 +28,8 @@ public class Main {
         System.out.println(Arrays.toString(res));*/
 
         World world = new World();
-        Nature nature = new Nature(20, 2, 0.5, 0.1, 0.05,
-                new DriverFactory(new BinaryWeightEncoder()), new AlternateCrossover(), new DefaultMutationOperator(), new ElitistSelector());
+        Nature nature = new Nature(50, 3, 0.5, 0.1, 0.05,
+                new DriverFactory(new BinaryWeightEncoder()), new AlternateCrossover(), new DefaultMutationOperator(), new BiasedWheelAddPressureSelector());
         world.setNature(nature);
 
         Renderer renderer = new Renderer(world);

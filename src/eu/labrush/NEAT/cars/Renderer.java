@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class Renderer extends JFrame {
 
-    private static int FRAMERATE = 60;
+    private int sleeptime = 1000 / 60;
 
     private World world ;
 
@@ -15,24 +15,44 @@ public class Renderer extends JFrame {
         this.pan = new WorldPanel(world);
         this.world = world ;
 
-        this.setTitle("NEAT Car Race !");
+        this.setTitle("NEATCar Race !");
         this.setSize(800, 800);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
+
+        JMenuBar menu = new JMenuBar();
+        JMenu vitesse = new JMenu("Vitesse");
+
+        for (int i = 1; i <= 5; i++) {
+            JMenuItem v = new JMenuItem("x" + i);
+            int finalI = i;
+            v.addActionListener(e -> sleeptime = 1000 / (60 * finalI));
+            vitesse.add(v);
+        }
+
+        JMenuItem max = new JMenuItem("Vitesse maximum");
+        max.addActionListener(e -> sleeptime = 0);
+        vitesse.add(max);
+
+
+        menu.add(vitesse);
+        this.setJMenuBar(menu);
         this.setContentPane(this.pan);
         this.setVisible(true);
         this.setResizable(false);
+
+
     }
 
     public void start() {
         if (t == null) {
             t = new Thread(() -> {
                 while (true) {
-                    world.step(1000 / FRAMERATE);
+                    world.step(1000 / 60);
                     pan.repaint();
 
                     try {
-                        Thread.sleep(1000 / FRAMERATE);
+                        Thread.sleep(sleeptime);
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                         break;

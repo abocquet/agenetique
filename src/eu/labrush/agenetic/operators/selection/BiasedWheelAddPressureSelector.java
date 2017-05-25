@@ -4,12 +4,10 @@ import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.agenetic.Tuple;
 import eu.labrush.agenetic.operators.SelectorInterface;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
-public class BiasedWheelSelector implements SelectorInterface {
+public class BiasedWheelAddPressureSelector implements SelectorInterface {
 
-    BigDecimal[] parts ;
+    double[] parts ;
     AbstractFellow[] population ;
 
     @Override
@@ -18,7 +16,7 @@ public class BiasedWheelSelector implements SelectorInterface {
         this.population = pop ;
         long minFitness = this.population[0].getFitness();
 
-        BigDecimal totalFitness = BigDecimal.valueOf(0) ;
+        double totalFitness = 0 ;
         for(AbstractFellow f : this.population){
             if(f.getFitness() < minFitness){
                 minFitness = f.getFitness() ;
@@ -28,21 +26,27 @@ public class BiasedWheelSelector implements SelectorInterface {
         // if a fitness is negative, we add the absolute value of it to every fellow afterwards,
         // at once so as to avoid tests in the loop
         // As a result the worst fellow will have a score of 0
-        BigDecimal bigMinFitness = BigDecimal.valueOf(minFitness);
 
         for(AbstractFellow f : this.population){
-            totalFitness = totalFitness.add(new BigDecimal(f.getFitness()));
+            totalFitness += af(f, generation);
         }
 
-        this.parts = new BigDecimal[population.length];
+        this.parts = new double[population.length];
         for(int i = 0, c = population.length ; i < c ; i++){
-            parts[i] = new BigDecimal(population[i].getFitness()).add(bigMinFitness).divide(totalFitness, 10, RoundingMode.HALF_UP);
+            parts[i] =  (af(population[i], generation) + minFitness) / totalFitness;
 
-            if(parts[i].compareTo(BigDecimal.ZERO) < 0){
+            if(parts[i]< 0){
                 System.err.println("ERREUR de part: " + parts[i]);
             }
         }
 
+        System.out.println(generation);
+
+    }
+
+    // af: adjusted fitness
+    private double af(AbstractFellow f, int generation){
+        return Math.pow(f.getFitness(), 1 + 0.1 * generation);
     }
 
     @Override
@@ -51,18 +55,18 @@ public class BiasedWheelSelector implements SelectorInterface {
     }
 
     public AbstractFellow nextFellow(){
-        BigDecimal rand = BigDecimal.valueOf(Math.random());
-        BigDecimal current = BigDecimal.valueOf(0);
+        double rand = Math.random();
+        double current = 0;
 
         for(int i = 0 ; i < population.length - 1 ; i++){
-            if(rand.compareTo(current) >= 0 && rand.compareTo(current.add(parts[i])) < 0){
+            if(rand >= current && rand < current + parts[i]){
                 return population[i];
             }
 
-            current = current.add(parts[i]);
+            current += parts[i];
         }
 
-        if(rand.compareTo(current) >= 0){
+        if(rand >= current){
             return population[population.length - 1];
         }
 
