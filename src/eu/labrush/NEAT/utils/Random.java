@@ -13,7 +13,7 @@ public class Random {
      * @param max
      * @return a number in [0, max - 1]
      */
-    public static int random(int max){
+    public static int randInt(int max){
         if(max == 0){
             return 0 ;
         }
@@ -22,7 +22,7 @@ public class Random {
     }
 
     public static Object random(List u){
-        return u.get(random(u.size()));
+        return u.get(randInt(u.size()));
     }
 
     public static Object random(Collection u){

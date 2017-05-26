@@ -129,10 +129,10 @@ public class Fellow {
             }
         }
 
-        double dist = D * Config.DISJOINT_COEFF + E * Config.EXCESS_COEFF ;
+        double dist = (D * Config.DISJOINT_COEFF + E * Config.EXCESS_COEFF) ; /// Math.max(f.connections.size(), this.connections.size()) ;
 
         if(c != 0){
-            dist += W / c * Config.DIFF_COEFF ;
+            dist += W / c * Config.DIFF_WEIGHT_COEFF ;
         }
 
         return dist;
@@ -144,7 +144,7 @@ public class Fellow {
 
     double sigmoid(double x){
         x = Math.max(-60.0, Math.min(60.0, 5.0 * x));
-        return 1.0 / (1.0 + Math.exp(-x / 10));
+        return 1.0 / (1.0 + Math.exp(-x * 4.9));
     }
 
     // On procède récursivement sur les noeuds en utilisant la programmation dynamique
@@ -188,7 +188,7 @@ public class Fellow {
     public double[] thinkAbout(double[] input){ // Activates neural network
 
         double[] values = new double[Node.indexer.current() + 1]; // We guarantee the parameters are always given in the same order to the network
-        Arrays.fill(values, 0, Node.indexer.current(), Double.NaN);
+        Arrays.fill(values, 0, Node.indexer.current() + 1, Double.NaN);
 
         int c = 0 ;
         for (Integer key: asSortedList(nodes.keySet()))
@@ -257,4 +257,5 @@ public class Fellow {
     public int getInputsNumber() {
         return inputs_number;
     }
+
 }

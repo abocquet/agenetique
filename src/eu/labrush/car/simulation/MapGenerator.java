@@ -142,7 +142,7 @@ public class MapGenerator {
         ArrayList<Line2D> lines = new ArrayList<>();
 
         int mapIndex = 1; // TODO: comment
-        //int mapIndex = (int) (Math.random() * maps.size());
+        //int mapIndex = (int) (Math.randInt() * maps.size());
         ArrayList<Point2D> points = maps.get(mapIndex).snd ;
         this.startPoint = maps.get(mapIndex).fst ;
 

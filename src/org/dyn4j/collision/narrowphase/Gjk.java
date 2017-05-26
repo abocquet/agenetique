@@ -82,7 +82,7 @@ import org.dyn4j.resources.Messages;
  * Algorithm psuedo-code:
  * <pre>
  * // get a point farthest in the direction
- * // choose some random direction (selection of the initial direction can
+ * // choose some randInt direction (selection of the initial direction can
  * // determine the speed at which the algorithm terminates)
  * Point p = support(A, B, direction);
  * // add it to the simplex

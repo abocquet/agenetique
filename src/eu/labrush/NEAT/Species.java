@@ -10,7 +10,6 @@ import static java.lang.Math.random;
 public class Species {
 
     ArrayList<Fellow> fellows = new ArrayList<>() ;
-    private Fellow[] elite = null ;
     private Fellow ambassador ;
 
     int age = 0 ;
@@ -42,8 +41,9 @@ public class Species {
         this.fellows.add(f);
     }
 
-    private void sortFellows(){
-        this.fellows.sort(Comparator.comparingDouble(Fellow::getFitness));
+    public void sortFellows(){
+        //the order is reversed, so elite comes first
+        this.fellows.sort(Comparator.comparingDouble(Fellow::getFitness).reversed());
     }
 
     /**************************
@@ -59,6 +59,10 @@ public class Species {
         return ambassador;
     }
 
+    public void setAmbassador(Fellow ambassador) {
+        this.ambassador = ambassador;
+    }
+
     double averageFitness(){
         double avg = 0.0 ;
 
@@ -69,10 +73,6 @@ public class Species {
         avg /= this.fellows.size();
 
         return avg ;
-    }
-
-    public boolean isStagnant() {
-        return age - last_improved > Config.STAGNATION_AGE;
     }
 
 }

@@ -74,6 +74,6 @@ public class Connection implements Cloneable {
 
     @Override
     public String toString() {
-        return "{ " + from.getId() + " -> " + to.getId() + "}\n" ;
+        return "{ " + from.getId() + " -> " + to.getId() + "} " + weight +  "\n" ;
     }
 }

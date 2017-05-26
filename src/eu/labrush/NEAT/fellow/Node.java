@@ -9,7 +9,7 @@ import eu.labrush.NEAT.utils.Random;
  * On représente les couches du réseau par des rationnels entre 0 et 1 pour éviter les cycles
  * Une connection ne peut aller de x vers y ssi x < y ou y.above(x) en java
  */
-public class Node {
+public class Node implements Cloneable {
     private int id ;
     public int numerator ;
     public int denominator ;
@@ -29,7 +29,7 @@ public class Node {
     }
 
     public Node(Node n1, Node n2){
-        this(n1.numerator * n2.denominator + n2.numerator * n1.denominator, n1.denominator * n2.denominator * 2);
+        this(n1.numerator * n2.denominator + n2.numerator * n1.denominator, Math.max(n1.denominator * n2.denominator * 2, 1));
         this.bias = Math.random() >= .5 ? n1.bias : n2.bias ;
     }
 
@@ -50,6 +50,15 @@ public class Node {
 
         this.type = type;
         this.id = indexer.next();
+        this.bias = Random.gauss(Config.STDEV_NODE_BIAS, Config.MAX_NODE_BIAS, Config.MIN_NODE_BIAS) ;
+    }
+
+    private Node(int id, int numerator, int denominator, double bias, NodeType type) {
+        this.id = id;
+        this.numerator = numerator;
+        this.denominator = denominator;
+        this.bias = bias;
+        this.type = type;
     }
 
     static int pgcd(int a, int b){
@@ -83,5 +92,18 @@ public class Node {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public Node clone() {
+        return new Node(id, numerator, denominator, bias, type);
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "bias=" + bias +
+                ", type=" + type +
+                '}';
     }
 }

@@ -32,7 +32,7 @@ public abstract class AbstractNature {
      * @param ELITISM the number of the best fellows kept every generation
      * @param PCROSSOVER the probability a Fellow reproduces vs is introduced in the next generation
      * @param PMUTATION the probability a Fellow is mutated
-     * @param PINSERTION the probabilty a new random Fellow is introduced each generation
+     * @param PINSERTION the probabilty a new randInt Fellow is introduced each generation
      * @param factory the Fellow factory
      * @param ro the reproduction operator
      * @param mo the mutation operator

@@ -19,7 +19,7 @@ public class Mutation {
         List<Node> nodes = new ArrayList<>(f.getNodes().values());
 
         int trials = 0 ; // We don't try for too long, especially at the begginng, new connections cannot be added
-        int trial_limit = 10 ;
+        int trial_limit = 30 ;
 
         do {
             from = (Node) random(nodes);
@@ -51,7 +51,7 @@ public class Mutation {
             return;
         }
 
-        int n = keys.get(random(f.getConnections().size() - 1)); //The index of the connection on which we are going to addFellow the node
+        int n = keys.get(Random.randInt(f.getConnections().size() - 1)); //The index of the connection on which we are going to addFellow the node
         Connection c = f.getConnections().get(n);
 
         c.enabled = false ;
@@ -67,23 +67,32 @@ public class Mutation {
             return;
         }
 
-        f.removeConnection((Connection) random(f.getConnections().values()));
+        //f.removeConnection((Connection) random(f.getConnections().values()));
+        ((Connection) random(f.getConnections().values())).enabled = false ;
     }
 
+    public static void changeConnectionWeightMutation(Fellow f){
+        if(f.getConnections().size() == 0){
+            return;
+        }
+
+        Connection c = (Connection) Random.random(f.getConnections().values());
+        c.randomWeight();
+    }
 
     public static void delNodeMutation(Fellow f) {
         Node n = (Node) random(f.getNodes().values());
 
-        if((n.numerator == 1 && n.denominator == 1) || (n.numerator == 0 && n.denominator == 1)){
-            return ;
+        if(n.denominator != 1){
+            f.removeNode(n);
         }
-
-        f.removeNode(n);
     }
 
     public static void changeNodeBias(Fellow f){
         Node n = (Node) Random.random(f.getNodes().values());
-        n.bias = Math.random() * (Config.MAX_NODE_BIAS - Config.MIN_NODE_BIAS) + Config.MIN_NODE_BIAS ;
+        n.bias = Random.gauss(Config.STDEV_NODE_BIAS, Config.MAX_NODE_BIAS, Config.MIN_NODE_BIAS) ;
     }
+
+
 
 }

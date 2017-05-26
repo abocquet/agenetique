@@ -12,25 +12,32 @@ public class Main {
 
 
     public static void main(String[] args){
-        Nature nature = new Nature(150, 2, 1, f -> {
+        Nature nature = new Nature(50, 2, 1, f -> {
             double score = 0 ;
 
-            score += Math.pow(1.0 - f.thinkAbout(new double[]{-1, -1})[0], 2);
-            score += Math.pow(f.thinkAbout(new double[]{1, -1})[0], 2);
-            score += Math.pow(f.thinkAbout(new double[]{-1, 1})[0], 2);
-            score += Math.pow(1.0 - f.thinkAbout(new double[]{1, 1})[0], 2);
+            score += Math.pow(1.0 - f.thinkAbout(new double[]{0, 0})[0], 2);
+            score += Math.pow(      f.thinkAbout(new double[]{ 1, 0})[0], 2);
+            score += Math.pow(      f.thinkAbout(new double[]{0,  1})[0], 2);
+            score += Math.pow(1.0 - f.thinkAbout(new double[]{ 1,  1})[0], 2);
 
             return score ;
         });
 
-        long t1 = System.currentTimeMillis() ;
-
-        int NGEN = 150 ;
+        int NGEN = 50;
         for (int i = 0; i < NGEN; i++) {
             nature.evolve();
+            Fellow b = nature.getBest();
+            System.out.println(nature.getGenerationNumber() + " " + b.getConnections().size() + " " + b.getFitness() + " " + nature.species.size());
         }
 
+        /*do {
+            nature.evolve();
+            System.out.println(nature.getGenerationNumber() + " " + nature.species.size() + " " +nature.getBest().getFitness());
+        }  while(nature.getBest().getFitness() <= 3.5);*/
+
+
         Fellow f = nature.getBest();
+        //Fellow f = new Fellow(2, 1);
 
         System.out.println("");
         System.out.println(f.getNodes());
@@ -38,19 +45,16 @@ public class Main {
 
         double[][] tests = new double[4][];
 
-        tests[0] = new double[]{-1, -1, 0} ; // arg1 arg2 resultat attendu
+        tests[0] = new double[]{0, 0, 0} ; // arg1 arg2 resultat attendu
         tests[1] = new double[]{1, 1, 0} ;
-        tests[2] = new double[]{-1, 1, 1} ;
-        tests[3] = new double[]{1, -1, 1} ;
+        tests[2] = new double[]{0, 1, 1} ;
+        tests[3] = new double[]{1, 0, 1} ;
 
         System.out.println("");  // Affiche 1 si juste, 0 si faux
 
         for (int i = 0; i < tests.length; i++) {
             System.out.println(Arrays.toString(tests[i]) + " -> " + f.thinkAbout(tests[i])[0] + " " + (Math.round(f.thinkAbout(tests[i])[0]) == tests[i][2] ? "CORRECT" : "ERREUR"));
         }
-
-        long t2 = System.currentTimeMillis();
-        System.out.println("Finished in " + ((double)(t2 - t1) / 1000));
 
     }
 
