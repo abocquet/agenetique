@@ -21,25 +21,21 @@ public class Mutation {
         int trials = 0 ; // We don't try for too long, especially at the begginng, new connections cannot be added
         int trial_limit = 30 ;
 
+        Connection c = new Connection(nodes.get(0), nodes.get(1));
+        f.addConnection(c);
+
         do {
             from = (Node) random(nodes);
             to   = (Node) random(nodes);
-            trials++ ;
+
+            trials++;
         } while(
-            from.frontOf(to) && trials < trial_limit
+            trials < trial_limit && f.detectCycle(c)
         );
 
-        if(from.frontOf(to)){
-            return ;
+        if(trials >= trial_limit){
+            f.removeConnection(c);
         }
-
-        if(from.above(to) ){ // Pour éviter les cycles, (Démonstration par l'absurde: a -> b -> c -> a => a < b < c < a => a < a => absurde)
-            Node tmp = from ;
-            from = to ;
-            to = tmp ;
-        }
-
-        f.addConnection(new Connection(from, to));
     }
 
     public static void addNodeMutation(Fellow f){

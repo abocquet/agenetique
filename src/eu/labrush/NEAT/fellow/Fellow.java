@@ -2,6 +2,7 @@ package eu.labrush.NEAT.fellow;
 
 
 import eu.labrush.NEAT.Config;
+import eu.labrush.NEAT.utils.Indexer;
 
 import java.util.*;
 
@@ -14,6 +15,8 @@ public class Fellow {
     protected int output_number = 0 ;
     protected int inputs_number = 0 ;
 
+    public static Indexer index = new Indexer(0); // TODO: delete
+    public int id = index.next();
 
     public Fellow() {}
     public Fellow(int inputs, int outputs){
@@ -83,6 +86,36 @@ public class Fellow {
         connections.remove(c.id);
     }
 
+    // Detect if adding c sets a cycle
+    //We assume there weren't any before
+    public boolean detectCycle(Connection c) { //Detects if adding c triggers a cycle
+        Node in = c.getFrom(), out = c.getTo();
+        ArrayList<Node> visited = new ArrayList<>();
+        visited.add(in);
+
+        while(true){
+            int numAdded = 0;
+
+            for(Connection c2: connections.values()){
+                Node in2 = c2.getFrom(), out2 = c2.getTo();
+
+                if(visited.contains(in2) && !visited.contains(out2)){
+                    if(out2 == in){
+                        return true;
+                    }
+
+                    visited.add(out2);
+                    numAdded++ ;
+                }
+            }
+
+            if(numAdded == 0){
+                return false ;
+            }
+        }
+
+    }
+
     /*************************
         GA stuffs
      *************************/
@@ -144,7 +177,7 @@ public class Fellow {
 
     double sigmoid(double x){
         x = Math.max(-60.0, Math.min(60.0, 5.0 * x));
-        return 1.0 / (1.0 + Math.exp(-x * 4.9));
+        return 1.0 / (1.0 + Math.exp(-x));
     }
 
     // On procède récursivement sur les noeuds en utilisant la programmation dynamique
@@ -234,6 +267,8 @@ public class Fellow {
         f.inputs_number = this.inputs_number ;
         f.fitness = this.fitness ;
 
+        f.id = this.id ;
+
         return f;
     }
 
@@ -245,9 +280,11 @@ public class Fellow {
 
     @Override
     public String toString() {
-        return "fellow{" +
+        /*return "fellow{" +
                 "fitness=" + fitness +
-                '}';
+                '}';*/
+
+        return "" + id + ":" + (int)getFitness();
     }
 
     public int getOutputNumber() {
@@ -257,5 +294,6 @@ public class Fellow {
     public int getInputsNumber() {
         return inputs_number;
     }
+
 
 }

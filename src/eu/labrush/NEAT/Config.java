@@ -4,26 +4,23 @@ public class Config {
 
     public static double P_CROSSOVER                  = 0.8;
 
-    public static double P_NODE_ADD_MUTATION          = 0.2 ;
-    public static double P_NODE_DEL_MUTATION          = 0.2 ;
-    public static double P_NODE_BIAS_MUTATION         = 0.5 ;
+    public static double P_NODE_ADD_MUTATION          = 0.1 ;
+    public static double P_NODE_DEL_MUTATION          = 0.1 ;
+    public static double P_NODE_BIAS_MUTATION         = 0.7 ;
 
-    public static double P_CONNECTION_ADD_MUTATION    = 0.2 ;
-    public static double P_CONNECTION_DEL_MUTATION    = 0.2 ;
-    public static double P_CONNECTION_WEIGHT_MUTATION = 0.5 ;
+    public static double P_CONNECTION_ADD_MUTATION    = 0.3 ;
+    public static double P_CONNECTION_DEL_MUTATION    = 0.3 ;
+    public static double P_CONNECTION_WEIGHT_MUTATION = 0.7 ;
 
     public static double SAME_SPECIES_THRESHOLD       = 3.9 ;
 
-    public static double MAX_CONNECTION_WEIGHT = 3.0 ;
+    public static double MAX_CONNECTION_WEIGHT = 30.0 ;
     public static double MIN_CONNECTION_WEIGHT = -MAX_CONNECTION_WEIGHT;
-    public static double STDEV_CONNECTION_WEIGHT = 1.0 ;
+    public static double STDEV_CONNECTION_WEIGHT = .5 ;
 
-    public static double MAX_NODE_BIAS = 3.0 ;
+    public static double MAX_NODE_BIAS = 30.0 ;
     public static double MIN_NODE_BIAS = - MAX_NODE_BIAS ;
-    public static double STDEV_NODE_BIAS = 1.0 ;
-
-    public static double MAX_NODE_RESPONSE = 30 ;
-    public static double MIN_NODE_RESPONSE = -MAX_NODE_RESPONSE ;
+    public static double STDEV_NODE_BIAS = .5 ;
 
     public static double P_NODE_DISABLE = 0.7 ; //Probabilty that a connection is disabled on the child if it is on one and only one of the two parents
 
@@ -33,7 +30,7 @@ public class Config {
 
     public static int ELITISM = 2 ;
 
-    public static int MINORITY = 30 ; // age until species are helped
+    public static int MINORITY = 20 ; // age until species are helped
     public static double MINORITY_HELP_MULTIPLIER = 5 ;
 
     public static int STAGNATION_AGE = 20 ;

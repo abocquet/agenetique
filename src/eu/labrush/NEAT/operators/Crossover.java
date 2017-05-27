@@ -43,6 +43,8 @@ public class Crossover {
 
         }
 
+        child.id = Fellow.index.next();
+
         return child ;
     }
 

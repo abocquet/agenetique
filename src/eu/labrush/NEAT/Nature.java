@@ -7,6 +7,7 @@ import eu.labrush.NEAT.operators.Mutation;
 import eu.labrush.NEAT.utils.Random;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -40,6 +41,8 @@ public class Nature {
     }
 
     private void mutate(Fellow f){
+        f.id = Fellow.index.next();
+
         if (Math.random() <= Config.P_CONNECTION_ADD_MUTATION) {
             Mutation.addConnectionMutation(f);
         }
@@ -113,6 +116,7 @@ public class Nature {
             for (Fellow f : s.fellows) {
                 all_fitnesses[i] += f.getFitness() ;
             }
+            all_fitnesses[i] /= s.fellows.size();
 
             if(species_t[i].age <= Config.MINORITY) all_fitnesses[i] *= Config.MINORITY_HELP_MULTIPLIER ;
             else if(s.last_improved >= Config.STAGNATION_AGE) { all_fitnesses[i] *= .5 ; }
@@ -142,7 +146,6 @@ public class Nature {
 
         for (int i = 0; i < species_t.length; i++) {
             Species s = species_t[i];
-            s.sortFellows();
 
             while(breed[i] > 0 && k < POPSIZE){
                 if(Math.random() <= Config.P_CROSSOVER){
@@ -163,6 +166,9 @@ public class Nature {
 
             s.getFellows().clear();
         }
+
+        System.out.println(Arrays.toString(next_pop));
+
 
         it = species.iterator() ;
         //for (int i = 0; i < species_t.length; i++) {
@@ -217,7 +223,6 @@ public class Nature {
                 }
             }
         }
-
 
     }
 

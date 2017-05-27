@@ -24,7 +24,7 @@ public class World implements FitnessEvaluator{
     private HashMap<Fellow, Double> distances = new HashMap<>();
 
     public World() {
-        this.nature = new Nature(150, 8, 6, this);
+        this.nature = new Nature(20, 8, 6, this);
         setup();
     }
 
@@ -55,7 +55,7 @@ public class World implements FitnessEvaluator{
             Fellow d = drivers[i];
             cars[i] = new Car(d);
             cars[i].setPosition(map.getStart());
-            cars[i].getPosition().add(i,0);
+            //cars[i].getPosition().add(i,0);
             //cars[i].setAngle(Math.PI / 2);
         }
 

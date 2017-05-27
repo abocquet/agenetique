@@ -12,18 +12,18 @@ public class Main {
 
 
     public static void main(String[] args){
-        Nature nature = new Nature(50, 2, 1, f -> {
+        Nature nature = new Nature(150, 2, 1, f -> {
             double score = 0 ;
 
             score += Math.pow(1.0 - f.thinkAbout(new double[]{0, 0})[0], 2);
-            score += Math.pow(      f.thinkAbout(new double[]{ 1, 0})[0], 2);
-            score += Math.pow(      f.thinkAbout(new double[]{0,  1})[0], 2);
-            score += Math.pow(1.0 - f.thinkAbout(new double[]{ 1,  1})[0], 2);
+            score += Math.pow(      f.thinkAbout(new double[]{ 10, 0})[0], 2);
+            score += Math.pow(      f.thinkAbout(new double[]{0,  10})[0], 2);
+            score += Math.pow(1.0 - f.thinkAbout(new double[]{ 10,  10})[0], 2);
 
             return score ;
         });
 
-        int NGEN = 50;
+        int NGEN = 150;
         for (int i = 0; i < NGEN; i++) {
             nature.evolve();
             Fellow b = nature.getBest();
@@ -46,9 +46,9 @@ public class Main {
         double[][] tests = new double[4][];
 
         tests[0] = new double[]{0, 0, 0} ; // arg1 arg2 resultat attendu
-        tests[1] = new double[]{1, 1, 0} ;
+        tests[1] = new double[]{10, 10, 0} ;
         tests[2] = new double[]{0, 1, 1} ;
-        tests[3] = new double[]{1, 0, 1} ;
+        tests[3] = new double[]{10, 0, 1} ;
 
         System.out.println("");  // Affiche 1 si juste, 0 si faux
 
