@@ -5,9 +5,9 @@ import eu.labrush.agenetic.AbstractFellowFactory;
 
 public class NumFunctionFactory extends AbstractFellowFactory {
 
-    private NumFunction fun ;
+    private NumFunInterface fun ;
 
-    public NumFunctionFactory(NumFunction fun) {
+    public NumFunctionFactory(NumFunInterface fun) {
         this.setDNACard(2);
         this.setDNASize(fun.getDNASIZE());
         this.fun = fun ;

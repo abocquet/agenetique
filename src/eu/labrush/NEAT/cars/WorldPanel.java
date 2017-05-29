@@ -33,9 +33,9 @@ public class WorldPanel extends JPanel {
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         g.setColor(Color.decode(roadColor));
-        for(Rectangle2D r: world.getMap().getRoad()){
+        /*for(Rectangle2D r: world.getMap().getRoad()){
             g.fill(r);
-        }
+        }*/
 
         g.setColor(Color.BLACK);
         for (Line2D l: world.boundaries){

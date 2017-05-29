@@ -8,9 +8,9 @@ import java.math.BigDecimal;
 
 public class Logger {
 
-    private PrintWriter stateWriter = null ;
-    private PrintWriter solutionWriter = null ;
-    protected AbstractNature nature = null;
+    private PrintWriter stateWriter  ;
+    private PrintWriter solutionWriter ;
+    protected AbstractNature nature ;
 
     public Logger(String folder, String filename, AbstractNature nature){
         new Logger(folder, filename, nature, "generation;maximum fitness;minimum fitness;average fitness;");
@@ -29,6 +29,8 @@ public class Logger {
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
+        System.out.println(nature + " " + stateWriter + " " + solutionWriter);
     }
 
     public void log(){ log(false); }

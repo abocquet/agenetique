@@ -3,7 +3,7 @@ package eu.labrush.NEAT.cars;
 import eu.labrush.NEAT.Nature;
 import eu.labrush.NEAT.fellow.Fellow;
 import eu.labrush.NEAT.operators.FitnessEvaluator;
-import eu.labrush.car.simulation.MapGenerator;
+import eu.labrush.car.simulation.MapLoader;
 import org.dyn4j.geometry.Vector2;
 
 import java.awt.geom.Line2D;
@@ -20,7 +20,7 @@ public class World implements FitnessEvaluator{
 
     private Nature nature ;
 
-    private MapGenerator map = new MapGenerator(50, 50, 750, 750);
+    private MapLoader map = new MapLoader(50, 50, 750, 750);
     private HashMap<Fellow, Double> distances = new HashMap<>();
 
     public World() {
@@ -41,7 +41,7 @@ public class World implements FitnessEvaluator{
         distances.clear();
 
         boundaries.clear();
-        addBoudaries(map.getSquareGrid());
+        //addBoudaries(map.getSquareGrid());
 
 
         HashSet<Fellow> fellows = nature.getFellows();
@@ -149,7 +149,7 @@ public class World implements FitnessEvaluator{
         addBoundary(x, y+h, x, y);
     }
 
-    public MapGenerator getMap() {
+    public MapLoader getMap() {
         return map;
     }
 }

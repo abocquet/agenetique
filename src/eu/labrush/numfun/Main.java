@@ -1,6 +1,6 @@
 package eu.labrush.numfun;
 
-import eu.labrush.numfun.functions.Rosenbrock;
+import eu.labrush.numfun.functions.Shekel;
 
 public class Main {
 
@@ -18,11 +18,10 @@ public class Main {
             }
         });*/
 
-        Nature nature = new Nature(10, 0.5, 0.05, new Rosenbrock());
-
+        Nature nature = new Nature(150, 0.7, 0.05, 0.4, new Shekel());
         System.out.println(nature);
 
-        for(int i = 0 ; i < 10 ; i++){
+        for(int i = 0 ; i < 100 ; i++){
             nature.evolve();
             System.out.println(nature.getBest());
         }

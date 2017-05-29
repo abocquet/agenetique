@@ -39,9 +39,6 @@ public class BiasedWheelAddPressureSelector implements SelectorInterface {
                 System.err.println("ERREUR de part: " + parts[i]);
             }
         }
-
-        System.out.println(generation);
-
     }
 
     // af: adjusted fitness

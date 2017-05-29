@@ -4,7 +4,7 @@ import eu.labrush.agenetic.AbstractFellow;
 
 public class Fellow extends AbstractFellow {
 
-    static private NumFunction fun ;
+    static private NumFunInterface fun ;
 
     protected Fellow(int DNASIZE, int DNACARD) {
         super(DNASIZE, DNACARD);
@@ -15,18 +15,10 @@ public class Fellow extends AbstractFellow {
     }
 
     public long calcFitness() {
-        return fun.getY(this.cloneDNA());
+        return fun.f(this.cloneDNA());
     }
 
-    public String getX(){
-        return fun.getArguments(this.cloneDNA()).toString();
-    }
-
-    public static NumFunction getFun() {
-        return fun;
-    }
-
-    public static void setFun(NumFunction fun) {
+    public static void setFun(NumFunInterface fun) {
         Fellow.fun = fun;
     }
 

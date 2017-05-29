@@ -27,6 +27,7 @@ def loadFile(filename, chartname):
 		gathered[key].append(row.generations)
 
 	nb_test = max([len(l) for l in gathered]) # Le nombre de tests effectués
+	print(nb_test)
 	for l in gathered: # si on a moins d'entrées que le nombre de test, c'est qu'il prenait trop de temps
 		if len(gathered[l]) < nb_test:
 			gathered[l] = [-1]
@@ -41,7 +42,7 @@ def loadFile(filename, chartname):
 		name = chartname
 	)
 
-chart = [loadFile("../logs/lin105.csv", "lin105"), loadFile("../logs/kro200.csv", "kro200")]
-
+files = ["lin105", "kro200"]
+chart = [ loadFile("../logs/worth_analysis/" + filename + ".csv", filename) for filename in files]
 
 plot(chart, filename='bar.html')

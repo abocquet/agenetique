@@ -26,8 +26,8 @@ public class Main {
 		//runAWholeBunchOfTests("st70", 10);
 
 		//runAWholeBunchOfTests("lin105", 50, loadCombinaisonsToAvoid(null));
-		//runPythonAnalysis(runAWholeBunchOfTests("lin105", 50, loadCombinaisonsToAvoid(null)));
-		runTests(new String[]{"lin105"});
+		//runPythonAnalysis(runAWholeBunchOfTests("berlin52", 50, loadCombinaisonsToAvoid(null)));
+		runTests(new String[]{"berlin52"});
 		System.out.println("It's all done !");
 
 	}

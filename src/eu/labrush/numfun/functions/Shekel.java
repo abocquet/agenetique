@@ -2,17 +2,23 @@ package eu.labrush.numfun.functions;
 
 import eu.labrush.numfun.NumFunction;
 
+import java.util.Arrays;
+
 public class Shekel extends NumFunction {
     @Override
-    public int f(int arg) {
+    public long f(int[] dna) {
         //On coupe l'argument en (x,y)
+        int n = (int) ((double)dna.length / 2);
+        int xi = getArguments(Arrays.copyOfRange(dna, 0, n));
+        int yi = getArguments(Arrays.copyOfRange(dna, n+1, dna.length - 1));
 
-        int xi = arg % (2 >> getDNASIZE()/2); // Todo: vérifier que 10010111 devient bien 1001 et 0111
-        int yi = arg >> getDNASIZE()/2 ;
+        double x = ((double) xi) / Math.pow(2, n) ;
+        double y = ((double) yi) / Math.pow(2, n) ;
 
-
-        double x = 100 / ((double) xi) ;
-        double y = 100 / ((double) yi) ;
+        assert 0 <= x;
+        assert x <= 1;
+        assert 0 <= y ;
+        assert y <= 1 ;
 
         double[] X = {x, y} ;
 
@@ -29,7 +35,7 @@ public class Shekel extends NumFunction {
             }
         }
 
-        return (int) S * 100;
+        return (long) (S * 100_000);
     }
 
     @Override

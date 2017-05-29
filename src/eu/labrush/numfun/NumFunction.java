@@ -2,7 +2,7 @@ package eu.labrush.numfun;
 
 public abstract class NumFunction implements NumFunInterface {
 
-    public Object getArguments(int[] dna) {
+    public int getArguments(int[] dna) {
         int DNASIZE = dna.length ;
 
         int x = 0 ;
@@ -17,11 +17,6 @@ public abstract class NumFunction implements NumFunInterface {
         return x;
     }
 
-    public int getY(int[] dna) {
-        int x = (int) getArguments(dna);
-        return f(x);
-    }
-
-    public abstract int f(int x);
+    public abstract long f(int[] dna);
     public abstract int getDNASIZE();
 }

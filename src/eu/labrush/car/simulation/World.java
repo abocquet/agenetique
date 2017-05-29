@@ -14,13 +14,14 @@ public class World {
     Car[] cars ;
     Car user;
     int carsAlive ;
+    int carsPassed = 1 ;
 
     ArrayList<Line2D> boundaries = new ArrayList<>();
 
     Nature nature ;
     Logger logger ;
 
-    private MapGenerator map = new MapGenerator(50, 50, 750, 750);
+    private MapLoader map = new MapLoader(50, 50, 750, 750);
 
     public World() {}
 
@@ -28,9 +29,12 @@ public class World {
         if (this.nature == null) return;
 
         boundaries.clear();
-        //addBoudaries(map.getRandomizedGrid(15, 35));
-        addBoudaries(map.getSquareGrid());
+        addBoudaries(map.loadMap("maps/k.map"));
 
+        /*if(carsPassed > 0) {
+            boundaries.clear();
+            addBoudaries(map.loadRandomMap());
+        }*/
 
         AbstractFellow[] drivers = nature.getPopulation();
         cars = new Car[drivers.length];
@@ -44,11 +48,13 @@ public class World {
         }
 
         carsAlive = drivers.length;
+        carsPassed = 0 ;
 
-        if(nature.getGenerationNumber() % 10 == 0){
-            logger.log(true);
-        }
+        //if(nature.getGenerationNumber() % 10 == 1){
+        logger.log(false);
+        //}
 
+        System.out.println(nature.getBest().getFitness());
     }
 
 
@@ -67,7 +73,7 @@ public class World {
             c.getPosition().add(dpos);
 
             if(c.getDriver() != null) {
-                c.increaseDistance(dpos.getMagnitude() + c.getSpeed() * .01); // getting somewere fast is better
+                c.increaseDistance(dpos.getMagnitude() + c.getSpeed() * .005); // getting somewhere fast is better
             }
 
             double x = c.getX(), y = c.getY(), w =  c.getWidth()/2, h =  c.getHeight()/2 ;
@@ -101,6 +107,7 @@ public class World {
             for (Line2D cB: carBorders){
                 if(cB.intersectsLine(map.getFinishLine()) && !c.isFinished()){
                     c.setFinished(true);
+                    carsPassed++;
                     carsAlive-- ;
                 }
             }
@@ -142,10 +149,11 @@ public class World {
     public void setNature(Nature nature) {
         this.nature = nature;
         this.logger = new Logger("logs/", "cars_" + System.currentTimeMillis(), nature);
+        System.out.println(logger);
         setup();
     }
 
-    public MapGenerator getMap() {
+    public MapLoader getMap() {
         return map;
     }
 }

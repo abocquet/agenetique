@@ -7,7 +7,7 @@ import eu.labrush.agenetic.operators.selection.BiasedWheelSelector;
 
 class Nature extends AbstractNature {
 
-    public Nature(int POPSIZE, double PCROSSOVER, double PMUTATION, NumFunction fun) {
-        super(POPSIZE, 1, PCROSSOVER, PMUTATION, 0, new NumFunctionFactory(fun), new OnePointCrossover(), new DefaultMutationOperator(), new BiasedWheelSelector());
+    public Nature(int POPSIZE, double PCROSSOVER, double PMUTATION, double PINSERTION, NumFunInterface fun) {
+        super(POPSIZE, 1, PCROSSOVER, PMUTATION, PINSERTION, new NumFunctionFactory(fun), new OnePointCrossover(), new DefaultMutationOperator(), new BiasedWheelSelector());
     }
 }
