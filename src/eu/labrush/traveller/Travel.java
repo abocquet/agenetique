@@ -1,17 +1,17 @@
 package eu.labrush.traveller;
 
 import eu.labrush.agenetic.AbstractFellow;
-import eu.labrush.traveller.data.Point;
+import eu.labrush.traveller.data.PointSet;
 
 import java.util.Arrays;
 
 public class Travel extends AbstractFellow {
 
-    private Point[] places ;
+    private PointSet points ;
 
-    public Travel(Point[] places){
-        super(places.length, places.length);
-        this.places = places ;
+    public Travel(PointSet points){
+        super(points.getPoints().length, points.getPoints().length);
+        this.points = points ;
 
         //In this particular problem, DNACARD = DNASIZE
         int[] order = new int[getDNACARD()] ;
@@ -34,8 +34,8 @@ public class Travel extends AbstractFellow {
         this.setDna(order);
     }
 
-    public Travel(int[] dna, Point[] places){
-        this(dna, places, false);
+    public Travel(int[] dna, PointSet points){
+        this(dna, points, false);
     }
 
     /**
@@ -43,9 +43,9 @@ public class Travel extends AbstractFellow {
      * @param safe checking if a dna is a permutation costs much so if dna
      *             is known to be a permutation there is no need to check
      */
-    public Travel(int[] dna, Point[] places, boolean safe){
-        super(dna, places.length);
-        this.places = places ;
+    public Travel(int[] dna, PointSet points, boolean safe){
+        super(dna, points.getPoints().length);
+        this.points = points ;
 
         if(!safe && !isPermutation()) {
             System.err.println("DNA is not a permutation");
@@ -73,10 +73,10 @@ public class Travel extends AbstractFellow {
         long distance  = 0 ;
 
         for(int i = 0 ; i < getDNACARD() - 1 ; i ++){
-            distance += Point.distance(places[getDNA(i)], places[getDNA(i+1)]);
+            distance += points.distBetween(getDNA(i), getDNA(i+1));
         }
 
-        distance += Point.distance(places[0], places[getDNA(getDNACARD()-1)]);
+        distance += points.distBetween(getDNA(0), getDNA(getDNACARD()-1));
 
         return distance ;
     }

@@ -15,7 +15,7 @@ public class TravelFactory extends AbstractFellowFactory {
 
     @Override
     public AbstractFellow newInstance() {
-        return new Travel(set.getPoints());
+        return new Travel(set);
     }
 
     @Override
@@ -24,6 +24,6 @@ public class TravelFactory extends AbstractFellowFactory {
     }
 
     public AbstractFellow newInstance(int[] dna, boolean isSafe){
-        return new Travel(dna, set.getPoints(), isSafe);
+        return new Travel(dna, set, isSafe);
     }
 }
