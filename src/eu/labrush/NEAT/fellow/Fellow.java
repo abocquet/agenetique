@@ -15,7 +15,7 @@ public class Fellow {
     protected int output_number = 0 ;
     protected int inputs_number = 0 ;
 
-    public static Indexer index = new Indexer(0); // TODO: delete
+    public static Indexer index = new Indexer(0);
     public int id = index.next();
 
     public Fellow() {}

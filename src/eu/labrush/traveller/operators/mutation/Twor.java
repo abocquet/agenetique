@@ -4,7 +4,6 @@ import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.agenetic.AbstractFellowFactory;
 import eu.labrush.agenetic.operators.MutationInterface;
 
-//TODO: TESTS
 
 /**
  * Echange deux genes de position

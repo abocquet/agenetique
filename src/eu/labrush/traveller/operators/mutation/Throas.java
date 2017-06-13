@@ -4,7 +4,6 @@ import eu.labrush.agenetic.AbstractFellow;
 import eu.labrush.agenetic.AbstractFellowFactory;
 import eu.labrush.agenetic.operators.MutationInterface;
 
-//TODO: TESTS
 /**
  * Translate n points consécutifs dans le gène
  */

@@ -8,10 +8,6 @@ import eu.labrush.traveller.TravelFactory;
 
 import java.util.Arrays;
 
-
-//TODO: TESTS
-// TODO: same issue as order 2
-
 /**
  * Crée la matrice des villes adjacent pour chaque point puis
  * 1 - prend la ville qui a le plus petit nombre de voisins si elle existe
@@ -64,7 +60,7 @@ public class ArcCombination implements CrossoverInterface {
                 usedGenes[current] = true ;
             }
 
-            children[i] = ((TravelFactory)factory).newInstance(dna, false); // TODO: set false to true once tested
+            children[i] = ((TravelFactory)factory).newInstance(dna, false);
         }
 
         return new Tuple<>(children[0], children[1]);
